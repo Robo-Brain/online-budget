@@ -1,0 +1,81 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     style="border: 1px solid #ccc;padding:5px;margin-bottom:20px;">
+
+    <a th:href="@{/}">Home</a>
+
+    | &nbsp;
+
+    <a th:href="@{/admin}">Admin</a>
+
+    <span sec:authorize="isAuthenticated()">
+        | &nbsp;
+
+        <a th:href="@{/salary}">Salaries</a>
+
+        | &nbsp;
+
+        <a th:href="@{/editTMP}">Edit payment template</a>
+
+        | &nbsp;
+
+        <a th:href="@{/currentMonth}">Current month</a>
+
+        | &nbsp;
+
+        <a id="newMonth" href="#">Create new month</a>
+
+        | &nbsp;
+    </span>
+
+    <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+
+
+</div>
+<div style="display: none" id="month-success" title="Create success">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>The month has been created successfully.</p>
+</div>
+<div style="display: none" id="month-fail" title="ERROR">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0"></span>ERROR. The month already been created?</p>
+</div>
+<script th:inline="javascript">
+        $('#newMonth').click(function () {
+            $.ajax({
+                type: "get",
+                url : '/createNewMonth'
+            }).done(function()  {
+                $("#month-success").dialog({
+                    classes: {
+                        "ui-dialog-titlebar": "done-dialog-titlebar",
+                        "ui-dialog-buttonset": "done-button"
+                    },
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    draggable: false,
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                })
+            }).fail(function()  {
+                $("#month-fail").dialog({
+                    classes: {
+                        "ui-dialog-titlebar": "fail-dialog-titlebar",
+                        "ui-dialog-buttonset": "fail-button"
+                    },
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    draggable: false,
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                })
+            });
+        })
+</script>

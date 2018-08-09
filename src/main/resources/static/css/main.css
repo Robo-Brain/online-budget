@@ -1,0 +1,206 @@
+body {
+    font-family: "Verdana", monospace;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 300;
+    line-height: 28px;
+}
+
+.ui-dialog-titlebar-close{
+    width: 10%;
+    height: 30px;
+    margin: 0 0 0 89%;
+    font-size: 0;
+    background: url("../img/close.png") transparent;
+    border: 0;
+    text-decoration: none;
+}
+.ui-dialog-titlebar-close:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+.fail-dialog-titlebar {
+    color: #c91628 !important;
+}
+.fail-button button:active {
+    background-color: #c91628 !important;
+}
+.fail-button button:hover {
+    background-color: #c91628 !important;
+}
+
+.done-dialog-titlebar {
+    color: #77dd77 !important;
+}
+.done-button button:active {
+    background-color: #77dd77 !important;
+}
+.done-button button:hover {
+    background-color: #77dd77 !important;
+}
+
+.date {
+    width: 5.5em;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+
+.customFormDiv{
+    display: flex;
+    justify-content: left;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.customFormDiv input {
+    width: 6em;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 0.1em;
+}
+
+.salaryAndPrepaidDiv {
+    justify-content: space-between;
+    flex-flow: row wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 1.2em 0 0 0;
+    padding: 1em;
+    /*padding: 10px;*/
+    border: solid #ccc 1px;
+}
+
+.salaryAndPrepaidDiv button {
+    width: 5em;
+    margin: 0 0 0 1em;
+}
+
+.capture {
+    position: relative;
+    padding: 0 5px;
+    background-color: #fff;
+    margin: 0 auto;
+    border: solid #ccc 1px;
+}
+
+
+/* DivTable.com */
+.divTable{
+    display: table;
+    width: 36%;
+    font-size: 16px;
+}
+
+.divTable input {
+    width: 3em;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 0.1em;
+}
+input#name {
+    width: 10em;
+    font-size: 14px;
+}
+.divTableRow {
+    display: table-row;
+}
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+}
+.divTableCell, .divTableHead {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+}
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+    font-weight: bold;
+}
+.divTableFoot {
+    background-color: #EEE;
+    display: table-footer-group;
+    font-weight: bold;
+}
+.divTableBody {
+    display: table-row-group;
+}
+
+.salary {
+    background-color: #FFC9BF;
+}
+.divTableRow.true {
+    background-color: #FFC9BF;
+}
+
+.prepaid {
+    background-color: #8CF8FF;
+}
+.divTableRow.false {
+    background-color: #8CF8FF;
+}
+
+.nope {
+    border: none;
+}
+
+.divTableCell.true {
+    background: url("../img/cash3.png") transparent no-repeat center center;
+    padding: 14px;
+}
+.divTableCell.false {
+    background: url("../img/card.png") transparent no-repeat center center;
+    padding: 14px;
+}
+
+.resultTable{
+    display: table;
+    width: 20%;
+    font-size: 16px;
+}
+
+.overlimit {
+    color: #c91628;
+    border: solid #c91628 1px;
+}
+
+.limit {
+    color: #77dd77;
+}
+
+.tooltipOverload {
+    color: #c91628 !important;
+    opacity: 0.85;
+    padding: 4px 10px !important;
+    border-radius: 2px !important;
+    font-weight: bold;
+}
+
+.salaryHiddenButtons{
+    display: inline-block !important;
+    vertical-align: middle;
+    text-align: center;
+}
+.salaryHiddenButtons button{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.salaryEditButtons {
+    display: inline-block !important;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.salaryEditButtons button {
+    width: 42px;
+    height: 24px;
+    vertical-align: middle;
+    text-align: center;
+}

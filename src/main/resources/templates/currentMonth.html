@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="_header"></th:block>
+</head>
+<body>
+
+<div style="display: none" id="dialog-success" title="Save success">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>The month has been saved successfully.</p>
+</div>
+
+
+<th:block th:include="_menu"></th:block>
+<div id="currentDate"></div>
+<form id="actionForm" method="post">
+    <div class="divTable"></div>
+    <p>
+        <button class="submit" value="Submit">Submit</button>
+    </p>
+</form>
+<div class="resultTable"></div>
+<script th:inline="javascript">
+
+    var withdrawSalary = 0;
+    var withdrawNotSalary = 0;
+
+    var withdrawPrepaid = 0;
+    var withdrawNotPrepaid = 0;
+
+    $(document).ready(function() {
+        currentMonth = /*[[${currentMonth}]]*/ "";
+
+        for (i = 0; i < currentMonth.length; i++) {
+            $("#currentDate").html(currentMonth[i].date);
+            $(".divTable").append(
+                "<div  class='divTableRow " + i + "'>" +
+                    "<div class='divTableCell'>" + currentMonth[i].name +
+                        "<input type='hidden' id='id' name='id' value='" + currentMonth[i].id + "' />" +
+                        "<input type='hidden' id='date' name='date' value='" + currentMonth[i].date + "' />" +
+                        "<input type='hidden' id='spendName' name='spendName' value='" + currentMonth[i].spendName + "' />" +
+                    "</div>" +
+                    "<div class='divTableCell'>" +
+                        "<input type='text' id='amount" + i + "' name='amount' value='" + currentMonth[i].monthAmount + "' autocomplete='off' />&nbsp;" +
+                        "<button value='" + currentMonth[i].amount + "' class='" + i + "'>&nbsp;<<<&nbsp;</button>&nbsp;" +
+                        "<span class='" + i + "TMP'>" + parseInt(currentMonth[i].amount).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</span>"+
+                    "</div>" +
+                    "<div class='divTableCell " + i + " " + currentMonth[i].withdraw + "'>" +
+                    "</div>" +
+                "</div>");
+
+            if (currentMonth[i].salaryPrepaid == 'true' && currentMonth[i].withdraw == 'true'){
+                $('.divTableRow.' + i).addClass('salary');
+                withdrawSalary += +currentMonth[i].amount;
+            } else if (currentMonth[i].salaryPrepaid == 'true' && currentMonth[i].withdraw == 'false'){
+                $('.divTableRow.' + i).addClass('salary');
+                withdrawNotSalary += +currentMonth[i].amount;
+            } else if (currentMonth[i].salaryPrepaid == 'false' && currentMonth[i].withdraw == 'true'){
+                $('.divTableRow.' + i).addClass('prepaid');
+                withdrawPrepaid += +currentMonth[i].amount;
+            } else if (currentMonth[i].salaryPrepaid == 'false' && currentMonth[i].withdraw == 'false'){
+                $('.divTableRow.' + i).addClass('prepaid');
+                withdrawNotPrepaid += +currentMonth[i].amount;
+            }
+
+        }
+
+        $(".resultTable").append(
+            "<div class='divTableRow salary'>" +
+                "<div class='divTableCell true'></div>" +
+                "<div class='divTableCell'>" + withdrawSalary.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div>" +
+                "<div class='divTableCell false'></div>" +
+                "<div class='divTableCell'>" + withdrawNotSalary.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div></div>" +
+                "<div class='divTableRow'>" +
+                "<div class='divTableCell nope'></div><div class='divTableCell nope'></div><div class='divTableCell nope'></div>" +
+                "<div class='divTableCell salary'>" + sum(withdrawSalary, withdrawNotSalary).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div></div>"
+            +
+            "<div class='divTableRow prepaid'>" +
+            "<div class='divTableCell true'></div>" +
+            "<div class='divTableCell'>" + withdrawPrepaid.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div>" +
+            "<div class='divTableCell false'></div>" +
+            "<div class='divTableCell'>" + withdrawNotPrepaid.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div></div>" +
+            "<div class='divTableRow'>" +
+            "<div class='divTableCell nope'></div><div class='divTableCell nope'></div><div class='divTableCell nope'></div>" +
+            "<div class='divTableCell prepaid'>" + sum(withdrawPrepaid, withdrawNotPrepaid).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div></div>"
+        );
+
+        $("button").click( function(e) {
+            var myClass = $(this).attr("class");
+            var myValue = $(this).attr("value");
+            if ( myClass == 'submit'){
+            } else{
+                e.preventDefault();
+                $('#amount' + myClass).val(myValue);
+            }
+        });
+    });
+
+    function sum(x, y) {
+        return parseInt(x) + parseInt(y);
+    }
+
+</script>
+<script src="../static/js/currentMonthSubmit.js" th:src="@{/js/currentMonthSubmit.js}" type="text/javascript"></script>
+</body>
+</html>

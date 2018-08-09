@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="_header"></th:block>
+</head>
+<body>
+<th:block th:include="_menu"></th:block>
+
+<div style="display: none" id="dialog-confirm" title="Delete the spend?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
+
+<form id="actionForm">
+    <div class="divTable">
+        <div class="divTableRow">
+            <div class="divTableCell">Name:</div>
+            <div class="divTableCell">Amount:</div>
+            <div class="divTableCell">Salary/Prepaid:</div>
+            <div class="divTableCell">Withdraw:</div>
+            <div class="divTableCell">X</div>
+        </div>
+    </div>
+        <button class="submit" value="Submit">Save</button>
+</form>
+
+<p><button id="hideAddForm">Hide form</button></p>
+
+<form id="addForm" action="#" >
+    <div class="divTableAdd">
+        <div class="divTableRow">
+            <div class="divTableCell">Name:</div>
+            <div class="divTableCell">Amount:</div>
+            <div class="divTableCell">Salary/Prepaid:</div>
+            <div class="divTableCell">Withdraw:</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell"><input type="text" id="newName" name="newName" /></div>
+            <div class="divTableCell"><input type="text" id="amount" name="amount" /></div>
+            <div class="divTableCell">
+                <div><input type="radio" class="salaryPrepaid" name="salaryPrepaid" value="true" />Salary</div>
+                <div><input type="radio" class="salaryPrepaid" name="salaryPrepaid" value="false" />Prepaid</div>
+            </div>
+            <div class="divTableCell">
+                <div><input type="radio" class="withdraw" name="withdraw" value="true" />Withdraw</div>
+                <div><input type="radio" class="withdraw" name="withdraw" value="false" />NOT withdraw</div>
+            </div>
+        </div>
+    </div>
+    <p>
+        <button class="submit" value="Submit">Add</button>
+    </p>
+</form>
+<p>
+    <button id="showAddForm">Add new spend</button>
+</p>
+
+<script th:inline="javascript">
+    $(document).ready(function() {
+
+        var amount = 0;
+
+        $("#hideAddForm").hide();
+        $("#addForm").hide();
+
+        tmpVal = /*[[${paymentTMP}]]*/ "";
+        lastWage = /*[[${lastWage}]]*/ "";
+
+        for (i = 0; i < tmpVal.length; i++) {
+            amount += parseInt(tmpVal[i].amount);
+            $(".divTable").append(
+                "<div class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + "'>" +
+                    "<div class='divTableCell'>" +
+                        "<input type='text' id='name' name='name' value='" + tmpVal[i].name + "' />" +
+                        "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
+                        "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
+                    "</div>" +
+                    "<div class='divTableCell'><input type='text' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽</div>" +
+                    "<div class='divTableCell'>" +
+                        "<select class='salaryPrepaid" + i +"' id='salaryPrepaid' name='salaryPrepaid" + i +"'>" +
+                            "<option value='true'>Salary</option>" +
+                            "<option value='false'>Prepaid</option>" +
+                        "</select>" +
+                    "</div>" +
+                    "<div class='divTableCell'>" +
+                        "<select class='withdraw" + i +"' id='withdraw' name='withdraw" + i +"'>" +
+                            "<option value='true'>Withdraw</option>" +
+                            "<option value='false'>NOT Withdraw</option>" +
+                        "</select>" +
+                    "</div>" +
+                    "<div class='divTableCell'><button class='delButton' id='" + tmpVal[i].id + "'>del</button></div>" +
+                    "</div>");
+            $('.salaryPrepaid' + i + ' option[value="' + tmpVal[i].salaryPrepaid +'"]').prop("selected", true);
+            $('.withdraw' + i + ' option[value="' + tmpVal[i].withdraw +'"]').prop("selected", true);
+        }
+        $(".divTable").append(
+            "<div class='divTableRow'>" +
+                "<div style='border: none' class='divTableCell'></div>" +
+                "<div style='font-size: 14px' class='divTableCell finalAmount'>" + amount.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) +
+                    "<span class='tooltip' title='Costs exceed the last salary!'></span></div>" +
+                "<div style='border: none' class='divTableCell'></div>" +
+                "<div style='border: none' class='divTableCell'></div>" +
+                "<div style='border: none' class='divTableCell'></div>" +
+            "</div>"
+        );
+
+        salary = (parseInt(lastWage.salary) || 0);
+        prepaid = (parseInt(lastWage.prepaid) || 0);
+        if (salary + prepaid <= amount) {
+            $(".finalAmount").toggleClass("overlimit");
+            $(".tooltip").tooltip({
+                tooltipClass: "tooltipOverload",
+                position: { my: "left+5 center-5", at: "right center" },
+                show: {
+                    delay: 500
+                }
+            }).tooltip("open");
+            $( "body" ).click(function() {
+                $( ".tooltip" ).tooltip( "close" );
+            });
+        } else {
+            $(".finalAmount").toggleClass("limit")
+        }
+
+        $(".delButton").click(function (x) {
+            x.preventDefault();
+            var id = $(this).attr('id');
+            $("#dialog-confirm").dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: {
+                    "Delete items": function() {
+                        $( this ).dialog( "close" );
+                        $.ajax({
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            type: "post",
+                            url: "/deleteSpend",
+                            data : id,
+                            success: $(document).ajaxStop(function(){
+                                window.location.reload();
+                            })
+                        });
+                    },
+                    Cancel: function() {
+                        $( this ).dialog( "close" );
+                        $(this).remove();
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+<!--<script src="../static/js/paymentTMPButtonFunctions.js" th:src="@{/js/paymentTMPButtonFunctions.js}" type="text/javascript"></script>-->
+<script src="../static/js/editTMPButtonFunctions.js" th:src="@{/js/editTMPButtonFunctions.js}" type="text/javascript"></script>
+<!--<script src="../static/js/newSpendSubmit.js" th:src="@{/js/newSpendSubmit.js}" type="text/javascript"></script>-->
+</body>
+</html>
