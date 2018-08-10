@@ -10,6 +10,19 @@
                <property name="hibernate.connection.url">
                       ${SPRING_DATASOURCE_URL}
                </property>
+
+           <property name="connection.url">
+               ${SPRING_DATASOURCE_URL}
+           </property>
+           <property name="url">
+               ${SPRING_DATASOURCE_URL}
+           </property>
+           <property name="connection.username">
+               ${SPRING_DATASOURCE_USERNAME}
+           </property>
+           <property name="connection.password">
+               ${SPRING_DATASOURCE_PASSWORD}
+           </property>
                <property name="hibernate.connection.username">
                       ${SPRING_DATASOURCE_USERNAME}
                </property>
