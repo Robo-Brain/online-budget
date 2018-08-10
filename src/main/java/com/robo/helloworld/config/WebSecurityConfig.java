@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-//        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 //
 //        http.authorizeRequests().antMatchers("/editTMP").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 //        http.authorizeRequests().antMatchers("/saveTMP").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.authorizeRequests().antMatchers("/deleteSpend").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 //        http.authorizeRequests().antMatchers("/createNewMonth").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 //        http.authorizeRequests().antMatchers("/currentMonth").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/currentMonth").permitAll();
 //        http.authorizeRequests().antMatchers("/saveExistingMonth").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 //        http.authorizeRequests().antMatchers("/salary").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 //        http.authorizeRequests().antMatchers("/saveNewSalary").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
