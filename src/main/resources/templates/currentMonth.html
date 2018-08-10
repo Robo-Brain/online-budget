@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--<head>-->
-    <!--<th:block th:include="_header"></th:block>-->
-<!--</head>-->
+<head>
+    <th:block th:include="_header"></th:block>
+</head>
 <body>
 
 <div style="display: none" id="dialog-success" title="Save success">
@@ -10,15 +10,15 @@
 </div>
 
 
-<!--<th:block th:include="_menu"></th:block>-->
+<th:block th:include="_menu"></th:block>
 <div id="currentDate"></div>
-<!--<form id="actionForm" method="post">-->
-    <!--<div class="divTable"></div>-->
-    <!--<p>-->
-        <!--<button class="submit" value="Submit">Submit</button>-->
-    <!--</p>-->
-<!--</form>-->
-<!--<div class="resultTable"></div>-->
+<form id="actionForm" method="post">
+    <div class="divTable"></div>
+    <p>
+        <button class="submit" value="Submit">Submit</button>
+    </p>
+</form>
+<div class="resultTable"></div>
 <script th:inline="javascript">
 
     var withdrawSalary = 0;
