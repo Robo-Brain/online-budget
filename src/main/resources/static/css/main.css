@@ -107,27 +107,10 @@ input#name {
 .divTableRow {
     display: table-row;
 }
-.divTableHeading {
-    background-color: #EEE;
-    display: table-header-group;
-}
 .divTableCell, .divTableHead {
     border: 1px solid #999999;
     display: table-cell;
     padding: 3px 10px;
-}
-.divTableHeading {
-    background-color: #EEE;
-    display: table-header-group;
-    font-weight: bold;
-}
-.divTableFoot {
-    background-color: #EEE;
-    display: table-footer-group;
-    font-weight: bold;
-}
-.divTableBody {
-    display: table-row-group;
 }
 
 .salary {
@@ -205,13 +188,20 @@ input#name {
     text-align: center;
 }
 
-@media only screen and (max-device-width: 1080px) {
+#menuButton {
+    display: none;
+}
+
+
+
+@media only screen and (max-width: 1079px), only screen and (max-device-width: 1079px) {
 
     #menuButton {
+        display: block;
         background-color: #4CAF50;
         color: white;
-        padding: 16px;
-        font-size: 16px;
+        padding: 8px;
+        font-size: 14px;
         border: none;
         cursor: pointer;
     }
@@ -226,14 +216,13 @@ input#name {
         position: absolute;
         background-color: #f9f9f9;
         min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
         z-index: 1;
-        right: 0;
     }
 
     #dropdown-content a {
         color: black;
-        padding: 12px 16px;
+        padding: 6px 8px;
         text-decoration: none;
         display: block;
     }
@@ -247,5 +236,60 @@ input#name {
     #mainmenu:hover #menuButton {
         background-color: #3e8e41;
     }
+
+
+
+    .divTable{
+        display: block;
+        width: 100%;
+        font-size: 14px;
+    }
+    .divTable input {
+        width: 3em;
+        font-weight: 300;
+        padding: 0.1em;
+    }
+    .divTable select {
+        width: 6em;
+        height: 1.9em;
+    }
+    input#name {
+        width: 100%;
+    }
+    .divTableRow {
+        display: block;
+        border: outset;
+    }
+    .divTableRow.head{
+        display: none;
+    }
+    .divTableRow button{
+        width: 4em;
+    }
+    .divTableCell, .divTableHead {
+        border: 1px solid #999999;
+        display: block;
+        padding: 3px 10px;
+    }
+    .divTableCell.amount {
+        float: left;
+        margin: 0 5%;
+        border: none;
+    }
+    .divTableCell.salaryPrepaid {
+        float: left;
+        margin: 0 2%;
+        border: none;
+    }
+    .divTableCell.withdraw {
+        float: left;
+        margin: 0 2%;
+        border: none;
+    }
+
+    #withdraw {
+        width: 8.4em;
+    }
+
 
 }

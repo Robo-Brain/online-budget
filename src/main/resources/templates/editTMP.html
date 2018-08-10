@@ -12,7 +12,7 @@
 
 <form id="actionForm">
     <div class="divTable">
-        <div class="divTableRow">
+        <div class="divTableRow head">
             <div class="divTableCell">Name:</div>
             <div class="divTableCell">Amount:</div>
             <div class="divTableCell">Salary/Prepaid:</div>
@@ -69,25 +69,25 @@
             amount += parseInt(tmpVal[i].amount);
             $(".divTable").append(
                 "<div class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + "'>" +
-                    "<div class='divTableCell'>" +
+                    "<div class='divTableCell name'>" +
                         "<input type='text' id='name' name='name' value='" + tmpVal[i].name + "' />" +
                         "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
                         "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
                     "</div>" +
-                    "<div class='divTableCell'><input type='text' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽</div>" +
-                    "<div class='divTableCell'>" +
+                    "<div class='divTableCell amount'><input type='text' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽</div>" +
+                    "<div class='divTableCell salaryPrepaid'>" +
                         "<select class='salaryPrepaid" + i +"' id='salaryPrepaid' name='salaryPrepaid" + i +"'>" +
                             "<option value='true'>Salary</option>" +
                             "<option value='false'>Prepaid</option>" +
                         "</select>" +
                     "</div>" +
-                    "<div class='divTableCell'>" +
+                    "<div class='divTableCell withdraw'>" +
                         "<select class='withdraw" + i +"' id='withdraw' name='withdraw" + i +"'>" +
                             "<option value='true'>Withdraw</option>" +
                             "<option value='false'>NOT Withdraw</option>" +
                         "</select>" +
                     "</div>" +
-                    "<div class='divTableCell'><button class='delButton' id='" + tmpVal[i].id + "'>del</button></div>" +
+                    "<div class='divTableCell del'><button class='delButton' id='" + tmpVal[i].id + "'>del</button></div>" +
                     "</div>");
             $('.salaryPrepaid' + i + ' option[value="' + tmpVal[i].salaryPrepaid +'"]').prop("selected", true);
             $('.withdraw' + i + ' option[value="' + tmpVal[i].withdraw +'"]').prop("selected", true);
