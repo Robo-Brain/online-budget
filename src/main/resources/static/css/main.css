@@ -192,8 +192,6 @@ input#name {
     display: none;
 }
 
-
-
 @media only screen and (max-width: 1079px), only screen and (max-device-width: 1079px) {
 
     #menuButton {
@@ -268,21 +266,17 @@ input#name {
     }
     .divTable.tmp .divTableCell {
         display: block;
+        margin: 0 2%;
+        border: none;
     }
     .divTable.tmp .divTableCell.amount {
         float: left;
-        margin: 0 5%;
-        border: none;
     }
     .divTable.tmp .divTableCell.salaryPrepaid {
         float: left;
-        margin: 0 2%;
-        border: none;
     }
     .divTable.tmp .divTableCell.withdraw {
         float: left;
-        margin: 0 2%;
-        border: none;
     }
     .divTableCell.nope {
         display: none;
