@@ -1,12 +1,8 @@
-datasource.url=${SPRING_DATASOURCE_URL}
-datasource.username=${SPRING_DATASOURCE_USERNAME}
-datasource.password=${SPRING_DATASOURCE_PASSWORD}
-spring.jpa.show-sql=false
-
-spring.profiles.active=web
-
-spring.datasource.driver=com.mysql.cj.jdbc.Driver
+# datasource
 datasource.driver=com.mysql.cj.jdbc.Driver
+datasource.url=jdbc:mysql://localhost:3306/budget?useUnicode=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow
+datasource.username=root
+datasource.password=1ccc12
 
 #Hibernate
 hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
@@ -18,4 +14,7 @@ hibernate.id.new_generator_mappings=false
 spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 spring.jpa.properties.hibernate.id.new_generator_mappings=false
 
-server.port=${PORT:8080}
+server.port=8080
+management.server.port=8090
+management.endpoints.web.exposure.include=*
+management.endpoint.shutdown.enabled=true

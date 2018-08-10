@@ -206,7 +206,7 @@ input#name {
 }
 
 @media only screen and (max-device-width: 1080px) {
-    
+
     #menuButton {
         background-color: #4CAF50;
         color: white;
