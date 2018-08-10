@@ -37,8 +37,6 @@ public class HibernateConfig {
     public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        properties.put("hibernate.url", env.getProperty("hibernate.connection.url"));
-        properties.put("hibernate.connection.url", env.getProperty("hibernate.connection.url"));
         properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         properties.put("current_session_context_class", env.getProperty("hibernate.current.session.context.class"));
         properties.put("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
