@@ -7,7 +7,7 @@
 
     <a th:href="@{/admin}">Admin</a>
 
-    <span sec:authorize="isAuthenticated()">
+    <!--<span sec:authorize="isAuthenticated()">-->
         | &nbsp;
 
         <a th:href="@{/salary}">Salaries</a>
@@ -25,7 +25,7 @@
         <a id="newMonth" href="#">Create new month</a>
 
         | &nbsp;
-    </span>
+    <!--</span>-->
 
     <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
 
