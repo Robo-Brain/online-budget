@@ -78,5 +78,7 @@ fabric.properties
 ## ignoring target file
 target/
 
+src/main/resources/application.properties
+src/main/resources/hibernate.properties
 
 # End of https://www.gitignore.io/api/intellij,java-web
