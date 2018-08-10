@@ -198,12 +198,13 @@ input#name {
 
     #menuButton {
         display: block;
-        background-color: #4CAF50;
+        background-color: #BDBDBD;
         color: white;
         padding: 8px;
         font-size: 14px;
         border: none;
         cursor: pointer;
+        margin: 0 0 1em 0;
     }
 
     #mainmenu {
@@ -234,56 +235,57 @@ input#name {
     }
 
     #mainmenu:hover #menuButton {
-        background-color: #3e8e41;
+        background-color: #999999;
     }
 
-
-
-    .divTable{
+    .divTable.tmp{
         display: block;
         width: 100%;
         font-size: 14px;
     }
-    .divTable input {
+    .divTable.tmp input {
         width: 3em;
         font-weight: 300;
         padding: 0.1em;
     }
-    .divTable select {
+    .divTable.tmp select {
         width: 6em;
         height: 1.9em;
     }
-    input#name {
+    .divTable.tmp input#name {
         width: 100%;
     }
-    .divTableRow {
+    .divTable.tmp .divTableRow {
         display: block;
         border: outset;
     }
-    .divTableRow.head{
+    .divTable.tmp .divTableRow.head{
         display: none;
     }
-    .divTableRow button{
+    .divTable.tmp .divTableRow button{
         width: 4em;
+        height: 1.8em;
     }
-    .divTableCell, .divTableHead {
-        border: 1px solid #999999;
+    .divTable.tmp .divTableCell {
         display: block;
-        padding: 3px 10px;
     }
-    .divTableCell.amount {
+    .divTable.tmp .divTableCell.amount {
         float: left;
         margin: 0 5%;
         border: none;
     }
-    .divTableCell.salaryPrepaid {
+    .divTable.tmp .divTableCell.salaryPrepaid {
         float: left;
         margin: 0 2%;
         border: none;
     }
-    .divTableCell.withdraw {
+    .divTable.tmp .divTableCell.withdraw {
         float: left;
         margin: 0 2%;
+        border: none;
+    }
+    .divTableCell.nope {
+        display: none;
         border: none;
     }
 
@@ -292,4 +294,19 @@ input#name {
     }
 
 
+    .divTable.currentMonth {
+        width: 100%;
+    }
+
+    .resultTable {
+        display: table;
+        width: 100%;
+        font-size: 16px;
+    }
+    .resultTable .divTableRow {
+        display: table-row !important;
+    }
+    .resultTable .divTableCell {
+        display: table-cell !important;
+    }
 }
