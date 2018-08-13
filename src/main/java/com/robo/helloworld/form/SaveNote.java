@@ -39,7 +39,7 @@ public class SaveNote {
         this.text = text;
     }
 
-    public boolean isRemind() {
+    public boolean getRemind() {
         return isRemind;
     }
 

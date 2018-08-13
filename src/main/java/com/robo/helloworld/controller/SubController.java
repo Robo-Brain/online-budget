@@ -40,7 +40,7 @@ public class SubController {
     @PostMapping("/saveNote")
     @ResponseBody
     public String saveNote(@RequestBody SaveNote saveNote) {
-//        additionsDAO.saveNote(saveNote);
+        additionsDAO.saveNote(saveNote);
         return "success";
     }
 

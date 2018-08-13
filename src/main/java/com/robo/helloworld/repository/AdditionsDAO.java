@@ -1,6 +1,7 @@
 package com.robo.helloworld.repository;
 
 import com.robo.helloworld.entity.NotesEntity;
+import com.robo.helloworld.form.SaveNote;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +42,16 @@ public class AdditionsDAO {
         sessionFactory.getCurrentSession().update(ne);
     }
 
+    public void saveNote(SaveNote saveNote) {
+
+        NotesEntity ne = new NotesEntity();
+
+        ne.setDate(saveNote.getDate());
+        ne.setText(saveNote.getText());
+        ne.setRemind(saveNote.getRemind());
+        ne.setMuted(saveNote.getMuted());
+
+        sessionFactory.getCurrentSession().saveOrUpdate(ne);
+
+    }
 }
