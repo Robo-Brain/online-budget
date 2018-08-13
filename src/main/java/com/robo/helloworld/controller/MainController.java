@@ -39,7 +39,6 @@ public class MainController {
     @GetMapping(value = "/editTMP")
     public String editTMP (Model model) {
         model.addAttribute("title", "Edit Payment Template");
-        model.addAttribute("editTMP", new EditTMPSpends());
         model.addAttribute("lastWage", monthlySpendsDAO.getLastWage());
         model.addAttribute("paymentTMP", monthlySpendsDAO.getPaymentTemplate());
         return "editTMP";
@@ -76,7 +75,6 @@ public class MainController {
     public String get(Model model) throws Exception {
         model.addAttribute("title", "Current Month");
         model.addAttribute("currentMonth", monthlySpendsDAO.getMonthByDate(LocalDate.now(), "lastmonth")); //without string, method expects for already existing date in DB
-        model.addAttribute("editMonthByID", new SaveNewMonth());
         return "currentMonth";
     }
 
@@ -91,7 +89,6 @@ public class MainController {
     @GetMapping("/salary")
     public String getAllWages(Model model) {
         model.addAttribute("allWages", monthlySpendsDAO.getAllWages());
-        model.addAttribute("saveNewSalary", new SaveNewWage());
         return "salary";
     }
 

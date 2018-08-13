@@ -1,6 +1,7 @@
 package com.robo.helloworld.controller;
 
 import com.robo.helloworld.entity.NotesEntity;
+import com.robo.helloworld.form.SaveNote;
 import com.robo.helloworld.repository.AdditionsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,13 @@ public class SubController {
     @ResponseBody
     public String muteNote(@RequestBody Long id) {
         additionsDAO.muteNote(id);
+        return "success";
+    }
+
+    @PostMapping("/saveNote")
+    @ResponseBody
+    public String saveNote(@RequestBody SaveNote saveNote) {
+//        additionsDAO.saveNote(saveNote);
         return "success";
     }
 

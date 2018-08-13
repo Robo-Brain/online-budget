@@ -1,33 +1,18 @@
-package com.robo.helloworld.entity;
+package com.robo.helloworld.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "notes")
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class NotesEntity {
+public class SaveNote {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private Long id;
-
-    @Column(name = "date")
     private String date;
-
-    @Column(name = "text")
     private String text;
-
-    @Column(name = "isRemind")
     private boolean isRemind;
-
-    @Column(name = "isMuted")
     private boolean isMuted;
 
     public Long getId() {
@@ -70,11 +55,10 @@ public class NotesEntity {
         isMuted = muted;
     }
 
-    public NotesEntity(Long id, String date, boolean isRemind, boolean isMuted) {
-        this.id = id;
+    public SaveNote(String date, String text, boolean isRemind, boolean isMuted) {
         this.date = date;
+        this.text = text;
         this.isRemind = isRemind;
         this.isMuted = isMuted;
     }
-
 }
