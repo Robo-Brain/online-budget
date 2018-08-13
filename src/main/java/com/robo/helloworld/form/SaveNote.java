@@ -55,10 +55,9 @@ public class SaveNote {
         isMuted = muted;
     }
 
-    public SaveNote(String date, String text, boolean isRemind, boolean isMuted) {
+    public SaveNote(String date, String text, boolean isRemind) {
         this.date = date;
         this.text = text;
         this.isRemind = isRemind;
-        this.isMuted = isMuted;
     }
 }

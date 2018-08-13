@@ -49,9 +49,8 @@ public class AdditionsDAO {
         ne.setDate(saveNote.getDate());
         ne.setText(saveNote.getText());
         ne.setRemind(saveNote.getRemind());
-        ne.setMuted(saveNote.getMuted());
 
-        sessionFactory.getCurrentSession().saveOrUpdate(ne);
+        sessionFactory.getCurrentSession().save(ne);
 
     }
 }
