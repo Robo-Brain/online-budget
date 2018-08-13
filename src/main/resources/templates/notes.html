@@ -66,9 +66,9 @@ console.log({date: date, text: text, remind: isRemind});
                 type: "post",
                 url: "/saveNote",
                 data : {date: date, text: text, remind: isRemind},
-                success: $(document).ajaxStop(function(){
-                     window.location.reload();
-                 })
+//                success: $(document).ajaxStop(function(){
+//                     window.location.reload();
+//                 })
             });
         })
     });
