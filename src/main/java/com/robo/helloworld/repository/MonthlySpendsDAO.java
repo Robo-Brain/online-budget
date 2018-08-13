@@ -269,43 +269,5 @@ public class MonthlySpendsDAO {
         Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
         q.executeUpdate();
     }
-//
-//    ///////////////SUMMARY TABLE/////////////////
-//
-//    public List getTMPValues() {
-//
-//        String hql = "FROM " + SpendsNameEntity.class.getName() + " AS sne INNER JOIN sne.withdraws INNER JOIN sne.spends INNER JOIN sne.salaryOrPrepaid";
-//        List<Object[]> list = sessionFactory.getCurrentSession().createQuery(hql).list();
-//
-//        SpendsNameEntity sne;
-//        SpendsWithdrawEntity swe;
-//        SpendsEntityOLD se;
-//        SalaryOrPrepaidEntity spe;
-//
-//        List<Map> map = new ArrayList<>();
-//
-//        for(int i=0; i<list.size(); i++) {
-//            Object[] row = (Object[]) list.get(i);
-//            sne = (SpendsNameEntity)row[0];
-//            swe = (SpendsWithdrawEntity)row[1];
-//            se = (SpendsEntityOLD)row[2];
-//            spe = (SalaryOrPrepaidEntity)row[3];
-//
-//            Map<String, String> submap = new LinkedHashMap<>();
-//            submap.put("name", sne.getName());
-//            submap.put("withdraw", String.valueOf(swe.getWithdrawOrNot()));
-//            submap.put("amount", se.getAmount().toString());
-//            submap.put("salaryPrepaid", String.valueOf(spe.getSalaryOrPrepaid()));
-//            map.add(i, submap);
-//        }
-//        return map;
-//    }
-//
-//    public SpendsNameEntity setWithdraw() {
-//        SpendsNameEntity sne = new SpendsNameEntity("TEST TEST");
-//        sne.getWithdraws().add(new SpendsWithdrawEntity(false));
-//        sessionFactory.getCurrentSession().save(sne);
-//        return sne;
-//    }
 
 }

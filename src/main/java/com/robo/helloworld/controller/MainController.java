@@ -3,6 +3,7 @@ package com.robo.helloworld.controller;
 import com.robo.helloworld.form.EditTMPSpends;
 import com.robo.helloworld.form.SaveNewMonth;
 import com.robo.helloworld.form.SaveNewWage;
+import com.robo.helloworld.repository.AdditionsDAO;
 import com.robo.helloworld.repository.MonthlySpendsDAO;
 import com.robo.helloworld.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,13 @@ public class MainController {
     @Autowired
     private MonthlySpendsDAO monthlySpendsDAO;
 
+    @Autowired
+    private AdditionsDAO additionsDAO;
+
     @GetMapping("/")
     public String index(Model model) {
         return "loginPage";
     }
-
 
 
 // MONTHLY SPENDS
@@ -110,7 +113,7 @@ public class MainController {
         monthlySpendsDAO.delSalary(id);
     }
 
-//  DEFAULT
+    //  DEFAULT
 
     @GetMapping("/admin")
     public String adminPage(Model model, Principal principal) {

@@ -40,7 +40,7 @@
                         "<input type='hidden' id='spendName' name='spendName' value='" + currentMonth[i].spendName + "' />" +
                     "</div>" +
                     "<div class='divTableCell'>" +
-                        "<input type='text' id='amount" + i + "' name='amount' value='" + currentMonth[i].monthAmount + "' autocomplete='off' />&nbsp;" +
+                        "<input type='text' class='amount" + i + "' id='amount" + i + "' name='amount' value='" + currentMonth[i].monthAmount + "' autocomplete='off' />&nbsp;" +
                         "<button value='" + currentMonth[i].amount + "' class='" + i + "'>&nbsp;<<<&nbsp;</button>&nbsp;" +
                         "<span class='" + i + "TMP'>" + parseInt(currentMonth[i].amount).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</span>"+
                     "</div>" +
@@ -62,9 +62,13 @@
                 withdrawNotPrepaid += +currentMonth[i].amount;
             }
 
+            if (parseInt(currentMonth[i].amount) > parseInt(currentMonth[i].monthAmount)) {
+                $(".amount" + i).toggleClass('notEnough');
+            }
+
         }
 
-        $(".resultTable").append(
+        $(".resultTable").append( // amount of expenses from prepaid and salary
             "<div class='divTableRow salary'>" +
                 "<div class='divTableCell true'></div>" +
                 "<div class='divTableCell'>" + withdrawSalary.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div>" +

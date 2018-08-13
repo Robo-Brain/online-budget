@@ -140,6 +140,10 @@ input#name {
     padding: 14px;
 }
 
+.notEnough {
+    border: solid red 2px !important;
+}
+
 .resultTable{
     display: table;
     width: 20%;
@@ -148,7 +152,8 @@ input#name {
 
 .overlimit {
     color: #c91628;
-    border: solid #c91628 1px;
+    border: solid #c91628 2px;
+    font-weight: bold;
 }
 
 .limit {
@@ -191,6 +196,69 @@ input#name {
 #menuButton {
     display: none;
 }
+
+/*notice page start*/
+#createNoteTable .divTableCell {
+    vertical-align: middle;
+}
+
+#createNoteTable textarea {
+    font-size: 12px;
+    resize: none;
+}
+
+
+#createNoteTable .switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 21px;
+}
+
+/* Hide default HTML checkbox */
+#createNoteTable .switch input {display:none;}
+
+/* The slider */
+#createNoteTable .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+#createNoteTable .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+#createNoteTable input:checked + .slider {
+    background-color: #2196F3;
+}
+
+#createNoteTable input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+#createNoteTable input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+/*notice page end*/
+
+
 
 @media only screen and (max-width: 1079px), only screen and (max-device-width: 1079px) {
 
@@ -306,4 +374,5 @@ input#name {
     .resultTable .divTableCell {
         display: table-cell !important;
     }
+
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notes</title>
+    <th:block th:include="_header"></th:block>
+</head>
+
+<body>
+<th:block th:include="_menu"></th:block>
+
+<div id="createNoteTable" class="divTable">
+    <div class="divTableRow">
+        <div class="divTableCell">Note date:</div>
+        <div class="divTableCell">Note text:</div>
+        <div class="divTableCell">Is remind?</div>
+    </div>
+    <div class="divTableRow">
+        <div class="divTableCell"><input type="text" id="date" name="date" /></div>
+        <div class="divTableCell"><textarea rows="4" cols="50" id="text" name="text" ></textarea></div>
+        <div class="divTableCell">
+            <label class="switch">
+                <input id="isRemind" name="isRemind" type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+</div>
+<button id="saveNote" type="button">SAVE</button>
+<p><br /></p>
+
+<div id="notesTable" class="divTable">
+    <div class="divTableRow">
+        <div class="divTableCell">Note date:</div>
+        <div class="divTableCell">Note text:</div>
+        <div class="divTableCell">Is remind?</div>
+        <div class="divTableCell">Is muted?</div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    $(document).ready(function() {
+        notes = /*[[${notes}]]*/ "";
+        for (i = 0; i < notes.length; i++) {
+            $("#notesTable").append(
+                "<div class='divTableRow " + notes[i].id + "'>" +
+                    "<input type='hidden' id='id' name='id' value='" + notes[i].id + "' />" +
+                    "<div class='divTableCell " + notes[i].id + "'>" + notes[i].date + "</div>" +
+                    "<div class='divTableCell " + notes[i].id + "'>" + notes[i].text + "</div>" +
+                    "<div class='divTableCell'>" + notes[i].remind + "</div>" +
+                    "<div class='divTableCell'>" + notes[i].muted + "</div>" +
+                "</div>");
+        }
+
+        $("#saveNote").click(function (x) {
+            x.preventDefault();
+            var date = $('#date').val();
+            var text = $('#text').val();
+            var isRemind = $('#isRemind').is(':checked');
+
+console.log(date, text, ir);
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "post",
+                // url: "/saveNote",
+                data : {date: date, text: text, remind: isRemind},
+                // success: $(document).ajaxStop(function(){
+                //     window.location.reload();
+                // })
+            });
+        })
+    });
+</script>
+</body>
+</html>

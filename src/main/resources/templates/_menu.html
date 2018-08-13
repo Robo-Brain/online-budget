@@ -1,24 +1,26 @@
 <div id="mainmenu" xmlns:th="http://www.thymeleaf.org">
     <button id="menuButton" type="button">Menu</button>
     <div id="dropdown-content">
-        <a th:href="@{/}">Home</a>&nbsp;|&nbsp; 
-        <a th:href="@{/admin}">Admin</a>&nbsp;|&nbsp; 
+        <a th:href="@{/}">Home</a>&nbsp;|&nbsp;
+        <a th:href="@{/admin}">Admin</a>&nbsp;|&nbsp;
         <span sec:authorize="isAuthenticated()">
-            <a th:href="@{/salary}">Salaries</a>&nbsp;|&nbsp; 
-            <a th:href="@{/editTMP}">Edit payment template</a>&nbsp;|&nbsp; 
-            <a th:href="@{/currentMonth}">Current month</a>&nbsp;|&nbsp; 
-            <a id="newMonth" href="#">Create new month</a>&nbsp;|&nbsp; 
+            <a th:href="@{/salary}">Salaries</a>&nbsp;|&nbsp;
+            <a th:href="@{/editTMP}">Edit payment template</a>&nbsp;|&nbsp;
+            <a th:href="@{/currentMonth}">Current month</a>&nbsp;|&nbsp;
+            <a th:href="@{/notes}">Notes</a>&nbsp;|&nbsp;
+            <a id="newMonth" href="#">Create new month</a>&nbsp;|&nbsp;
         </span>
         <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
     </div>
 </div>
-<div style="display: none" id="month-success" title="Create success">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>The month has been created successfully.</p>
-</div>
-<div style="display: none" id="month-fail" title="ERROR">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0"></span>ERROR. The month already been created?</p>
-</div>
-<script th:inline="javascript">
+<th:block sec:authorize="isAuthenticated()">
+    <div style="display: none" id="month-success" title="Create success">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>The month has been created successfully.</p>
+    </div>
+    <div style="display: none" id="month-fail" title="ERROR">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0"></span>ERROR. The month already been created?</p>
+    </div>
+    <script th:inline="javascript">
         $('#newMonth').click(function () {
             $.ajax({
                 type: "get",
@@ -59,4 +61,59 @@
                 })
             });
         })
-</script>
+    </script>
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            notes = /*[[${notes}]]*/ "";
+
+            var today = new Date();
+            var year = today.getFullYear();
+            var month = today.getMonth() + 1;
+            var day = today.getDate();
+
+            for (i = 0; i < notes.length; i++) {
+                var arrIsMuted = notes[i].muted;
+                var arrIsRemind = notes[i].remind;
+
+                if (arrIsRemind == 1 && arrIsMuted == 0) {
+
+                    var arrDate = notes[i].date;
+                    var arrYear = arrDate.substring(0,4);
+                    var arrMonth = arrDate.substring(5,7);
+                    var arrDay = arrDate.substring(8,10);
+
+                    if (arrYear == year && arrMonth == month && arrDay == day) {
+                        notice(notes[i].id);
+                    }
+                }
+            }
+
+            function notice(id) {
+                var n = new Noty({
+                    type: 'error',
+                    theme: 'metroui',
+                    text: notes[i].text,
+                    buttons: [
+                        Noty.button('DONE', 'btn btn-success', function () {
+                            $.ajax({
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                type: "post",
+                                url: "/muteNote",
+                                data : JSON.stringify(id)
+                            });
+                            n.close();
+                        }),
+                        Noty.button('NOPE', 'btn btn-error', function () {
+                            n.close();
+                        })
+                    ]
+                }).show();
+            }
+
+        });
+    </script>
+</th:block>
