@@ -57,7 +57,7 @@
             var text = $('#text').val();
             var isRemind = $('#isRemind').is(':checked');
 
-console.log(date, text, ir);
+console.log({date: date, text: text, remind: isRemind});
             $.ajax({
                 headers: {
                     'Accept': 'application/json',
@@ -66,7 +66,7 @@ console.log(date, text, ir);
                 type: "post",
                 url: "/saveNote",
                 data : {date: date, text: text, remind: isRemind},
-                 success: $(document).ajaxStop(function(){
+                success: $(document).ajaxStop(function(){
                      window.location.reload();
                  })
             });
