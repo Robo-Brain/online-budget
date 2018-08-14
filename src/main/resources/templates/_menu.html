@@ -1,14 +1,14 @@
 <div id="mainmenu" xmlns:th="http://www.thymeleaf.org">
     <button id="menuButton" type="button">Menu</button>
     <div id="dropdown-content">
-        <a th:href="@{/}">Home</a>&nbsp;|&nbsp;
-        <a th:href="@{/admin}">Admin</a>&nbsp;|&nbsp;
+        <a th:href="@{/}">Home</a>&nbsp;
+        <a th:href="@{/admin}">Admin</a>&nbsp;
         <span sec:authorize="isAuthenticated()">
-            <a th:href="@{/salary}">Salaries</a>&nbsp;|&nbsp;
-            <a th:href="@{/editTMP}">Edit payment template</a>&nbsp;|&nbsp;
-            <a th:href="@{/currentMonth}">Current month</a>&nbsp;|&nbsp;
-            <a th:href="@{/notes}">Notes</a>&nbsp;|&nbsp;
-            <a id="newMonth" href="#">Create new month</a>&nbsp;|&nbsp;
+            <a th:href="@{/salary}">Salaries</a>&nbsp;
+            <a th:href="@{/editTMP}">Edit payment template</a>&nbsp;
+            <a th:href="@{/currentMonth}">Current month</a>&nbsp;
+            <a th:href="@{/notes}">Notes</a>&nbsp;
+            <a id="newMonth" href="#">Create new month</a>&nbsp;
         </span>
         <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
     </div>
