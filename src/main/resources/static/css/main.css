@@ -235,6 +235,10 @@ input#name {
 #notesTable {
     font-size: 12px;
 }
+#notesTable .divTableRow:nth-child(even) {
+    background-color: #d7d7d7 !important;
+}
+
 #notesTable .editButtons {
     display: block !important;
 }
