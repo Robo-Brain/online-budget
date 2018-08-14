@@ -46,7 +46,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/saveNewSalary").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/editExistSalary").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/delSalary").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+
         http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
+
+        http.authorizeRequests().antMatchers("/notes").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/muteNote").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/addNote").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/delNote").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/saveExistSalary").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
