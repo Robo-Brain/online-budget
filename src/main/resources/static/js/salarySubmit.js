@@ -15,7 +15,7 @@ $(".submit").click(function (e) {
     }
 
     wageData = JSON.stringify({salaryDate: salaryDate, salary: salaryAmount, prepaidDate: prepaidDate, prepaid: prepaidAmount});
-    console.log(wageData);
+
     $.ajax({
         headers: {
             'Accept': 'application/json',

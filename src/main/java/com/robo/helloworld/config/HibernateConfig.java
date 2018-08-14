@@ -38,9 +38,7 @@ public class HibernateConfig {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        properties.put("current_session_context_class", env.getProperty("hibernate.current.session.context.class"));
         properties.put("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
-        properties.put("spring.jpa.properties.hibernate.id.new_generator_mappings", env.getProperty("spring.jpa.properties.hibernate.id.new_generator_mappings"));
 
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 

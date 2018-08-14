@@ -42,15 +42,33 @@ public class AdditionsDAO {
         sessionFactory.getCurrentSession().update(ne);
     }
 
-    public void saveNote(SaveNote saveNote) {
-
+    public void addNote(SaveNote addNote) {
         NotesEntity ne = new NotesEntity();
+
+        ne.setDate(addNote.getDate());
+        ne.setText(addNote.getText());
+        ne.setRemind(addNote.getRemind());
+
+        sessionFactory.getCurrentSession().save(ne);
+    }
+
+    public void delNote(Long id) {
+        String hql = "DELETE " + NotesEntity.class.getName() + " WHERE id = :id";
+        Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
+        q.executeUpdate();
+    }
+
+    public void saveNote(SaveNote saveNote) {
+        String hql = "FROM " + NotesEntity.class.getName() + " AS we WHERE id = " + saveNote.getId() + "";
+
+        NotesEntity ne = sessionFactory.getCurrentSession().createQuery(hql, NotesEntity.class).getSingleResult();
 
         ne.setDate(saveNote.getDate());
         ne.setText(saveNote.getText());
         ne.setRemind(saveNote.getRemind());
+        ne.setMuted(saveNote.getMuted());
 
-        sessionFactory.getCurrentSession().save(ne);
-
+        sessionFactory.getCurrentSession().update(ne);
     }
+
 }

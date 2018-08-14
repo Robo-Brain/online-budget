@@ -7,37 +7,25 @@ body {
     line-height: 28px;
 }
 
-.ui-dialog-titlebar-close{
-    width: 10%;
-    height: 30px;
-    margin: 0 0 0 89%;
-    font-size: 0;
-    background: url("../img/close.png") transparent;
-    border: 0;
-    text-decoration: none;
-}
-.ui-dialog-titlebar-close:focus {
-    outline: -webkit-focus-ring-color auto 0px;
-}
-
-.fail-dialog-titlebar {
-    color: #c91628 !important;
-}
-.fail-button button:active {
-    background-color: #c91628 !important;
-}
-.fail-button button:hover {
-    background-color: #c91628 !important;
+button {
+    background-color: #8a9597;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    border:1px solid #2f2f2f;
+    cursor:pointer;
+    color:#ffffff;
+    padding:6px 8px;
+    text-decoration:none;
+    text-align: center;
+    vertical-align: middle;
+    margin: 5px 0;
 }
 
-.done-dialog-titlebar {
-    color: #77dd77 !important;
-}
-.done-button button:active {
-    background-color: #77dd77 !important;
-}
-.done-button button:hover {
-    background-color: #77dd77 !important;
+button:hover {
+    background-color: #78858b;
+    border:1px solid #000;
+    text-shadow:0px 1px 0px #000000;
 }
 
 .date {
@@ -156,8 +144,9 @@ input#name {
     font-weight: bold;
 }
 
-.limit {
-    color: #77dd77;
+.finalAmount {
+    border: inset;
+    font-weight: bold;
 }
 
 .tooltipOverload {
@@ -180,13 +169,13 @@ input#name {
     text-align: center;
 }
 
-.salaryEditButtons {
+.editButtons {
     display: inline-block !important;
     vertical-align: middle;
     text-align: center;
 }
 
-.salaryEditButtons button {
+.editButtons button {
     width: 42px;
     height: 24px;
     vertical-align: middle;
@@ -208,7 +197,7 @@ input#name {
 }
 
 
-#createNoteTable .switch {
+#createNoteTable .switch, #notesTable .switch {
     position: relative;
     display: inline-block;
     width: 48px;
@@ -216,10 +205,10 @@ input#name {
 }
 
 /* Hide default HTML checkbox */
-#createNoteTable .switch input {display:none;}
+.switch input {display:none;}
 
 /* The slider */
-#createNoteTable .slider {
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -231,7 +220,7 @@ input#name {
     transition: .4s;
 }
 
-#createNoteTable .slider:before {
+.slider:before {
     position: absolute;
     content: "";
     height: 15px;
@@ -243,15 +232,22 @@ input#name {
     transition: .4s;
 }
 
-#createNoteTable input:checked + .slider {
+#notesTable {
+    font-size: 12px;
+}
+#notesTable .editButtons {
+    display: block !important;
+}
+
+#createNoteTable input:checked + .slider, #notesTable input:checked + .slider {
     background-color: #2196F3;
 }
 
-#createNoteTable input:focus + .slider {
+#createNoteTable input:focus + .slider, #notesTable input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
 }
 
-#createNoteTable input:checked + .slider:before {
+#createNoteTable input:checked + .slider:before, #notesTable input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
@@ -276,6 +272,7 @@ input#name {
     #mainmenu {
         position: relative;
         display: inline-block;
+        margin: 10px 5px;
     }
 
     #dropdown-content {

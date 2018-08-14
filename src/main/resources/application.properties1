@@ -1,21 +1,21 @@
-datasource.url=${SPRING_DATASOURCE_URL}
-datasource.username=${SPRING_DATASOURCE_USERNAME}
-datasource.password=${SPRING_DATASOURCE_PASSWORD}
-spring.jpa.show-sql=false
+datasource.driver=com.mysql.cj.jdbc.Driver
+datasource.url=jdbc:mysql://localhost:3306/budget?useUnicode=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow
+datasource.username=root
+datasource.password=1ccc12
+hibernate.show-sql=true
 
 spring.profiles.active=web
 
 spring.datasource.driver=com.mysql.cj.jdbc.Driver
-datasource.driver=com.mysql.cj.jdbc.Driver
+
 
 #Hibernate
 hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
 hibernate.show_sql=true
-hibernate.batch.size=20
-hibernate.current.session.context.class=org.springframework.orm.hibernate5.SpringSessionContext
 hibernate.id.new_generator_mappings=false
-
 spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
-spring.jpa.properties.hibernate.id.new_generator_mappings=false
-
-server.port=${PORT:8080}
+spring.jpa.properties.hibernate.id.new_generator_mappings=false	spring.jpa.properties.hibernate.id.new_generator_mappings=false
+server.port=8080
+management.server.port=8090
+management.endpoints.web.exposure.include=*
+management.endpoint.shutdown.enabled=true 

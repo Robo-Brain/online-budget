@@ -37,7 +37,21 @@ public class SubController {
         return "success";
     }
 
-    @PostMapping("/saveNote")
+    @PostMapping("/addNote")
+    @ResponseBody
+    public String addNote(@RequestBody SaveNote addNote) {
+        additionsDAO.addNote(addNote);
+        return "success";
+    }
+
+    @PostMapping("/delNote")
+    @ResponseBody
+    public String delNote(@RequestBody Long id) {
+        additionsDAO.delNote(id);
+        return "success";
+    }
+
+    @PostMapping("/saveExistSalary")
     @ResponseBody
     public String saveNote(@RequestBody SaveNote saveNote) {
         additionsDAO.saveNote(saveNote);

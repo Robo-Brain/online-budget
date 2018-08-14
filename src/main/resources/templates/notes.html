@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-<button id="saveNote" type="button">SAVE</button>
+<button id="addNote" type="button">SAVE</button>
 <p><br /></p>
 
 <div id="notesTable" class="divTable">
@@ -34,44 +34,41 @@
         <div class="divTableCell">Note text:</div>
         <div class="divTableCell">Is remind?</div>
         <div class="divTableCell">Is muted?</div>
+        <div class="divTableCell"> XXX </div>
     </div>
 </div>
-
-<script th:inline="javascript">
-    $(document).ready(function() {
+<th:block sec:authorize="isAuthenticated()">
+    <script th:inline="javascript">
         notes = /*[[${notes}]]*/ "";
-        for (i = 0; i < notes.length; i++) {
-            $("#notesTable").append(
-                "<div class='divTableRow " + notes[i].id + "'>" +
-                    "<input type='hidden' id='id' name='id' value='" + notes[i].id + "' />" +
-                    "<div class='divTableCell " + notes[i].id + "'>" + notes[i].date + "</div>" +
-                    "<div class='divTableCell " + notes[i].id + "'>" + notes[i].text + "</div>" +
-                    "<div class='divTableCell'>" + notes[i].remind + "</div>" +
-                    "<div class='divTableCell'>" + notes[i].muted + "</div>" +
-                "</div>");
-        }
+        appendNotes();
 
-        $("#saveNote").click(function (x) {
-            x.preventDefault();
-            var date = $('#date').val();
-            var text = $('#text').val();
-            var isRemind = $('#isRemind').is(':checked');
+        $(".editButton").click(function(e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            editNoteFunc(id);
+        });
 
-console.log({date: date, text: text, remind: isRemind});
-            $.ajax({
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                type: "post",
-                url: "/saveNote",
-                data : JSON.stringify({date: date, text: text, remind: isRemind}),
-//                success: $(document).ajaxStop(function(){
-//                     window.location.reload();
-//                 })
-            });
-        })
-    });
-</script>
+        $(".delButton").click(function(d) {
+            d.preventDefault();
+            var id = $(this).attr('id');
+            deleteNoteFunc(id);
+        });
+
+        $(".cancelButton").click(function(c) {
+            c.preventDefault();
+            var id = $(this).attr('id');
+            $('.divTableCell.' + id).show();
+            $('.divTableCell.hidden.' + id).hide();
+        });
+
+        $(".saveButton").click(function (s) {
+            s.preventDefault();
+            var id = $(this).attr('id');
+            saveNoteFunc(id);
+        });
+
+    </script>
+    <script src="../static/js/notes.js" th:src="@{/js/notes.js}" type="text/javascript"></script>
+</th:block>
 </body>
 </html>

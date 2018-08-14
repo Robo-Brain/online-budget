@@ -216,21 +216,14 @@
 .noty_buttons button {
   margin: 0 10px 0 0;
   background-color:#b82d28;
-  -moz-border-radius:3px;
-  -webkit-border-radius:3px;
-  border-radius:3px;
   border:1px solid #912620;
   display:inline-block;
-  cursor:pointer;
-  color:#ffffff;
   padding:8px 12px;
-  text-decoration:none;
-
 }
 
 .noty_buttons button:hover {
-  border:1px solid #000;
-  text-shadow:0px 1px 0px #000000;
+  background-color: #8f231f;
+  border:1px solid #691b17;
 }
 
 /*# sourceMappingURL=noty.css.map*/

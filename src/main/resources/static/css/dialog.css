@@ -1,0 +1,55 @@
+.ui-dialog-titlebar-close{
+    width: 10%;
+    height: 30px;
+    margin: 0 0 0 89%;
+    font-size: 0;
+    background: url("../img/close.png") transparent;
+    border: 0;
+    text-decoration: none;
+}
+.ui-dialog-titlebar-close:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+.ui-dialog-fail {
+    background-color: #CE352C !important;
+    color: #fff !important;
+}
+.ui-dialog-fail p{
+    color: #fff !important;
+}
+.ui-dialog-fail .ui-dialog-titlebar {
+    background-color: #CE352C !important;
+    color: #fff;
+    border-bottom: solid #fff 1px !important;
+    border-radius: 0px !important;
+}
+.ui-dialog-fail .ui-widget-header {
+    border: none;
+}
+.ui-dialog-fail .ui-dialog-buttonpane{
+    background-color: #CE352C !important;
+}
+.ui-dialog-fail button {
+    background-color:#b82d28 !important;
+    color: #fff !important;
+    border:1px solid #912620 !important;
+    padding:8px 12px !important;
+}
+.ui-dialog-fail button:hover {
+    background-color: #8f231f !important;
+    border:1px solid #691b17 !important;
+}
+.ui-dialog-fail button:focus {
+    outline: none !important;
+}
+
+.done-dialog-titlebar {
+    color: #77dd77 !important;
+}
+.done-button button:active {
+    background-color: #77dd77 !important;
+}
+.done-button button:hover {
+    background-color: #77dd77 !important;
+}

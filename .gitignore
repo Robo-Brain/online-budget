@@ -13,6 +13,11 @@
 
 *.properties 
 *.properties2
+*.iml
+*.ipr
+.ideaDataSources/
+dataSources/
+target/
 
 # Sensitive or high-churn files
 .idea/**/dataSources/

@@ -73,16 +73,4 @@ $('#addForm').submit(function(z) {
     });
 });
 
-$("#hideAddForm").click(function(f){
-    f.preventDefault();
-    $("#addForm").hide();
-    $("#showAddForm").show();
-    $("#hideAddForm").hide();
-});
-$("#showAddForm").click(function(q){
-    q.preventDefault();
-    $("#addForm").show();
-    $("#showAddForm").hide();
-    $("#hideAddForm").show();
-});
 

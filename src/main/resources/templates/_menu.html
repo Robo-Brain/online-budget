@@ -21,99 +21,53 @@
         <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0"></span>ERROR. The month already been created?</p>
     </div>
     <script th:inline="javascript">
-        $('#newMonth').click(function () {
-            $.ajax({
-                type: "get",
-                url : '/createNewMonth'
-            }).done(function()  {
-                $("#month-success").dialog({
-                    classes: {
-                        "ui-dialog-titlebar": "done-dialog-titlebar",
-                        "ui-dialog-buttonset": "done-button"
-                    },
-                    resizable: false,
-                    height: "auto",
-                    width: 400,
-                    modal: true,
-                    draggable: false,
-                    buttons: {
-                        "OK": function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                })
-            }).fail(function()  {
-                $("#month-fail").dialog({
-                    classes: {
-                        "ui-dialog-titlebar": "fail-dialog-titlebar",
-                        "ui-dialog-buttonset": "fail-button"
-                    },
-                    resizable: false,
-                    height: "auto",
-                    width: 400,
-                    modal: true,
-                    draggable: false,
-                    buttons: {
-                        "OK": function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                })
-            });
-        })
-    </script>
-
-    <script th:inline="javascript">
         $(document).ready(function() {
-            notes = /*[[${notes}]]*/ "";
-
-            var today = new Date();
-            var year = today.getFullYear();
-            var month = today.getMonth() + 1;
-            var day = today.getDate();
-
-            for (i = 0; i < notes.length; i++) {
-                var arrIsMuted = notes[i].muted;
-                var arrIsRemind = notes[i].remind;
-
-                if (arrIsRemind == 1 && arrIsMuted == 0) {
-
-                    var arrDate = notes[i].date;
-                    var arrYear = arrDate.substring(0,4);
-                    var arrMonth = arrDate.substring(5,7);
-                    var arrDay = arrDate.substring(8,10);
-
-                    if (arrYear == year && arrMonth == month && arrDay == day) {
-                        notice(notes[i].id);
-                    }
-                }
-            }
-
-            function notice(id) {
-                var n = new Noty({
-                    type: 'error',
-                    theme: 'metroui',
-                    text: notes[i].text,
-                    buttons: [
-                        Noty.button('DONE', 'btn btn-success', function () {
-                            $.ajax({
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                type: "post",
-                                url: "/muteNote",
-                                data : JSON.stringify(id)
-                            });
-                            n.close();
-                        }),
-                        Noty.button('NOPE', 'btn btn-error', function () {
-                            n.close();
-                        })
-                    ]
-                }).show();
-            }
-
+            $('#newMonth').click(function () {
+                $.ajax({
+                    type: "get",
+                    url : '/createNewMonth'
+                }).done(function()  {
+                    $("#month-success").dialog({
+                        classes: {
+                            "ui-dialog-titlebar": "done-dialog-titlebar",
+                            "ui-dialog-buttonset": "done-button"
+                        },
+                        resizable: false,
+                        height: "auto",
+                        width: 400,
+                        modal: true,
+                        draggable: false,
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    })
+                }).fail(function()  {
+                    $("#month-fail").dialog({
+                        classes: {
+                            "ui-dialog": "ui-dialog-fail"
+                        },
+                        resizable: false,
+                        height: "auto",
+                        width: 400,
+                        modal: true,
+                        draggable: false,
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    })
+                });
+            });
         });
     </script>
+    <script th:inline="javascript">
+        notes = /*[[${notes}]]*/ "";
+        $(document).ready(function() {
+            searchForRemind();
+        });
+    </script>
+<script src="../static/js/notes.js" th:src="@{/js/notes.js}" type="text/javascript"></script>
 </th:block>
