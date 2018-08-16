@@ -3,4 +3,4 @@ Archiver-Version: Plexus Archiver
 Built-By: m4dm4n
 Created-By: Apache Maven 3.3.9
 Build-Jdk: 1.8.0_77
-Main-Class: com.robo.helloworld.SpringBootHibernateApplication
+Main-Class: com.robo.onlinebudget.SpringBootHibernateApplication

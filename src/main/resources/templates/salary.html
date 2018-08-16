@@ -46,48 +46,49 @@
         <button class="submit" value="Submit">Add</button>
     </p>
 </div>
+<th:block sec:authorize="isAuthenticated()">
+    <script th:inline="javascript">
+        $(document).ready(function() {
 
-<script th:inline="javascript">
-    $(document).ready(function() {
+            allWages = /*[[${allWages}]]*/ "";
 
-        allWages = /*[[${allWages}]]*/ "";
+            appendAllWages();
 
-        appendAllWages();
+            $(".divTableCell.hidden").hide();
 
-        $(".divTableCell.hidden").hide();
+            $("#showWageButton").click(function () {
+                $("#newWage").show("slow");
+            });
 
-        $("#showWageButton").click(function () {
-            $("#newWage").show("slow");
+            $(".editButton").click(function(e) {
+                e.preventDefault();
+                var id = $(this).attr('id');
+                editSalaryPrepaidFunc(id);
+            });
+
+            $(".delButton").click(function(d) {
+                d.preventDefault();
+                var id = $(this).attr('id');
+                deleteSalaryPrepaidFunc(id);
+
+            });
+
+            $(".cancelButton").click(function(c) {
+                c.preventDefault();
+                var id = $(this).attr('id');
+                $('.divTableCell.' + id).show();
+                $('.divTableCell.hidden.' + id).hide();
+            });
+
+            $(".saveButton").click(function (s) {
+                s.preventDefault();
+                saveSalaryPrepaidFunc();
+            });
+
         });
-
-        $(".editButton").click(function(e) {
-            e.preventDefault();
-            var id = $(this).attr('id');
-            editSalaryPrepaidFunc(id);
-        });
-
-        $(".delButton").click(function(d) {
-            d.preventDefault();
-            var id = $(this).attr('id');
-            deleteSalaryPrepaidFunc(id);
-
-        });
-
-        $(".cancelButton").click(function(c) {
-            c.preventDefault();
-            var id = $(this).attr('id');
-            $('.divTableCell.' + id).show();
-            $('.divTableCell.hidden.' + id).hide();
-        });
-
-        $(".saveButton").click(function (s) {
-            s.preventDefault();
-            saveSalaryPrepaidFunc();
-        });
-
-    });
-</script>
-<script src="../static/js/salary.js" th:src="@{/js/salary.js}" type="text/javascript"></script>
-<script src="../static/js/salarySubmit.js" th:src="@{/js/salarySubmit.js}" type="text/javascript"></script>
+    </script>
+    <script src="../static/js/salary.js" th:src="@{/js/salary.js}" type="text/javascript"></script>
+    <script src="../static/js/salarySubmit.js" th:src="@{/js/salarySubmit.js}" type="text/javascript"></script>
+</th:block>
 </body>
 </html>

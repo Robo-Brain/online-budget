@@ -5,30 +5,39 @@
     <th:block th:include="_header"></th:block>
 </head>
 <body>
-<!-- Include _menu.html -->
 <th:block th:include="_menu"></th:block>
-<div xmlns:th="http://www.thymeleaf.org"
-     style="border: 1px solid #ccc;padding:5px;margin-bottom:40px;">
+<div xmlns:th="http://www.thymeleaf.org" style="border: 1px solid #ccc;padding:5px;margin-bottom:40px;">
 
-    <a th:href="@{#}">Admin feature #1</a>
-
-    | &nbsp;
-
-    <a th:href="@{#}">Admin feature #2</a>
+    <span id="lastMonthIs">Последний месяц: </span><br />
+    <a href="#" id="delLastMonth">Удалить</a><br />
+    <a href="#">Сбросить счетчик ID</a>
 
 
 </div>
 
 <h2>Admin Page</h2>
-<h3>Welcome :
-    <span th:utext="${#request.userPrincipal.name}"></span>
-</h3>
-<b>This is protected page!</b>
-
-<br/><br/>
-
 <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
-
+<th:block sec:authorize="isAuthenticated()">
+    <script th:inline="javascript">
+        lastMonth = /*[[${lastMonth}]]*/ "";
+        $(document).ready(function() {
+            $('#delLastMonth').click(function () {
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: "GET",
+                    url: "/delLastMonth",
+                    success: $(document).ajaxStop(function () {
+                        window.location.reload();
+                    })
+                });
+            });
+            $('#lastMonthIs').append(lastMonth[0].date);
+        })
+    </script>
+</th:block>
 </body>
 
 </html>

@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/spring-hibernate-hello-world-1.0-SNAPSHOT.jar --port=$PORT --add-modules java.xml.bind
+web: java $JAVA_OPTS -jar target/online-budget-1.1.jar --port=$PORT --add-modules java.xml.bind

@@ -23,14 +23,14 @@ $('#actionForm').submit(function(e) {
         } else if(input.attr("name") == 'name') {
             formName = input.val();
         }else if(input.attr("id") == 'salaryPrepaid') {
-            formSalaryPrepaid = input.val();
+            formSalaryPrepaid = $(this).is(':checked');
         }else if(input.attr("id") == 'withdraw') {
-            formWithdraw = input.val();
-            formData = {id : formId, spendId : formSpendId, name: formName, amount : formAmount, salaryPrepaid: formSalaryPrepaid, withdraw: formWithdraw};
+            formWithdraw = $(this).is(':checked');
+            formData = {id : formId, name: formName, amount : formAmount, salaryPrepaid: formSalaryPrepaid, withdraw: formWithdraw};
             formArr.push(formData);
         }
     });
-
+console.log(formArr);
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -51,8 +51,8 @@ $('#addForm').submit(function(z) {
 
     var formName = $("#newName").val();
     var formAmount = $("#amount").val();
-    var formSalaryPrepaid = $(".salaryPrepaid[type='radio']:checked").val();
-    var formWithdraw = $(".withdraw[type='radio']:checked").val();;
+    var formSalaryPrepaid = $('.salaryPrepaid').is(':checked');
+    var formWithdraw = $('.withdraw').is(':checked');
 
     formData = {name : formName, amount : formAmount, salaryPrepaid : formSalaryPrepaid, withdraw: formWithdraw};
 
@@ -64,11 +64,11 @@ $('#addForm').submit(function(z) {
             'Content-Type': 'application/json'
         },
         type: "post",
-        url: "/addNewSpend",
+        // url: "/addNewSpend",
         dataType : 'json',
         data : JSON.stringify(formData),
         success: $(document).ajaxStop(function(){
-            window.location.reload();
+            // window.location.reload();
         })
     });
 });

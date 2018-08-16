@@ -7,35 +7,42 @@ function appendTMPTable() {
         amount += parseInt(tmpVal[i].amount);
         $("#tmpTable").append(
             "<div class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + "'>" +
-            "<div class='divTableCell name'>" +
-            "<input type='text' id='name' name='name' value='" + tmpVal[i].name + "' />" +
-            "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
-            "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
+            "<div class='divTableCell left'>" +
+                "<input type='text' class='name " + tmpVal[i].salaryPrepaid +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
+                "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
+                "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
             "</div>" +
-            "<div class='divTableCell amount'><input type='text' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽</div>" +
-            "<div class='divTableCell salaryPrepaid'>" +
-            "<select class='salaryPrepaid" + i +"' id='salaryPrepaid' name='salaryPrepaid" + i +"'>" +
-            "<option value='true'>Salary</option>" +
-            "<option value='false'>Prepaid</option>" +
-            "</select>" +
+            "<div class='divTableCell amount'>" +
+                "<input type='text' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
+            "</div>" +
+            "<div class='divTableCell'>" +
+                "<label class='switch'>" +
+                    "<input type='checkbox' id='salaryPrepaid' class='salaryPrepaid " + tmpVal[i].salaryPrepaid +"' name='salaryPrepaid" + tmpVal[i].id +"' />" +
+                    "<span class='slider salaryPrepaid'></span>" +
+                "</label>" +
             "</div>" +
             "<div class='divTableCell withdraw'>" +
-            "<select class='withdraw" + i +"' id='withdraw' name='withdraw" + i +"'>" +
-            "<option value='true'>Withdraw</option>" +
-            "<option value='false'>NOT Withdraw</option>" +
-            "</select>" +
+                "<label class='switch'>" +
+                    "<input type='checkbox' id='withdraw' class='withdraw " + tmpVal[i].withdraw +"' name='withdraw" + tmpVal[i].id +"' />" +
+                    "<span class='slider'></span>" +
+                "</label>" +
             "</div>" +
-            "<div class='divTableCell del'><button class='delButton' id='" + tmpVal[i].id + "'>del</button></div>" +
-            "</div>");
-        $('.salaryPrepaid' + i + ' option[value="' + tmpVal[i].salaryPrepaid +'"]').prop("selected", true);
-        $('.withdraw' + i + ' option[value="' + tmpVal[i].withdraw +'"]').prop("selected", true);
+            "<div class='divTableCell del'>" +
+                "<button class='delButton' id='" + tmpVal[i].id + "'>del</button>" +
+            "</div>" +
+        "</div>");
+
+        $('.salaryPrepaid.true').prop('checked', true);
+        $('.salaryPrepaid.false').prop('unchecked', false);
+        $('.withdraw.true').prop('checked', true);
+        $('.withdraw.false').prop('unchecked', false);
 
         preTotal(tmpVal[i].salaryPrepaid, tmpVal[i].amount);
     }
     $("#tmpTable").append(
         "<div class='divTableRow'>" +
             "<div style='border: none' class='divTableCell'></div>" +
-            "<div style='border: inset; background-color: #FFC9BF' class='divTableCell salaryOverload'>" +
+            "<div class='divTableCell salaryOverload'>" +
                 salaryTotal.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) +
                 "<span class='tooltipSalary' title='Costs exceed the last salary!'></span>" +
             "</div>" +
@@ -45,7 +52,7 @@ function appendTMPTable() {
         "</div>" +
         "<div class='divTableRow'>" +
             "<div style='border: none' class='divTableCell'></div>" +
-            "<div style='border: inset; background-color: #8CF8FF' class='divTableCell prepaidOverload'>" +
+            "<div class='divTableCell prepaidOverload'>" +
                 prepaidTotal.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) +
                 "<span class='tooltipPrepaid' title='Costs exceed the last prepaid!'></span>" +
             "</div>" +
@@ -125,7 +132,7 @@ function delTMPFunc(i) {
                 });
             },
             Cancel: function() {
-                $( this ).dialog( "close" );
+                $(this).dialog( "close" );
                 $(this).remove();
             }
         }

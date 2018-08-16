@@ -8,7 +8,7 @@
 <body>
 <th:block th:include="_menu"></th:block>
 
-<div id="createNoteTable" class="divTable">
+<div id="addNoteTable" class="divTable">
     <div class="divTableRow">
         <div class="divTableCell">Note date:</div>
         <div class="divTableCell">Note text:</div>
@@ -33,40 +33,15 @@
         <div class="divTableCell">Note date:</div>
         <div class="divTableCell">Note text:</div>
         <div class="divTableCell">Is remind?</div>
-        <div class="divTableCell">Is muted?</div>
         <div class="divTableCell"> XXX </div>
     </div>
 </div>
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
         notes = /*[[${notes}]]*/ "";
-        appendNotes();
-
-        $(".editButton").click(function(e) {
-            e.preventDefault();
-            var id = $(this).attr('id');
-            editNoteFunc(id);
-        });
-
-        $(".delButton").click(function(d) {
-            d.preventDefault();
-            var id = $(this).attr('id');
-            deleteNoteFunc(id);
-        });
-
-        $(".cancelButton").click(function(c) {
-            c.preventDefault();
-            var id = $(this).attr('id');
-            $('.divTableCell.' + id).show();
-            $('.divTableCell.hidden.' + id).hide();
-        });
-
-        $(".saveButton").click(function (s) {
-            s.preventDefault();
-            var id = $(this).attr('id');
-            saveNoteFunc(id);
-        });
-
+        $(document).ready(function() {
+            appendNotes();
+        })
     </script>
     <script src="../static/js/notes.js" th:src="@{/js/notes.js}" type="text/javascript"></script>
 </th:block>

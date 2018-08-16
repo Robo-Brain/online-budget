@@ -1,20 +1,28 @@
-$("#addNote").click(function (x) {
-    x.preventDefault();
-    var date = $('#date').val();
-    var text = $('#text').val();
-    var isRemind = $('#isRemind').is(':checked');
+$(function() {
+    $("#addNote").click(function (x) {
+        x.preventDefault();
+        var date = $('#date').val();
+        var text = $('#text').val();
+        var isRemind = $('#isRemind').is(':checked');
 
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "post",
-        url: "/addNote",
-        data : JSON.stringify({date: date, text: text, remind: isRemind}),
-        success: $(document).ajaxStop(function(){
-            window.location.reload();
-        })
+        if (text == '') {
+            text = null;
+        }
+
+        console.log(date + " / " + text);
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "post",
+            url: "/addNote",
+            data : JSON.stringify({date: date, text: text, remind: isRemind}),
+            success: $(document).ajaxStop(function(){
+                window.location.reload();
+            })
+        });
     });
 });
 
@@ -26,7 +34,6 @@ function appendNotes() {
                 "<div class='divTableCell " + notes[i].id + "'>" + notes[i].date + "</div>" +
                 "<div class='divTableCell " + notes[i].id + "'>" + notes[i].text + "</div>" +
                 "<div class='divTableCell " + notes[i].id + "'>" + notes[i].remind + "</div>" +
-                "<div class='divTableCell " + notes[i].id + "'>" + notes[i].muted + "</div>" +
                 "<div class='divTableCell " + notes[i].id + "'>" +
                     "<div class='editButtons'>" +
                     "<button class='editButton' id='" + notes[i].id + "'>EDIT</button>&nbsp;" +
@@ -48,12 +55,6 @@ function appendNotes() {
                 "</label>" +
             "</div>" +
             "<div class='divTableCell hidden " + notes[i].id + "'>" +
-                "<label class='switch'>" +
-                    "<input type='checkbox' id='isMuted" + notes[i].id + "' class='"+ notes[i].muted +"' name='isMuted' />" +
-                    "<span class='slider'></span>" +
-                "</label>" +
-            "</div>" +
-            "<div class='divTableCell hidden " + notes[i].id + "'>" +
                 "<div class='salaryHiddenButtons'>" +
                     "<button class='saveButton' id='" + notes[i].id + "'>✓</button><button class='cancelButton' id='" + notes[i].id + "'>X</button>" +
                 "</div>" +
@@ -66,7 +67,9 @@ function appendNotes() {
     }
 }
 
-$(".divTableCell.hidden").hide();
+$(function() {
+    $(".divTableCell.hidden").hide();
+});
 
 function searchForRemind() {
     var today = new Date();
@@ -75,10 +78,9 @@ function searchForRemind() {
     var nowAday = today.getDate();
 
     for (i = 0; i < notes.length; i++) {
-        var arrIsMuted = notes[i].muted;
         var arrIsRemind = notes[i].remind;
 
-        if (arrIsRemind == 1 && arrIsMuted == 0) {
+        if (arrIsRemind == 1) {
 
             var date = notes[i].date;
             var notesYear = date.substring(0,4);
@@ -117,55 +119,68 @@ function notice(id) {
     }).show();
 }
 
-function editNoteFunc(i) {
-    var id = i;
+$(function() {
+    $(".editButton").click(function(e) {
+        e.preventDefault();
+        var id = $(this).attr('id');
+        $('.divTableCell').show();
+        $('.divTableCell.hidden').hide();
 
-    $('.divTableCell').show();
-    $('.divTableCell.hidden').hide();
+        $('.divTableCell.' + id).hide();
+        $('.divTableCell.hidden.' + id).show();
+    });
+});
+$(function() {
+    $(".delButton").click(function(d) {
+        d.preventDefault();
+        var id = $(this).attr('id');
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "post",
+            url: "/delNote",
+            data : id,
+            success: $(document).ajaxStop(function(){
+                window.location.reload();
+            })
+        });
+    });
+});
+$(function() {
+    $(".saveButton").click(function (s) {
+        s.preventDefault();
+        var noteId = $(this).attr('id');
+        var noteDate = $('#noteDate' + noteId).val();
+        var noteText = $('#noteText' + noteId).val();
+        var noteIsRemind = $('#isRemind' + noteId).is(':checked');
 
-    $('.divTableCell.' + id).hide();
-    $('.divTableCell.hidden.' + id).show();
-}
+        existNoteData = JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind});
 
-function deleteNoteFunc(i) {
-    var id = i;
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "post",
-        url: "/delNote",
-        data : id,
-        success: $(document).ajaxStop(function(){
-            window.location.reload();
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "post",
+            url: "/saveExistSalary",
+            dataType : 'json',
+            data : existNoteData,
+            success: $(document).ajaxStop(function(){
+                window.location.reload();
+            })
         })
     });
-}
-
-function saveNoteFunc(i) {
-    var noteId = i;
-    var noteDate = $('#noteDate' + noteId).val();
-    var noteText = $('#noteText' + noteId).val();
-    var noteIsRemind = $('#isRemind' + noteId).is(':checked');
-    var noteIsMuted = $('#isMuted' + noteId).is(':checked');
-
-    existNoteData = JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind, muted: noteIsMuted});
-
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "post",
-        url: "/saveExistSalary",
-        dataType : 'json',
-        data : existNoteData,
-        success: $(document).ajaxStop(function(){
-            window.location.reload();
-        })
-    })
-}
+});
+$(function() {
+    $(".cancelButton").click(function(c) {
+        c.preventDefault();
+        var id = $(this).attr('id');
+        $('.divTableCell.' + id).show();
+        $('.divTableCell.hidden.' + id).hide();
+    });
+});
 
 $(function() {
     $(".date").datepicker({

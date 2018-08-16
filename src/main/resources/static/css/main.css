@@ -8,11 +8,11 @@ body {
 }
 
 button {
-    background-color: #8a9597;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
-    border:1px solid #2f2f2f;
+    background-color: #5ED0BD;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    border:1px solid #1E796A;
     cursor:pointer;
     color:#ffffff;
     padding:6px 8px;
@@ -23,10 +23,19 @@ button {
 }
 
 button:hover {
-    background-color: #78858b;
-    border:1px solid #000;
-    text-shadow:0px 1px 0px #000000;
+    background-color: #34D0B6;
+    border:1px solid #006957;
+    text-shadow:0px 1px 0px #006957;
 }
+
+input {
+    background-color: #8accdb;
+}
+.name.false {
+    background-color: #ffcfa8;
+}
+
+
 
 .date {
     width: 5.5em;
@@ -95,24 +104,32 @@ input#name {
 .divTableRow {
     display: table-row;
 }
+.divTableRow.false .divTableCell{
+    border: 1px solid #FF7400!important;
+}
 .divTableCell, .divTableHead {
-    border: 1px solid #999999;
+    border: 1px solid #04819E;
     display: table-cell;
     padding: 3px 10px;
+    vertical-align: middle;
+    text-align: center;
+}
+.divTableCell.left {
+    text-align: left;
 }
 
 .salary {
-    background-color: #FFC9BF;
+    background-color: #60B9CE;
 }
 .divTableRow.true {
-    background-color: #FFC9BF;
+    background-color: #60B9CE;
 }
 
 .prepaid {
-    background-color: #8CF8FF;
+    background-color: #FFB273;
 }
 .divTableRow.false {
-    background-color: #8CF8FF;
+    background-color: #FFB273;
 }
 
 .nope {
@@ -139,9 +156,14 @@ input#name {
 }
 
 .overlimit {
-    color: #c91628;
-    border: solid #c91628 2px;
+    color: red;
+    border: solid #015367 2px;
     font-weight: bold;
+    background-color: #60B9CE;
+}
+.prepaidOverload {
+    background-color: #FFB273;
+    border: solid #FF7400 1px;
 }
 
 .finalAmount {
@@ -187,27 +209,25 @@ input#name {
 }
 
 /*notice page start*/
-#createNoteTable .divTableCell {
+#addNoteTable .divTableCell {
     vertical-align: middle;
 }
 
-#createNoteTable textarea {
+#addNoteTable textarea {
     font-size: 12px;
     resize: none;
 }
 
-
-#createNoteTable .switch, #notesTable .switch {
+/* slider start */
+.switch {
     position: relative;
     display: inline-block;
     width: 48px;
     height: 21px;
 }
 
-/* Hide default HTML checkbox */
 .switch input {display:none;}
 
-/* The slider */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -215,7 +235,7 @@ input#name {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #015367;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -232,33 +252,59 @@ input#name {
     transition: .4s;
 }
 
-#notesTable {
-    font-size: 12px;
+.slider:after {
+    content:'OFF';
+    color: #000;
+    display: block;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    font-size: 10px;
+    font-family: Verdana, sans-serif;
 }
-#notesTable .divTableRow:nth-child(even) {
-    background-color: #d7d7d7 !important;
+.slider.persons:after {
+    content:'ONE';
+}
+.slider.salaryPrepaid:after {
+    content:'Аванс';
 }
 
-#notesTable .editButtons {
-    display: block !important;
+input:checked + .slider {
+    background-color: #04819E;
 }
 
-#createNoteTable input:checked + .slider, #notesTable input:checked + .slider {
-    background-color: #2196F3;
+input:focus + .slider {
+    box-shadow: 0 0 1px #04819E;
 }
 
-#createNoteTable input:focus + .slider, #notesTable input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-#createNoteTable input:checked + .slider:before, #notesTable input:checked + .slider:before {
+input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
-/*notice page end*/
 
+input:checked + .slider:after {
+    content:'ON';
+}
+input:checked + .slider.persons:after {
+    content:'TWO';
+}
+input:checked + .slider.salaryPrepaid:after {
+    content:'ЗП';
+}
+/*slider end*/
 
+#notesTable {
+    font-size: 12px;
+}
+#notesTable .divTableRow:nth-child(even), #analysisListTable .divTableRow:nth-child(even) {
+    background-color: #60B9CE !important;
+}
+
+#notesTable .editButtons, #analysisListTable .editButtons {
+    display: block !important;
+}
 
 @media only screen and (max-width: 1079px), only screen and (max-device-width: 1079px) {
 
