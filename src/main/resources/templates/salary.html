@@ -8,8 +8,8 @@
 <body>
 <th:block th:include="_menu"></th:block>
 
-<div id="summaryTable" class="divTable">
-    <div class="divTableRow">
+<div id="salaryTable" class="divTable">
+    <div class="divTableRow header">
         <div class="divTableCell">Salary date:</div>
         <div class="divTableCell">Salary amount:</div>
         <div class="divTableCell">Prepaid date:</div>
@@ -17,7 +17,6 @@
         <div class="divTableCell"> XXXXXX </div>
     </div>
 </div>
-<br/>
 <p>
     <button id="showWageButton" type="button">Add new wage</button>
 </p>
@@ -43,9 +42,32 @@
         </div>
     </div>
     <p>
-        <button class="submit" value="Submit">Add</button>
+        <button class="addWageButton" value="Submit">Add</button>
     </p>
 </div>
+
+<div style="display: none" id="addWageForm">
+    <form>
+        <fieldset>
+            <p>
+                <label for="date">Date: </label>
+                <input type="text" name="date" id="formDate" class="text ui-widget-content ui-corner-all">
+            </p>
+            <p>
+            <label for="formSalaryPrepaid">Salary / Prepaid: </label>
+            <select id="formSalaryPrepaid" name="salaryPrepaid">
+                <option>Salary</option>
+                <option>Prepaid</option>
+            </select>
+            </p>
+            <p>
+            <label for="formAmount">Amount: </label>
+            <input type="text" name="formAmount" id="formAmount" class="text ui-widget-content ui-corner-all">
+            </p>
+        </fieldset>
+    </form>
+</div>
+<div id="addButton"> <span>+</span> </div>
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
         $(document).ready(function() {
@@ -56,8 +78,39 @@
 
             $(".divTableCell.hidden").hide();
 
+            $( "#addButton" ).draggable();
+
+            $("#addButton").click(function () {
+                $("#addWageForm").dialog({
+                    resizable: true,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: {
+                        "Add": function() {
+                            $( this ).dialog( "close" );
+                            addWage('mobile');
+                        },
+                        Cancel: function() {
+                            $(this).dialog( "close" );
+                            $(this).remove();
+                        }
+                    }
+                });
+
+            });
+
+            $(".addWageButton").click(function (e) {
+                e.preventDefault();
+                addWage('pc');
+            });
+
             $("#showWageButton").click(function () {
-                $("#newWage").show("slow");
+                if ($("#newWage").is(":visible")) {
+                    $("#newWage").hide("slow");
+                } else {
+                    $("#newWage").show("slow");
+                }
             });
 
             $(".editButton").click(function(e) {

@@ -90,9 +90,7 @@ function overloadTooltip() {
         $( "body" ).click(function() {
             $( ".tooltipSalary" ).tooltip( "close" );
         });
-    } else {
-
-    }
+    } else {}
     if ( prepaid <= prepaidTotal) {
         $(".prepaidOverload").toggleClass("overlimit");
         $(".tooltipPrepaid").tooltip({

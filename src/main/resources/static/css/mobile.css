@@ -1,0 +1,147 @@
+#menuButton {
+    display: block;
+    background-color: #BDBDBD;
+    color: white;
+    padding: 8px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    margin: 0 0 1em 0;
+}
+
+#mainmenu {
+    position: relative;
+    display: inline-block;
+    margin: 10px 5px;
+}
+
+#dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+#dropdown-content a {
+    color: black;
+    padding: 6px 8px;
+    text-decoration: none;
+    display: block;
+}
+
+#dropdown-content a:hover {background-color: #f1f1f1}
+
+#mainmenu:hover #dropdown-content {
+    display: block;
+}
+
+#mainmenu:hover #menuButton {
+    background-color: #999999;
+}
+
+.divTable.tmp{
+    display: block;
+    width: 100%;
+    font-size: 14px;
+}
+.divTable.tmp input {
+    width: 5em;
+    font-weight: 300;
+    padding: 0.1em;
+}
+.divTable.tmp select {
+    width: 5em;
+    height: 1.9em;
+}
+.divTable.tmp input#name {
+    width: 100%;
+}
+.divTable.tmp .divTableRow {
+    display: block;
+    border: solid white 3px;
+    min-height: 9em;
+}
+.divTable.tmp .divTableRow.head{
+    display: none;
+}
+.divTable.tmp .divTableRow button{
+    width: 4em;
+    height: 1.8em;
+}
+.divTable.tmp .divTableCell {
+    display: block;
+    margin: 0 2%;
+    border: none;
+}
+.divTable.tmp .divTableCell.amount {
+    float: left;
+}
+.divTable.tmp .divTableCell.switcher {
+    float: left;
+}
+.divTable.tmp .divTableCell.salaryPrepaid {
+    float: left;
+}
+.divTable.tmp .divTableCell.withdraw {
+    float: left;
+}
+divTableCell.finalAmount {
+    font-size:18px;
+}
+.divTableCell.nope {
+    display: none;
+    border: none;
+}
+.divTableRow.false .divTableCell {
+    border: none !important;
+}
+
+
+#withdraw {
+    width: 8.4em;
+}
+
+
+.divTable.currentMonth {
+    width: 100%;
+}
+
+.resultTable {
+    display: table;
+    width: 100%;
+    font-size: 16px;
+}
+.resultTable .divTableRow {
+    display: table-row !important;
+}
+.resultTable .divTableCell {
+    display: table-cell !important;
+}
+
+.hiddenMobileLabels {
+    display: inline;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+#tmpTable .delButton {
+    margin: 2em 0 0 0 !important;
+    width: 4em !important;
+    height: 2em !important;
+}
+
+.divTableAdd, .addWage, #addNoteTable{
+    display: table;
+    width: 36%;
+    font-size: 16px;
+}
+
+#summaryTable button {
+    display: block !important;
+}
+
+.divTableRow:nth-child(even) {
+    float: left;
+}
