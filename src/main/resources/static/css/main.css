@@ -490,7 +490,7 @@ input:checked + .slider.salaryPrepaid:after {
 
     .divTableAdd, .addWage, #addNoteTable{
         display: table;
-        width: 100%;
+        width: 36%;
         font-size: 16px;
     }
 
