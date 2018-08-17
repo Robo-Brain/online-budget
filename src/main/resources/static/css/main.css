@@ -449,7 +449,7 @@ input:checked + .slider.salaryPrepaid:after {
         font-size: 12px;
     }
 
-    .delButton {
+    #tmpTable .delButton {
         margin: 2em 0 0 0 !important;
         width: 10em !important;
         height: 2em !important;
