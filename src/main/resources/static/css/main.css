@@ -5,7 +5,6 @@ body {
     font-variant: normal;
     font-weight: 300;
     line-height: 28px;
-    min-width: 480px;
     transition-duration: .2s;
 }
 
@@ -446,9 +445,7 @@ input:checked + .slider.salaryPrepaid:after {
     .divTable.tmp .divTableCell.withdraw {
         float: left;
     }
-	divTableCell.finalAmount {
-		font-size:18px;
-	}
+	
     .divTableCell.nope {
         display: none;
         border: none;
