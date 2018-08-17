@@ -14,6 +14,7 @@
         <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
     </div>
 </div>
+<p></p>
 <th:block sec:authorize="isAuthenticated()">
     <div style="display: none" id="month-success" title="Create success">
         <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>The month has been created successfully.</p>

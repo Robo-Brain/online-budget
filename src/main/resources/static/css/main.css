@@ -5,16 +5,17 @@ body {
     font-variant: normal;
     font-weight: 300;
     line-height: 28px;
+    min-width: 600px;
 }
 
 button {
-    background-color: #5ED0BD;
-    -moz-border-radius:2px;
-    -webkit-border-radius:2px;
-    border-radius:2px;
-    border:1px solid #1E796A;
+    background-color: #5986A0;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border:1px solid #286A91;
     cursor:pointer;
-    color:#ffffff;
+    color:#BDDCEE;
     padding:6px 8px;
     text-decoration:none;
     text-align: center;
@@ -23,19 +24,21 @@ button {
 }
 
 button:hover {
-    background-color: #34D0B6;
-    border:1px solid #006957;
-    text-shadow:0px 1px 0px #006957;
+    background-color: #286A91;
+    border:1px solid #5986A0;
+    text-shadow: 0px 1px 1px #5986A0;
 }
 
 input {
-    background-color: #8accdb;
+    background-color: #e6faf5;
 }
+textarea {
+    background-color: #e6faf5;
+}
+
 .name.false {
-    background-color: #ffcfa8;
+    background-color: ;
 }
-
-
 
 .date {
     width: 5.5em;
@@ -105,10 +108,10 @@ input#name {
     display: table-row;
 }
 .divTableRow.false .divTableCell{
-    border: 1px solid #FF7400!important;
+    border: 1px solid #5EB268!important;
 }
 .divTableCell, .divTableHead {
-    border: 1px solid #04819E;
+    border: 1px solid #5986A0;
     display: table-cell;
     padding: 3px 10px;
     vertical-align: middle;
@@ -119,17 +122,17 @@ input#name {
 }
 
 .salary {
-    background-color: #60B9CE;
+    background-color: #99CEEE;
 }
 .divTableRow.true {
-    background-color: #60B9CE;
+    background-color: #99CEEE;
 }
 
 .prepaid {
-    background-color: #FFB273;
+    background-color: #98F4A3;
 }
 .divTableRow.false {
-    background-color: #FFB273;
+    background-color: #98F4A3;
 }
 
 .nope {
@@ -157,13 +160,16 @@ input#name {
 
 .overlimit {
     color: red;
-    border: solid #015367 2px;
+    border: solid red 2px !important;
     font-weight: bold;
-    background-color: #60B9CE;
+}
+.salaryOverload {
+    border: solid #599EC7 1px;
+    background-color: #99CEEE;
 }
 .prepaidOverload {
-    background-color: #FFB273;
-    border: solid #FF7400 1px;
+    background-color: #98F4A3;
+    border: solid #29A138 1px;
 }
 
 .finalAmount {
@@ -224,6 +230,7 @@ input#name {
     display: inline-block;
     width: 48px;
     height: 21px;
+    border: solid #286A91 1px;
 }
 
 .switch input {display:none;}
@@ -235,7 +242,7 @@ input#name {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #015367;
+    background-color: #5986A0;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -247,7 +254,7 @@ input#name {
     width: 15px;
     left: 3px;
     bottom: 3px;
-    background-color: white;
+    background-color: #044956;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -271,11 +278,11 @@ input#name {
 }
 
 input:checked + .slider {
-    background-color: #04819E;
+    background-color: #7CE3F7;
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #04819E;
+    box-shadow: 0 0 1px #7CE3F7;
 }
 
 input:checked + .slider:before {
@@ -283,7 +290,6 @@ input:checked + .slider:before {
     -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
-
 input:checked + .slider:after {
     content:'ON';
 }
@@ -298,12 +304,19 @@ input:checked + .slider.salaryPrepaid:after {
 #notesTable {
     font-size: 12px;
 }
-#notesTable .divTableRow:nth-child(even), #analysisListTable .divTableRow:nth-child(even) {
-    background-color: #60B9CE !important;
+#notesTable .divTableRow:nth-child(even),
+#analysisListTable .divTableRow:nth-child(even),
+#summaryTable .divTableRow:nth-child(even),
+#addNoteTable .divTableRow:nth-child(even){
+    background-color: #ebfced !important;
 }
 
 #notesTable .editButtons, #analysisListTable .editButtons {
     display: block !important;
+}
+
+.hiddenMobileLabels {
+    display: none;
 }
 
 @media only screen and (max-width: 1079px), only screen and (max-device-width: 1079px) {
@@ -387,6 +400,9 @@ input:checked + .slider.salaryPrepaid:after {
     .divTable.tmp .divTableCell.amount {
         float: left;
     }
+    .divTable.tmp .divTableCell.switcher {
+        float: left;
+    }
     .divTable.tmp .divTableCell.salaryPrepaid {
         float: left;
     }
@@ -400,6 +416,10 @@ input:checked + .slider.salaryPrepaid:after {
         display: none;
         border: none;
     }
+    .divTableRow.false .divTableCell {
+        border: none !important;
+    }
+
 
     #withdraw {
         width: 8.4em;
@@ -420,6 +440,26 @@ input:checked + .slider.salaryPrepaid:after {
     }
     .resultTable .divTableCell {
         display: table-cell !important;
+    }
+
+    .hiddenMobileLabels {
+        display: inline;
+        vertical-align: top;
+        font-size: 12px;
+    }
+
+    .delButton {
+        margin: 0 0 12px 0 !important;
+    }
+
+    .divTableAdd, .addWage, #addNoteTable{
+        display: table;
+        width: 36%;
+        font-size: 16px;
+    }
+
+    #summaryTable button {
+        display: block !important;
     }
 
 }
