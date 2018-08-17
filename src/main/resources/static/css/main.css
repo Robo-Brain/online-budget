@@ -571,7 +571,7 @@ input:checked + .slider.salaryPrepaid:after {
         -webkit-transform: translate(-50%, -45%);
         transform: translate(-50%, -45%);
     }
-	.salaryTable {
+	s#salaryTable {
 width: 100%!important;
 }
 	
