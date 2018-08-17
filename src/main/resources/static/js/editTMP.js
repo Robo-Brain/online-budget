@@ -8,22 +8,22 @@ function appendTMPTable() {
         $("#tmpTable").append(
             "<div class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + "'>" +
             "<div class='divTableCell left'>" +
-                "<span class='hiddenMobileLabels'>Name: </span><input type='text' class='name " + tmpVal[i].salaryPrepaid +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
+                "<span class='hiddenMobileLabels'>Name: </span><br /><input type='text' class='name " + tmpVal[i].salaryPrepaid +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
                 "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
                 "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
             "</div>" +
             "<div class='divTableCell amount'>" +
-                "<span class='hiddenMobileLabels'>Amount: </span><input type='text' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
+                "<span class='hiddenMobileLabels'>Amount: </span><br /><input type='text' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
             "</div>" +
             "<div class='divTableCell switcher'>" +
-                "<span class='hiddenMobileLabels'>Salary: </span>" +
+                "<span class='hiddenMobileLabels'>Salary: </span><br />" +
                 "<label class='switch'>" +
                     "<input type='checkbox' id='salaryPrepaid' class='salaryPrepaid " + tmpVal[i].salaryPrepaid +"' name='salaryPrepaid" + tmpVal[i].id +"' />" +
                     "<span class='slider salaryPrepaid'></span>" +
                 "</label>" +
             "</div>" +
             "<div class='divTableCell withdraw switcher'>" +
-            "<span class='hiddenMobileLabels'>Withdraw: </span>" +
+            "<span class='hiddenMobileLabels'>Withdraw: </span><br />" +
                 "<label class='switch'>" +
                     "<input type='checkbox' id='withdraw' class='withdraw " + tmpVal[i].withdraw +"' name='withdraw" + tmpVal[i].id +"' />" +
                     "<span class='slider'></span>" +

@@ -5,7 +5,7 @@ body {
     font-variant: normal;
     font-weight: 300;
     line-height: 28px;
-    min-width: 600px;
+    min-width: 480px;
 }
 
 button {
@@ -370,7 +370,7 @@ input:checked + .slider.salaryPrepaid:after {
         font-size: 14px;
     }
     .divTable.tmp input {
-        width: 3em;
+        width: 5em;
         font-weight: 300;
         padding: 0.1em;
     }
@@ -383,7 +383,8 @@ input:checked + .slider.salaryPrepaid:after {
     }
     .divTable.tmp .divTableRow {
         display: block;
-        border: outset;
+        border: solid white 3px;
+        min-height: 9em;
     }
     .divTable.tmp .divTableRow.head{
         display: none;
@@ -449,7 +450,9 @@ input:checked + .slider.salaryPrepaid:after {
     }
 
     .delButton {
-        margin: 0 0 12px 0 !important;
+        margin: 2em 0 0 0 !important;
+        width: 10em !important;
+        height: 2em !important;
     }
 
     .divTableAdd, .addWage, #addNoteTable{
