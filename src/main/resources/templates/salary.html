@@ -138,7 +138,7 @@
 
             $(".saveButton").click(function (s) {
                 s.preventDefault();
-                saveSalaryPrepaidFunc();
+                saveSalaryPrepaidFunc($(this).attr('id'));
             });
 
         });

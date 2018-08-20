@@ -16,17 +16,17 @@ function appendAllWages() {
             "</div>" +
 
             "<div class='divTableCell hidden salaryDate " + allWages[i].id + "'>" +
-                "<input type='hidden' id='salaryId' name='salaryId' value='" + allWages[i].id + "' />" +
-                "<input style='width: 90px;' type='text' id='salaryDateInput' name='salaryDateInput' value='" + allWages[i].salaryDate + "' />" +
+                "<input type='hidden' id='salaryIdInput' name='salaryId' value='" + allWages[i].id + "' />" +
+                "<input style='width: 90px;' type='text' class='date' id='salaryDateInput" + allWages[i].id + "' name='salaryDateInput' value='" + allWages[i].salaryDate + "' />" +
             "</div>" +
             "<div class='divTableCell hidden salary " + allWages[i].id + "'>" +
-                "<input style='width: 60px;' type='text' id='salaryInput' name='salaryInput' value='" + allWages[i].salary + "' />" +
+                "<input style='width: 60px;' type='text' id='salaryInput" + allWages[i].id + "' name='salaryInput' value='" + allWages[i].salary + "' />" +
             "</div>" +
             "<div class='divTableCell hidden prepaidDate " + allWages[i].id + "'>" +
-                "<input style='width: 90px;' type='text' id='prepaidDateInput' name='prepaidDateInput' value='" + allWages[i].prepaidDate + "' />" +
+                "<input style='width: 90px;' type='text' class='date' id='prepaidDateInput" + allWages[i].id + "' name='prepaidDateInput' value='" + allWages[i].prepaidDate + "' />" +
             "</div>" +
             "<div class='divTableCell hidden prepaid " + allWages[i].id + "'>" +
-                "<input style='width: 60px;' type='text' id='prepaidInput' name='prepaidInput' value='" + allWages[i].prepaid + "' />" +
+                "<input style='width: 60px;' type='text' id='prepaidInput" + allWages[i].id + "' name='prepaidInput' value='" + allWages[i].prepaid + "' />" +
             "</div>" +
             "<div class='divTableCell hidden salaryEditButtons " + allWages[i].id + "'>" +
                 "<div class='salaryHiddenButtons'>" +
@@ -37,12 +37,12 @@ function appendAllWages() {
     }
 }
 
-function saveSalaryPrepaidFunc() {
-    existSalaryId = $('#salaryIdInput').val();
-    existSalaryDate = $('#salaryDateInput').val();
-    existSalaryAmount = $('#salaryInput').val();
-    existPrepaidDate = $('#prepaidDateInput').val();
-    existPrepaidAmount = $('#prepaidInput').val();
+function saveSalaryPrepaidFunc(buttonId) {
+    existSalaryId = buttonId;
+    existSalaryDate = $('#salaryDateInput' + buttonId).val();
+    existSalaryAmount = $('#salaryInput' + buttonId).val();
+    existPrepaidDate = $('#prepaidDateInput' + buttonId).val();
+    existPrepaidAmount = $('#prepaidInput' + buttonId).val();
 
     existWageData = JSON.stringify({id: existSalaryId, salaryDate: existSalaryDate, salary: existSalaryAmount, prepaidDate: existPrepaidDate, prepaid: existPrepaidAmount});
     console.log(existWageData);
@@ -92,7 +92,7 @@ function editSalaryPrepaidFunc(i) {
 }
 
 $(function() {
-    $("#date").datepicker({
+    $(".date").datepicker({
         dateFormat: "yy-mm-dd"
     });
     $("#formDate").datepicker({
