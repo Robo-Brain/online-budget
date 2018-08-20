@@ -43,17 +43,17 @@ function appendTMPTable() {
     }
     $("#tmpTable").append(
         "<div class='divTableRow'>" +
-            "<div style='border: none' class='divTableCell'></div>" +
+            "<div class='divTableCell nope'></div>" +
             "<div class='divTableCell salaryOverload'>" +
                 salaryTotal.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) +
                 "<span class='tooltipSalary' title='Costs exceed the last salary!'></span>" +
             "</div>" +
-            "<div style='border: none' class='divTableCell'></div>" +
-            "<div style='border: none' class='divTableCell'></div>" +
-            "<div style='border: none' class='divTableCell'></div>" +
+            "<div class='divTableCell nope'></div>" +
+            "<div class='divTableCell nope'></div>" +
+            "<div class='divTableCell nope'></div>" +
         "</div>" +
         "<div class='divTableRow'>" +
-            "<div style='border: none' class='divTableCell'></div>" +
+            "<div class='divTableCell nope'></div>" +
             "<div class='divTableCell prepaidOverload'>" +
                 prepaidTotal.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) +
                 "<span class='tooltipPrepaid' title='Costs exceed the last prepaid!'></span>" +
@@ -61,8 +61,8 @@ function appendTMPTable() {
             "<div class='divTableCell finalAmount'> ∑ " +
                 amount.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) +
             "</div>" +
-            "<div style='border: none' class='divTableCell'></div>" +
-            "<div style='border: none' class='divTableCell'></div>" +
+            "<div class='divTableCell nope'>" +
+            "<div class='divTableCell nope'>" +
         "</div>"
     );
 }

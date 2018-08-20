@@ -46,7 +46,7 @@
     </p>
 </div>
 
-<div style="display: none" id="addWageForm">
+<div style="display: none" id="addWageForm" title="Add Wage">
     <form>
         <fieldset>
             <p>
@@ -82,7 +82,10 @@
 
             $("#addButton").click(function () {
                 $("#addWageForm").dialog({
-                    resizable: true,
+                    classes: {
+                        "ui-dialog": "ui-dialogAdd"
+                    },
+                    resizable: false,
                     height: "auto",
                     width: 400,
                     modal: true,

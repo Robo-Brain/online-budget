@@ -68,6 +68,7 @@ textarea {
 .loginForm .submit:hover, .loginForm .submit:active {
     color: #000;
     background-color: #E6FAF5;
+    transition-duration: .4s;
 }
 
 
@@ -399,15 +400,16 @@ input:checked + .slider.salaryPrepaid:after {
         background-color: #999999;
     }
 
+
     .divTable.tmp{
         display: block;
         width: 100%;
-        font-size: 14px;
+        font-size: 16px;
     }
-    .divTable.tmp input {
-        width: 5em;
+    #tmpTable input {
         font-weight: 300;
         padding: 0.1em;
+        border: solid #286A91 1px !important;
     }
     .divTable.tmp select {
         width: 5em;
@@ -416,10 +418,13 @@ input:checked + .slider.salaryPrepaid:after {
     .divTable.tmp input#name {
         width: 100%;
     }
+    #tmpTable .delButton {
+        margin: 2.3em 0 0 0;
+    }
     .divTable.tmp .divTableRow {
         display: block;
         border: solid white 3px;
-        min-height: 9em;
+        min-height: 1em;
     }
     .divTable.tmp .divTableRow.head{
         display: none;
@@ -430,7 +435,7 @@ input:checked + .slider.salaryPrepaid:after {
     }
     .divTable.tmp .divTableCell {
         display: block;
-        margin: 0 2%;
+        margin: 0 !important;
         border: none;
     }
     .divTable.tmp .divTableCell.amount {
@@ -438,6 +443,9 @@ input:checked + .slider.salaryPrepaid:after {
     }
     .divTable.tmp .divTableCell.switcher {
         float: left;
+    }
+    .divTable.tmp .divTableCell.switcher .switch {
+        margin: 0.3em 0 0 0;
     }
     .divTable.tmp .divTableCell.salaryPrepaid {
         float: left;
@@ -447,8 +455,8 @@ input:checked + .slider.salaryPrepaid:after {
     }
 	
     .divTableCell.nope {
-        display: none;
-        border: none;
+        display: none !important;
+        border: none !important;
     }
     .divTableRow.false .divTableCell {
         border: none !important;
@@ -482,12 +490,6 @@ input:checked + .slider.salaryPrepaid:after {
         font-size: 12px;
     }
 
-    #tmpTable .delButton {
-        margin: 2em 0 0 0 !important;
-        width: 4em !important;
-        height: 2em !important;
-    }
-
     .divTableAdd, .addWage, #addNoteTable{
         display: table;
         width: 36%;
@@ -509,25 +511,23 @@ input:checked + .slider.salaryPrepaid:after {
 
     .divTableCell.salaryDate {
         float: left;
-        //width: 50%;
+        width: 35%;
         padding: 1px 1px !important;
     }
     .divTableCell.salary {
         display: block;
-        //width: 50%;
         padding: 1px 1px !important;
     }
 
     .divTableCell.prepaidDate {
         border-top: 0px;
         float: left;
-        //width: 50%;
+        width: 35%;
         padding: 1px 1px !important;
     }
     .divTableCell.prepaid {
         border-top: 0px;
         display: block;
-        //width: 50%;
         padding: 1px 1px !important;
     }
     .divTableCell.salaryEditButtons {
@@ -543,26 +543,35 @@ input:checked + .slider.salaryPrepaid:after {
         margin: 0 1em 0 0 !important;
     }
 
+    /* adaptive mobile add salary content design START */
+
+    #showWageButton {
+        display: none;
+    }
+
     #addButton {
         display: block;
         border-radius: 50%;
-        width: 3em;
-        height: 3em;
+        width: 2.5em;
+        height: 2.5em;
         position: fixed;
-        bottom: 1em;
-        right: 1em;
+        bottom: 0.5em;
+        right: 0.5em;
         background-color: #5CDC6B;
+        border: solid #5EB268 1px;
         font-size: 2.5em;
         font-weight: bold;
         text-align: center;
         vertical-align: top;
         color: #fff;
         opacity: 0.7;
+        cursor: pointer;
     }
     #addButton:hover {
         opacity: 1;
         border-color: #29A138;
         transition-duration: .4s;
+        cursor: pointer;
     }
     #addButton span{
         position: absolute;
@@ -571,9 +580,10 @@ input:checked + .slider.salaryPrepaid:after {
         -webkit-transform: translate(-50%, -45%);
         transform: translate(-50%, -45%);
     }
-	#salaryTable {
-width: 100% !important;
-}
-	
 
+	#salaryTable {
+        width: 100% !important;
+    }
+
+    /* adaptive mobile add salary content design END */
 }
