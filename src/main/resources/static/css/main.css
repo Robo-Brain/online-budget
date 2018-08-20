@@ -131,6 +131,7 @@ textarea {
     font-size: 16px;
     font-weight: 300;
     padding: 0.1em;
+    border: solid #286A91 1px;
 }
 input#name {
     width: 10em;
@@ -181,7 +182,7 @@ input#name {
 }
 
 .notEnough {
-    border: solid red 2px !important;
+    border: solid red 1px !important;
 }
 
 .resultTable{
@@ -405,11 +406,6 @@ input:checked + .slider.salaryPrepaid:after {
         display: block;
         width: 100%;
         font-size: 16px;
-    }
-    #tmpTable input {
-        font-weight: 300;
-        padding: 0.1em;
-        border: solid #286A91 1px !important;
     }
     .divTable.tmp select {
         width: 5em;

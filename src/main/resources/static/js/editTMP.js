@@ -8,7 +8,7 @@ function appendTMPTable() {
         $("#tmpTable").append(
             "<div class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + "'>" +
             "<div class='divTableCell left'>" +
-                "<span class='hiddenMobileLabels'>Name: </span><br /><input type='text' class='name " + tmpVal[i].salaryPrepaid +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
+                "<input type='text' class='name " + tmpVal[i].salaryPrepaid +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
                 "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
                 "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
             "</div>" +
@@ -111,12 +111,15 @@ function overloadTooltip() {
 function delTMPFunc(i) {
     var id = i;
     $("#dialog-confirm").dialog({
+        classes: {
+            "ui-dialog": "ui-dialogNew"
+        },
         resizable: false,
         height: "auto",
         width: 400,
         modal: true,
         buttons: {
-            "Delete items": function() {
+            "Delete spend": function() {
                 $( this ).dialog( "close" );
                 $.ajax({
                     headers: {
@@ -130,6 +133,28 @@ function delTMPFunc(i) {
                         window.location.reload();
                     })
                 });
+            },
+            Cancel: function() {
+                $(this).dialog( "close" );
+                $(this).remove();
+            }
+        }
+    });
+}
+
+function addNewSPendMobile() {
+    $("#mobileAddSpend").dialog({
+        classes: {
+            "ui-dialog": "ui-dialogMobile"
+        },
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Add": function() {
+                $( this ).dialog( "close" );
+                addNewSpend($('#mobileName').val(), $('#mobileAmount').val(), $('#mobileSalaryPrepaid').is(':checked'), $('#mobileWithdraw').is(':checked'));
             },
             Cancel: function() {
                 $(this).dialog( "close" );

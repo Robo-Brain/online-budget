@@ -6,11 +6,35 @@
 <body>
 <th:block th:include="_menu"></th:block>
 
-<div style="display: none" id="dialog-confirm" title="Delete the spend?">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+<div style="display: none" id="dialog-confirm" title="Delete the spend?">Are you sure?</div>
+<div style="display: none" id="mobileAddSpend">
+    <form>
+        <fieldset>
+            <p>
+                <label for="mobileName">Name: </label>
+                <input type="text" name="mobileName" id="mobileName" class="text ui-widget-content ui-corner-all">
+            </p>
+            <p>
+                <label for="mobileAmount">Amount: </label>
+                <input type="text" name="mobileAmount" id="mobileAmount" class="text ui-widget-content ui-corner-all">
+            </p>
+            <p>Salary / Prepaid:
+                <label class="switch">
+                    <input class="mobileSalaryPrepaid" id="mobileSalaryPrepaid" name="mobileSalaryPrepaid" type="checkbox">
+                    <span class="slider salaryPrepaid"></span>
+                </label>
+            </p>
+            <p>Withdraw:
+                <label class="switch">
+                    <input class="mobileWithdraw" id="mobileWithdraw" name="mobileWithdraw" type="checkbox">
+                    <span class="slider withdraw"></span>
+                </label>
+            </p>
+        </fieldset>
+    </form>
 </div>
 
-<form id="actionForm">
+<form id="tmpForm">
     <div id="tmpTable" class="divTable tmp">
         <div class="divTableRow head">
             <div class="divTableCell">Name:</div>
@@ -25,7 +49,7 @@
 
 <p><button id="hideAddForm">Hide form</button></p>
 
-<form id="addForm" action="#" >
+<form id="pcAddForm" action="#" >
     <div class="divTableAdd">
         <div class="divTableRow">
             <div class="divTableCell">Name:</div>
@@ -35,28 +59,31 @@
         </div>
         <div class="divTableRow">
             <div class="divTableCell"><input type="text" id="newName" name="newName" /></div>
-            <div class="divTableCell"><input type="text" id="amount" name="amount" /></div>
+            <div class="divTableCell"><input type="text" id="newAmount" name="amount" /></div>
             <div class="divTableCell">
                 <label class="switch">
-                    <input class="salaryPrepaid" name="salaryPrepaid" type="checkbox">
+                    <input class="salaryPrepaid" id="newSalaryPrepaid" name="newSalaryPrepaid" type="checkbox">
                     <span class="slider salaryPrepaid"></span>
                 </label>
             </div>
             <div class="divTableCell">
                 <label class="switch">
-                    <input class="withdraw" name="withdraw" type="checkbox">
+                    <input class="withdraw" id="newWithdraw" name="withdraw" type="checkbox">
                     <span class="slider withdraw"></span>
                 </label>
             </div>
         </div>
     </div>
     <p>
-        <button class="submit" value="Submit">Add</button>
+        <button id="addNewSpend" class="submit" value="Submit">Add</button>
     </p>
 </form>
 <p>
     <button id="showAddForm">Add new spend</button>
 </p>
+
+<div class="mobileAddButton" id="addButton"> <span>+</span> </div>
+
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
         $(document).ready(function() {
@@ -64,17 +91,17 @@
             lastWage = /*[[${lastWage}]]*/ "";
 
             $("#hideAddForm").hide();
-            $("#addForm").hide();
+            $("#pcAddForm").hide();
 
             $("#hideAddForm").click(function(h){
                 h.preventDefault();
-                $("#addForm").hide();
+                $("#pcAddForm").hide();
                 $("#showAddForm").show();
                 $("#hideAddForm").hide();
             });
             $("#showAddForm").click(function(s){
                 s.preventDefault();
-                $("#addForm").show();
+                $("#pcAddForm").show();
                 $("#showAddForm").hide();
                 $("#hideAddForm").show();
             });
@@ -83,7 +110,17 @@
 
             overloadTooltip();
 
-            $(".delButton").click(function (d) {
+            $(".mobileAddButton").click(function (a) {
+                a.preventDefault();
+                addNewSPendMobile();
+            });
+
+            $("#addNewSpend").click(function (a) {
+                a.preventDefault();
+                addNewSpend($('#newName').val(), $('#newAmount').val(), $('#newSalaryPrepaid').is(':checked'), $('#newWithdraw').is(':checked'));
+            });
+
+            $(".delButton").click(function(d) {
                 d.preventDefault();
                 var id = $(this).attr('id');
                 delTMPFunc(id);

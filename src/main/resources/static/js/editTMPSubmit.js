@@ -1,4 +1,4 @@
-$('#actionForm').submit(function(e) {
+$('#tmpForm').submit(function(e) {
     e.preventDefault();
     var formArr = [];
     var formData = {};
@@ -30,7 +30,7 @@ $('#actionForm').submit(function(e) {
             formArr.push(formData);
         }
     });
-console.log(formArr);
+
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -46,31 +46,19 @@ console.log(formArr);
     })
 });
 
-$('#addForm').submit(function(z) {
-    z.preventDefault();
-
-    var formName = $("#newName").val();
-    var formAmount = $("#amount").val();
-    var formSalaryPrepaid = $('.salaryPrepaid').is(':checked');
-    var formWithdraw = $('.withdraw').is(':checked');
-
-    formData = {name : formName, amount : formAmount, salaryPrepaid : formSalaryPrepaid, withdraw: formWithdraw};
-
-    console.log(formData);
-
+function addNewSpend(name, amount, salaryPrepaid, withdraw) {
+    var newSpend = {name: name, amount: amount, salaryPrepaid: salaryPrepaid, withdraw: withdraw};
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         type: "post",
-        // url: "/addNewSpend",
-        dataType : 'json',
-        data : JSON.stringify(formData),
+        url: "/addNewSpend",
+        data : JSON.stringify(newSpend),
         success: $(document).ajaxStop(function(){
-            // window.location.reload();
+            window.location.reload();
         })
     });
-});
-
+}
 

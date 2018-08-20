@@ -8,6 +8,30 @@
 <body>
 <th:block th:include="_menu"></th:block>
 
+<div id="dialog-confirm">Are you sure?</div>
+
+<div class="mobileAddWage" style="display: none" id="addWageForm" title="Add Wage">
+    <form>
+        <fieldset>
+            <p>
+                <label for="date">Date: </label>
+                <input type="text" name="date" id="mobileDate" class="text ui-widget-content ui-corner-all">
+            </p>
+            <p>
+                <label for="mobileSalaryPrepaid">Salary / Prepaid: </label>
+                <select id="mobileSalaryPrepaid" name="mobileSalaryPrepaid">
+                    <option>Salary</option>
+                    <option>Prepaid</option>
+                </select>
+            </p>
+            <p>
+                <label for="mobileAmount">Amount: </label>
+                <input type="text" name="mobileAmount" id="mobileAmount" class="text ui-widget-content ui-corner-all">
+            </p>
+        </fieldset>
+    </form>
+</div>
+
 <div id="salaryTable" class="divTable">
     <div class="divTableRow header">
         <div class="divTableCell">Salary date:</div>
@@ -29,16 +53,16 @@
     </div>
     <div class="divTableRow">
         <div class="divTableCell">
-            <input type="text" id="date" name="date" autocomplete="off" />
+            <input type="text" id="newDate" name="date" autocomplete="off" />
         </div>
         <div class="divTableCell">
-            <select id="salaryPrepaid" name="salaryPrepaid">
-                <option>Salary</option>
-                <option>Prepaid</option>
-            </select>
+            <label class="switch">
+                <input id="newSalaryPrepaid" name="newSalaryPrepaid" type="checkbox" checked="checked">
+                <span class="slider salaryPrepaid"></span>
+            </label>
         </div>
         <div class="divTableCell">
-            <input type="text" id="amount" name="amount" />
+            <input type="text" id="newAmount" name="amount" />
         </div>
     </div>
     <p>
@@ -46,28 +70,8 @@
     </p>
 </div>
 
-<div style="display: none" id="addWageForm" title="Add Wage">
-    <form>
-        <fieldset>
-            <p>
-                <label for="date">Date: </label>
-                <input type="text" name="date" id="formDate" class="text ui-widget-content ui-corner-all">
-            </p>
-            <p>
-            <label for="formSalaryPrepaid">Salary / Prepaid: </label>
-            <select id="formSalaryPrepaid" name="salaryPrepaid">
-                <option>Salary</option>
-                <option>Prepaid</option>
-            </select>
-            </p>
-            <p>
-            <label for="formAmount">Amount: </label>
-            <input type="text" name="formAmount" id="formAmount" class="text ui-widget-content ui-corner-all">
-            </p>
-        </fieldset>
-    </form>
-</div>
 <div id="addButton"> <span>+</span> </div>
+
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
         $(document).ready(function() {
@@ -80,32 +84,18 @@
 
             $( "#addButton" ).draggable();
 
-            $("#addButton").click(function () {
-                $("#addWageForm").dialog({
-                    classes: {
-                        "ui-dialog": "ui-dialogAdd"
-                    },
-                    resizable: false,
-                    height: "auto",
-                    width: 400,
-                    modal: true,
-                    buttons: {
-                        "Add": function() {
-                            $( this ).dialog( "close" );
-                            addWage('mobile');
-                        },
-                        Cancel: function() {
-                            $(this).dialog( "close" );
-                            $(this).remove();
-                        }
-                    }
-                });
 
+            $("#addWageMobile").click(function (e) {
+                e.preventDefault();
+                addSalaryPrepaidMobile();
             });
 
             $(".addWageButton").click(function (e) {
                 e.preventDefault();
-                addWage('pc');
+                var date = $('#newDate').val();
+                var amount = $('#newAmount').val();
+                var isSalary = $('#newSalaryPrepaid').is(':checked');
+                addWage(date, amount, isSalary);
             });
 
             $("#showWageButton").click(function () {
@@ -121,21 +111,17 @@
                 var id = $(this).attr('id');
                 editSalaryPrepaidFunc(id);
             });
-
             $(".delButton").click(function(d) {
                 d.preventDefault();
                 var id = $(this).attr('id');
                 deleteSalaryPrepaidFunc(id);
-
             });
-
             $(".cancelButton").click(function(c) {
                 c.preventDefault();
                 var id = $(this).attr('id');
                 $('.divTableCell.' + id).show();
                 $('.divTableCell.hidden.' + id).hide();
             });
-
             $(".saveButton").click(function (s) {
                 s.preventDefault();
                 saveSalaryPrepaidFunc($(this).attr('id'));

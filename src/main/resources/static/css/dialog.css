@@ -54,26 +54,18 @@
     background-color: #77dd77 !important;
 }
 
-/* adaptive mobile design */
-
-.ui-dialogAdd {
-    width: 90% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.ui-dialogAdd .ui-dialog-titlebar {
+.ui-dialogNew .ui-dialog-titlebar {
     background-color: #56A28F !important;
     color: #fff;
     border-bottom: solid #259277 1px !important;
     border-radius: 0px !important;
 }
 
-.ui-dialogAdd fieldset {
+.ui-dialogNew fieldset {
     border: solid #259277 1px !important;
 }
 
-.ui-dialogAdd button {
+.ui-dialogNew button {
     background-color: #5986A0;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -88,8 +80,16 @@
     margin: 5px 0;
 }
 
-.ui-dialogAdd button:hover {
+.ui-dialogNew button:hover {
     background-color: #286A91;
     border:1px solid #5986A0;
     text-shadow: 0px 1px 1px #5986A0;
 }
+
+/* adaptive mobile design */
+.ui-dialogMobile {
+    width: 90% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+

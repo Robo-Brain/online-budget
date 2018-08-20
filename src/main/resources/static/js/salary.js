@@ -62,22 +62,67 @@ function saveSalaryPrepaidFunc(buttonId) {
 }
 
 function addSalaryPrepaidMobile() {
-
+    $("#addWageForm").dialog({
+        classes: {
+            "ui-dialog": "ui-dialogMobile"
+        },
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Add": function() {
+                $( this ).dialog( "close" );
+                var date = $('#mobileDate').val();
+                var amount = $('#mobileAmount').val();
+                var isSalary = $('#mobileSalaryPrepaid').is(':checked');
+                addWage(date, amount, isSalary);
+            },
+            Cancel: function() {
+                $(this).dialog( "close" );
+                $(this).remove();
+            }
+        }
+    });
 }
 
 function deleteSalaryPrepaidFunc(i) {
+    var dialogClass = "ui-dialogNew";
+    $(function() {
+        if(screen.width<1000) {
+            dialogClass = "ui-dialogMobile";
+        }
+    });
     var id = i;
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+    $("#dialog-confirm").dialog({
+        classes: {
+            "ui-dialog": dialogClass
         },
-        type: "post",
-        url: "/delSalary",
-        data : id,
-        success: $(document).ajaxStop(function(){
-            window.location.reload();
-        })
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Delete": function() {
+                $( this ).dialog( "close" );
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: "post",
+                    url: "/delSalary",
+                    data : id,
+                    success: $(document).ajaxStop(function(){
+                        window.location.reload();
+                    })
+                });
+            },
+            Cancel: function() {
+                $(this).dialog( "close" );
+                $(this).remove();
+            }
+        }
     });
 }
 
@@ -95,7 +140,7 @@ $(function() {
     $(".date").datepicker({
         dateFormat: "yy-mm-dd"
     });
-    $("#formDate").datepicker({
+    $("#newDate").datepicker({
         dateFormat: "yy-mm-dd"
     });
     $("#salaryDateInput").datepicker({
