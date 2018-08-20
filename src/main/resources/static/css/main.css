@@ -5,7 +5,6 @@ body {
     font-variant: normal;
     font-weight: 300;
     line-height: 28px;
-    min-width: 480px;
     transition-duration: .2s;
 }
 
@@ -446,9 +445,7 @@ input:checked + .slider.salaryPrepaid:after {
     .divTable.tmp .divTableCell.withdraw {
         float: left;
     }
-	divTableCell.finalAmount {
-		font-size:18px;
-	}
+	
     .divTableCell.nope {
         display: none;
         border: none;
@@ -512,25 +509,25 @@ input:checked + .slider.salaryPrepaid:after {
 
     .divTableCell.salaryDate {
         float: left;
-        min-width: 30%;
+        //width: 50%;
         padding: 1px 1px !important;
     }
     .divTableCell.salary {
         display: block;
-        min-width: 20%;
+        //width: 50%;
         padding: 1px 1px !important;
     }
 
     .divTableCell.prepaidDate {
         border-top: 0px;
         float: left;
-        min-width: 30%;
+        //width: 50%;
         padding: 1px 1px !important;
     }
     .divTableCell.prepaid {
         border-top: 0px;
         display: block;
-        min-width: 20%;
+        //width: 50%;
         padding: 1px 1px !important;
     }
     .divTableCell.salaryEditButtons {
@@ -574,5 +571,9 @@ input:checked + .slider.salaryPrepaid:after {
         -webkit-transform: translate(-50%, -45%);
         transform: translate(-50%, -45%);
     }
+	#salaryTable {
+width: 100% !important;
+}
+	
 
 }
