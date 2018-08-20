@@ -576,7 +576,7 @@ input:checked + .slider.salaryPrepaid:after {
     #addButton span{
         position: absolute;
         left: 50%;
-        top: 45%;
+        top: 50%;
         -webkit-transform: translate(-50%, -45%);
         transform: translate(-50%, -45%);
     }

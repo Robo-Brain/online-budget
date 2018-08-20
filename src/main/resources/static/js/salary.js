@@ -95,6 +95,9 @@ $(function() {
     $("#date").datepicker({
         dateFormat: "yy-mm-dd"
     });
+    $("#formDate").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
     $("#salaryDate").datepicker({
         dateFormat: "yy-mm-dd"
     });
