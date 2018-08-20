@@ -98,10 +98,10 @@ $(function() {
     $("#formDate").datepicker({
         dateFormat: "yy-mm-dd"
     });
-    $("#salaryDate").datepicker({
+    $("#salaryDateInput").datepicker({
         dateFormat: "yy-mm-dd"
     });
-    $("#prepaidDate").datepicker({
+    $("#prepaidDateInput").datepicker({
         dateFormat: "yy-mm-dd"
     });
 });
