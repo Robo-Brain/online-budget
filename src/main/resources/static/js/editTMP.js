@@ -201,7 +201,7 @@ $( function() {
 });
 
 $(function() {
-    if(screen.width<2000) {
+    if(screen.width<1000) {
         $('#tmpTable').addClass("cancel");
     }
 });
