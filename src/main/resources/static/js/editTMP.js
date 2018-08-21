@@ -178,8 +178,16 @@ function addNewSPendMobile() {
 
 $( function() {
     var indexNum = 1;
-    $( "#tmpTable" ).sortable({
-        revert       : true,
+    $("#tmpTable").sortable({
+        sort: function() {
+            if ($(this).hasClass("cancel")) {
+                $(this).sortable("cancel");
+            }
+        },
+        axix         : "y",
+        opacity      : 0.6,
+        revert       : 600,
+        scroll       : true,
         connectWith  : "#tmpTable",
         stop         : function(){
             $('.divTableRow.tmp input#indexEntry').each(function () {
@@ -190,4 +198,19 @@ $( function() {
         }
     });
     $( "#tmpTable" ).disableSelection();
+});
+
+$(function() {
+    if(screen.width<2000) {
+        $('#tmpTable').addClass("cancel");
+    }
+});
+
+$("#unstuck").click(function (u) {
+    u.preventDefault();
+    if ($('#tmpTable').hasClass("cancel")) {
+        $('#tmpTable').removeClass("cancel");
+    } else {
+        $('#tmpTable').addClass("cancel");
+    }
 });

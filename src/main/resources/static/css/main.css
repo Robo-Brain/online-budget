@@ -358,6 +358,9 @@ input:checked + .slider.salaryPrepaid:after {
     display: none;
 }
 
+#unstuck {
+    display: none;
+}
 
 @media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px) {
 
@@ -585,4 +588,8 @@ input:checked + .slider.salaryPrepaid:after {
     }
 
     /* adaptive mobile add salary content design END */
+
+    #unstuck {
+        display: block;
+    }
 }
