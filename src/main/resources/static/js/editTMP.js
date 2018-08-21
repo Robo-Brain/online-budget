@@ -209,11 +209,6 @@ $(function() {
 
 $("#unstuck").click(function (u) {
     u.preventDefault();
-    if ($('#tmpTable').hasClass("cancel")) {
-        $('#tmpTable').removeClass("cancel");
-        $( "#tmpTable" ).disableSelection();
-    } else {
-        $('#tmpTable').addClass("cancel");
-        $( "#tmpTable" ).enableSelection();
-    }
+    $('#tmpTable').removeClass("cancel");
+    $( "#tmpTable" ).disableSelection();
 });
