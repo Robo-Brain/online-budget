@@ -2,37 +2,48 @@ var amount = 0;
 var salaryTotal = 0;
 var prepaidTotal = 0;
 
+var tmpVal = [{}];
+
 function appendTMPTable() {
+
+    tmpVal = tmp.slice(0);
+    tmpVal.sort(function(a,b) {
+        return a.index - b.index;
+    });
+
     for (i = 0; i < tmpVal.length; i++) {
+
         amount += parseInt(tmpVal[i].amount);
+
         $("#tmpTable").append(
-            "<div class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + "'>" +
-            "<div class='divTableCell left'>" +
-                "<input type='text' class='name " + tmpVal[i].salaryPrepaid +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
-                "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
-                "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
-            "</div>" +
-            "<div class='divTableCell amount'>" +
-                "<span class='hiddenMobileLabels'>Amount: </span><br /><input type='text' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
-            "</div>" +
-            "<div class='divTableCell switcher'>" +
-                "<span class='hiddenMobileLabels'>Salary: </span><br />" +
-                "<label class='switch'>" +
-                    "<input type='checkbox' id='salaryPrepaid' class='salaryPrepaid " + tmpVal[i].salaryPrepaid +"' name='salaryPrepaid" + tmpVal[i].id +"' />" +
-                    "<span class='slider salaryPrepaid'></span>" +
-                "</label>" +
-            "</div>" +
-            "<div class='divTableCell withdraw switcher'>" +
-            "<span class='hiddenMobileLabels'>Withdraw: </span><br />" +
-                "<label class='switch'>" +
-                    "<input type='checkbox' id='withdraw' class='withdraw " + tmpVal[i].withdraw +"' name='withdraw" + tmpVal[i].id +"' />" +
-                    "<span class='slider'></span>" +
-                "</label>" +
-            "</div>" +
-            "<div class='divTableCell del'>" +
-                "<button class='delButton' id='" + tmpVal[i].id + "'>del</button>" +
-            "</div>" +
-        "</div>");
+            "<div class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + " tmp'>" +
+                "<div class='divTableCell left'>" +
+                    "<input type='text' class='name " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
+                    "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
+                    "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
+                    "<input type='hidden' class='index " + tmpVal[i].id + "' id='indexEntry' name='indexEntry' value='" + tmpVal[i].index + "' />" +
+                "</div>" +
+                "<div class='divTableCell amount'>" +
+                    "<span class='hiddenMobileLabels'>Amount: </span><br /><input type='text' class='amount " + tmpVal[i].id + "' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
+                "</div>" +
+                "<div class='divTableCell switcher'>" +
+                    "<span class='hiddenMobileLabels'>Salary: </span><br />" +
+                    "<label class='switch'>" +
+                        "<input type='checkbox' id='salaryPrepaid' class='salaryPrepaid " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id + "' name='salaryPrepaid" + tmpVal[i].id +"' />" +
+                        "<span class='slider salaryPrepaid'></span>" +
+                    "</label>" +
+                "</div>" +
+                "<div class='divTableCell withdraw switcher'>" +
+                "<span class='hiddenMobileLabels'>Withdraw: </span><br />" +
+                    "<label class='switch'>" +
+                        "<input type='checkbox' id='withdraw' class='withdraw " + tmpVal[i].withdraw + ' ' + tmpVal[i].id + "' name='withdraw" + tmpVal[i].id +"' />" +
+                        "<span class='slider'></span>" +
+                    "</label>" +
+                "</div>" +
+                "<div class='divTableCell del'>" +
+                    "<button class='delButton' id='" + tmpVal[i].id + "'>del</button>" +
+                "</div>" +
+            "</div>");
 
         $('.salaryPrepaid.true').prop('checked', true);
         $('.salaryPrepaid.false').prop('unchecked', false);
@@ -66,6 +77,7 @@ function appendTMPTable() {
         "</div>"
     );
 }
+
 
 function preTotal(salaryPrepaid, amount) {
     if (salaryPrepaid == true || salaryPrepaid == 'true') {
@@ -163,3 +175,19 @@ function addNewSPendMobile() {
         }
     });
 }
+
+$( function() {
+    var indexNum = 1;
+    $( "#tmpTable" ).sortable({
+        revert       : true,
+        connectWith  : "#tmpTable",
+        stop         : function(){
+            $('.divTableRow.tmp input#indexEntry').each(function () {
+                $(this).val(indexNum);
+                indexNum++;
+            });
+            saveTMPTable();
+        }
+    });
+    $( "#tmpTable" ).disableSelection();
+});

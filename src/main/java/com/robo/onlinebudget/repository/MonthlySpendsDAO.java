@@ -4,9 +4,9 @@ package com.robo.onlinebudget.repository;
 import com.robo.onlinebudget.entity.SpendsEntity;
 import com.robo.onlinebudget.entity.SpendsMonthlyEntity;
 import com.robo.onlinebudget.entity.WagesEntity;
-import com.robo.onlinebudget.form.SaveSpends;
 import com.robo.onlinebudget.form.SaveNewMonth;
 import com.robo.onlinebudget.form.SaveNewWage;
+import com.robo.onlinebudget.form.SaveSpends;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,7 @@ public class MonthlySpendsDAO {
             submap.put("amount", String.valueOf(se.getAmount()));
             submap.put("salaryPrepaid", String.valueOf(se.getSalaryPrepaid()));
             submap.put("withdraw", String.valueOf(se.getWithdraw()));
+            submap.put("index", String.valueOf(se.getIndex()));
 
             map.add(i, submap);
         }
@@ -52,13 +53,17 @@ public class MonthlySpendsDAO {
     @SuppressWarnings("unchecked")
     public void savePaymentTemplate(List<SaveSpends> savePaymentTMP) {
         for (SaveSpends es : savePaymentTMP) {
-            SpendsEntity se = new SpendsEntity(es.getId(), es.getName(), es.getAmount(), es.getSalaryPrepaid(), es.getWithdraw());
-            sessionFactory.getCurrentSession().update(se);
+            SpendsEntity se = new SpendsEntity(es.getId(), es.getName(), es.getAmount(), es.getSalaryPrepaid(), es.getWithdraw(), es.getIndex());
+            sessionFactory.getCurrentSession().saveOrUpdate(se);
         }
     }
 
     public void addNewSpendToTemplate(SaveSpends editTMPSpends) {
-        SpendsEntity se = new SpendsEntity(editTMPSpends.getId(), editTMPSpends.getName(), editTMPSpends.getAmount(), editTMPSpends.getSalaryPrepaid(), editTMPSpends.getWithdraw());
+
+        String hql = "SELECT new " + SpendsEntity.class.getName() + "(e.index) FROM " + SpendsEntity.class.getName() + " e " + "ORDER BY e.index DESC";
+        SpendsEntity indexMaxNum = sessionFactory.getCurrentSession().createQuery(hql, SpendsEntity.class).setMaxResults(1).uniqueResult();
+
+        SpendsEntity se = new SpendsEntity(editTMPSpends.getId(), editTMPSpends.getName(), editTMPSpends.getAmount(), editTMPSpends.getSalaryPrepaid(), editTMPSpends.getWithdraw(), indexMaxNum.getIndex() + 1);
         sessionFactory.getCurrentSession().save(se);
 
         SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
@@ -192,6 +197,7 @@ public class MonthlySpendsDAO {
             submap.put("amount", se.getAmount().toString());
             submap.put("salaryPrepaid", String.valueOf(se.getSalaryPrepaid()));
             submap.put("withdraw", String.valueOf(se.getWithdraw()));
+            submap.put("index", String.valueOf(se.getIndex()));
             submap.put("id", String.valueOf(sme.getId()));
             submap.put("date", String.valueOf(sme.getDate()));
             submap.put("spendId", String.valueOf(sme.getSpendId()));

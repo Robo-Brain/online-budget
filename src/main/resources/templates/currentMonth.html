@@ -21,7 +21,7 @@
 <div class="resultTable"></div>
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
-        currentMonth = /*[[${currentMonth}]]*/ "";
+        curMonth = /*[[${currentMonth}]]*/ "";
 
         $(document).ready(function() {
             appendCurrentDateTable();

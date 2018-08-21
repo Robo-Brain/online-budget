@@ -1,35 +1,23 @@
-$('#tmpForm').submit(function(e) {
-    e.preventDefault();
+function saveTMPTable() {
+
     var formArr = [];
     var formData = {};
-    var formId;
-    var formSpendId;
-    var formAmount;
-    var formName;
-    var formSalaryPrepaid;
-    var formWithdraw;
 
-    $.each(this, function(i, v){
-        var input = $(v);
+    for (i = 0; i < tmpVal.length; i++) {
+        var id = tmpVal[i].id;
 
-        if (input.attr("name") == 'undefined' || input.attr("name") == undefined){
-            console.log('fkin bttn again tryin to get into JSON!');
-        } else if(input.attr("name") == 'id') {
-            formId = input.val();
-        } else if(input.attr("name") == 'spendId') {
-            formSpendId = input.val();
-        } else if(input.attr("name") == 'amount') {
-            formAmount = input.val();
-        } else if(input.attr("name") == 'name') {
-            formName = input.val();
-        }else if(input.attr("id") == 'salaryPrepaid') {
-            formSalaryPrepaid = $(this).is(':checked');
-        }else if(input.attr("id") == 'withdraw') {
-            formWithdraw = $(this).is(':checked');
-            formData = {id : formId, name: formName, amount : formAmount, salaryPrepaid: formSalaryPrepaid, withdraw: formWithdraw};
-            formArr.push(formData);
-        }
-    });
+        var formName = $('.name.' + id).val();
+        var formAmount = $('.amount.' + id).val();
+        var formSalaryPrepaid = $('.salaryPrepaid.' + id).is(':checked');
+        var formWithdraw = $('.withdraw.' + id).is(':checked');
+        var formIndex = $('.index.' + id).val();
+
+        formData = {id : id, name: formName, amount : formAmount, salaryPrepaid: formSalaryPrepaid, withdraw: formWithdraw, index: formIndex};
+
+        formArr.push(formData);
+    }
+
+    console.log(formArr);
 
     $.ajax({
         headers: {
@@ -43,8 +31,10 @@ $('#tmpForm').submit(function(e) {
         success: $(document).ajaxStop(function(){
             window.location.reload();
         })
-    })
-});
+    });
+
+}
+
 
 function addNewSpend(name, amount, salaryPrepaid, withdraw) {
     var newSpend = {name: name, amount: amount, salaryPrepaid: salaryPrepaid, withdraw: withdraw};

@@ -34,18 +34,18 @@
     </form>
 </div>
 
-<form id="tmpForm">
-    <div id="tmpTable" class="divTable tmp">
-        <div class="divTableRow head">
-            <div class="divTableCell">Name:</div>
-            <div class="divTableCell">Amount:</div>
-            <div class="divTableCell">Salary/Prepaid:</div>
-            <div class="divTableCell">Withdraw:</div>
-            <div class="divTableCell">X</div>
-        </div>
+
+<div id="tmpTable" class="divTable tmp">
+    <div class="divTableRow head">
+        <div class="divTableCell">Name:</div>
+        <div class="divTableCell">Amount:</div>
+        <div class="divTableCell">Salary/Prepaid:</div>
+        <div class="divTableCell">Withdraw:</div>
+        <div class="divTableCell">X</div>
     </div>
-        <button class="submit" value="Submit">Save</button>
-</form>
+</div>
+<button id="tmpSubmit" class="submit" value="Submit">Save</button>
+
 
 <p><button id="hideAddForm">Hide form</button></p>
 
@@ -84,10 +84,12 @@
 
 <div class="mobileAddButton" id="addButton"> <span>+</span> </div>
 
+<button id="z">!</button>
+
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
         $(document).ready(function() {
-            tmpVal = /*[[${paymentTMP}]]*/ "";
+            tmp = /*[[${paymentTMP}]]*/ "";
             lastWage = /*[[${lastWage}]]*/ "";
 
             $("#hideAddForm").hide();
@@ -107,8 +109,12 @@
             });
 
             appendTMPTable();
-
             overloadTooltip();
+
+            $("#tmpSubmit").click(function (s) {
+                s.preventDefault();
+                saveTMPTable();
+            });
 
             $(".mobileAddButton").click(function (a) {
                 a.preventDefault();

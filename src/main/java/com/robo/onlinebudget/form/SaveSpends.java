@@ -16,6 +16,7 @@ public class SaveSpends {
     private Integer amount;
     private boolean salaryPrepaid;
     private boolean withdraw;
+    private Integer index;
 
     public Long getId() {
         return id;
@@ -57,4 +58,11 @@ public class SaveSpends {
         this.withdraw = withdraw;
     }
 
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
 }

@@ -32,16 +32,24 @@ public class SpendsEntity {
     @Column(name = "withdraw")
     private boolean withdraw;
 
+    @Column(name = "indexNum")
+    private Integer index;
+
     @OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
     @JoinColumn(name = "spendId", updatable = false)
     private List<SpendsMonthlyEntity> spendsMonthly = new ArrayList<>();
 
-    public SpendsEntity(Long id, String name, Integer amount, boolean salaryPrepaid, boolean withdraw) {
+    public SpendsEntity(Long id, String name, Integer amount, boolean salaryPrepaid, boolean withdraw, Integer index) {
         this.id = id;
         this.name = name;
         this.amount = amount;
         this.salaryPrepaid = salaryPrepaid;
         this.withdraw = withdraw;
+        this.index = index;
+    }
+
+    public SpendsEntity(Integer index) {
+        this.index = index;
     }
 
     public SpendsEntity(Long id, String name) {
@@ -95,5 +103,13 @@ public class SpendsEntity {
 
     public void setSpendsMonthly(List<SpendsMonthlyEntity> spendsMonthly) {
         this.spendsMonthly = spendsMonthly;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 }

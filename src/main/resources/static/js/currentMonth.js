@@ -5,6 +5,13 @@ var withdrawPrepaid = 0;
 var withdrawNotPrepaid = 0;
 
 function appendCurrentDateTable() {
+
+    currentMonth = curMonth.slice(0);
+    currentMonth.sort(function(a,b) {
+        return a.index - b.index;
+    });
+    console.log(currentMonth);
+
     for (i = 0; i < currentMonth.length; i++) {
         $("#currentDate").html(currentMonth[i].date);
         $(".divTable").append(
