@@ -35,17 +35,8 @@ $('#actionForm').submit(function(e) {
         url: "/saveExistingMonth",
         dataType : 'json',
         data : JSON.stringify(formArr),
-        success: $("#dialog-success").dialog({
-            resizable: false,
-            height: "auto",
-            width: 400,
-            modal: true,
-            buttons: {
-                "OK": function () {
-                    $(this).dialog("close");
-                    location.reload();
-                }
-            }
-        })
+        success: $(document).ajaxStop(function(){
+                        window.location.reload();
+                    })
     });
 });
