@@ -203,14 +203,12 @@ $( function() {
 $(function() {
     if(screen.width<1000) {
         $('#tmpTable').addClass("cancel");
+        $( "#tmpTable" ).enableSelection();
     }
 });
 
 $("#unstuck").click(function (u) {
     u.preventDefault();
-    if ($('#tmpTable').hasClass("cancel")) {
-        $('#tmpTable').removeClass("cancel");
-    } else {
-        $('#tmpTable').addClass("cancel");
-    }
+    $('#tmpTable').removeClass("cancel");
+    $( "#tmpTable" ).disableSelection();
 });
