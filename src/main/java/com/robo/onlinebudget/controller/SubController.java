@@ -52,7 +52,7 @@ public class SubController {
         return "success";
     }
 
-    @PostMapping("/saveExistSalary")
+    @PostMapping("/saveExistNote")
     @ResponseBody
     public String saveNote(@RequestBody SaveNote saveNote) {
         additionsDAO.saveNote(saveNote);

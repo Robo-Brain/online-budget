@@ -177,11 +177,11 @@ input#name {
     border: none;
 }
 
-.divTableCell.true {
+.currentMonth.true {
     background: url("../img/cash3.png") transparent no-repeat center center;
     padding: 14px;
 }
-.divTableCell.false {
+.currentMonth.false {
     background: url("../img/card.png") transparent no-repeat center center;
     padding: 14px;
 }
@@ -513,7 +513,8 @@ input:checked + .slider.salaryPrepaid:after {
 
     .divTableRow.salaryTable {
         display: block;
-        font-size: 15px;
+        font-size: 1.2em;
+        line-height: 2em;
     }
 
     .divTableRow.header {
@@ -571,7 +572,7 @@ input:checked + .slider.salaryPrepaid:after {
         height: 2.2em;
         position: fixed;
         bottom: 1em;
-        right: 0.2em;
+        right: 0.5em;
         background-color: #5CDC6B;
         border: solid #5EB268 1px;
         font-size: 2.2em;
@@ -613,4 +614,86 @@ input:checked + .slider.salaryPrepaid:after {
         margin: 0 1% 0 0 !important;
         float: left;
     }
+
+    #addNoteTable {
+        display: none;
+    }
+
+    #notesTable {
+        width: 100%;
+    }
+
+    .divTableRow.head {
+        display: none;
+    }
+
+    .divTableRow.note {
+        display: block;
+        margin-bottom: 1em !important;
+    }
+
+    .noteDate {
+        display: block !important;
+        float: none !important;
+        font-size: 2em !important;
+    }
+
+    .noteText {
+        display: block !important;
+        float: none !important;
+        border-top: 0 !important;
+        height: 5em !important;
+        overflow: auto !important;
+        line-height: 1.2em !important;
+        padding: 0.8em !important;
+    }
+
+    /* width */
+    .noteText::-webkit-scrollbar {
+        width: 1.5em;
+    }
+
+    /* Track */
+    .noteText::-webkit-scrollbar-track {
+        background: #98F4A3;
+    }
+
+    /* Handle */
+    .noteText::-webkit-scrollbar-thumb {
+        background: #5CDC6B;
+    }
+
+    /* Handle on hover */
+    .noteText::-webkit-scrollbar-thumb:hover {
+        background: #29A138;
+    }
+
+    .noteRemind {
+        display: block !important;
+        border-top: 0 !important;
+    }
+    .noteButtons {
+        display: block !important;
+        border-top: 0 !important;
+    }
+
+    .remindBoolean {
+        display: none !important;
+    }
+
+    .bell.false {
+        display: block;
+        margin: 0 auto;
+        background: url("../img/notRemind.png") transparent no-repeat center center;
+        height: 32px;
+        width: 29px;
+    }
+    .bell.true {
+        display: block;
+        margin: 0 auto;
+        background: url("../img/remind.png") transparent no-repeat center center;
+        height: 32px;
+        width: 36px;
+    }
+
 }

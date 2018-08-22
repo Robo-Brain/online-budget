@@ -1,70 +1,97 @@
-$(function() {
-    $("#addNote").click(function (x) {
-        x.preventDefault();
-        var date = $('#date').val();
-        var text = $('#text').val();
-        var isRemind = $('#isRemind').is(':checked');
-
-        if (text == '') {
-            text = null;
-        }
-
-        console.log(date + " / " + text);
-
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            type: "post",
-            url: "/addNote",
-            data : JSON.stringify({date: date, text: text, remind: isRemind}),
-            success: $(document).ajaxStop(function(){
-                window.location.reload();
-            })
-        });
-    });
-});
-
 function appendNotes() {
     for (i = 0; i < notes.length; i++) {
         $("#notesTable").append(
-            "<div class='divTableRow " + notes[i].id + "'>" +
+            "<div class='divTableRow " + notes[i].id + " note'>" +
                 "<input type='hidden' id='id' name='id' value='" + notes[i].id + "' />" +
-                "<div class='divTableCell " + notes[i].id + "'>" + notes[i].date + "</div>" +
-                "<div class='divTableCell " + notes[i].id + "'>" + notes[i].text + "</div>" +
-                "<div class='divTableCell " + notes[i].id + "'>" + notes[i].remind + "</div>" +
-                "<div class='divTableCell " + notes[i].id + "'>" +
-                    "<div class='editButtons'>" +
+                "<div class='divTableCell " + notes[i].id + " noteDate'>" + notes[i].date + "</div>" +
+                "<div class='divTableCell " + notes[i].id + " noteText'>" + notes[i].text + "</div>" +
+                "<div class='divTableCell " + notes[i].id + ' ' + notes[i].remind + " noteRemind'>" +
+                    "<span id='" + notes[i].id + "' class='bell " + notes[i].remind + "'>&nbsp;</span>" +
+                    "<span class='remindBoolean'>" + notes[i].remind + "</span>" +
+                "</div>" +
+                "<div class='divTableCell " + notes[i].id + " noteButtons'>" +
+                "<div class='editButtons'>" +
                     "<button class='editButton' id='" + notes[i].id + "'>EDIT</button>&nbsp;" +
                     "<button class='delButton' id='" + notes[i].id + "'>DEL</button>" +
-                    "</div>" +
+                "</div>" +
                 "</div>" +
 
-            "<div class='divTableCell hidden " + notes[i].id + "'>" +
-                "<input type='hidden' id='noteId' name='noteId' value='" + notes[i].id + "' />" +
-                "<input style='width: 90px;' type='text' id='noteDate" + notes[i].id + "' name='noteDate' class='date' value='" + notes[i].date + "' />" +
-            "</div>" +
-            "<div class='divTableCell hidden " + notes[i].id + "'>" +
-                "<textarea rows='4' cols='50' id='noteText" + notes[i].id + "' name='noteText' >" + notes[i].text + "</textarea>" +
-            "</div>" +
-            "<div class='divTableCell hidden " + notes[i].id + "'>" +
-                "<label class='switch'>" +
-                "<input type='checkbox' id='isRemind" + notes[i].id + "' class='" + notes[i].remind +"' name='isRemind' />" +
-                    "<span class='slider'></span>" +
-                "</label>" +
-            "</div>" +
-            "<div class='divTableCell hidden " + notes[i].id + "'>" +
+                "<div class='divTableCell hidden " + notes[i].id + "'>" +
+                    "<input type='hidden' id='noteId' name='noteId' value='" + notes[i].id + "' />" +
+                    "<input style='width: 90px;' type='text' id='noteDate" + notes[i].id + "' name='noteDate' class='date' value='" + notes[i].date + "' />" +
+                "</div>" +
+                "<div class='divTableCell hidden " + notes[i].id + "'>" +
+                    "<textarea rows='4' cols='50' id='noteText" + notes[i].id + "' name='noteText' >" + notes[i].text + "</textarea>" +
+                "</div>" +
+                "<div class='divTableCell hidden " + notes[i].id + "'>" +
+                    "<label class='switch'>" +
+                        "<input type='checkbox' id='isRemind" + notes[i].id + "' class='" + notes[i].remind +"' name='isRemind' />" +
+                        "<span class='slider'></span>" +
+                    "</label>" +
+                "</div>" +
+                "<div class='divTableCell hidden " + notes[i].id + "'>" +
                 "<div class='salaryHiddenButtons'>" +
                     "<button class='saveButton' id='" + notes[i].id + "'>✓</button><button class='cancelButton' id='" + notes[i].id + "'>X</button>" +
                 "</div>" +
-            "</div>" +
+                "</div>" +
 
             "</div>");
 
         $('.true').prop('checked', true);
         $('.false').prop('unchecked', false);
     }
+}
+
+$(".addNotePC").click(function (x) {
+    x.preventDefault();
+    addNote( $('#date').val(), $('#text').val(), $('#isRemind').is(':checked'));
+});
+
+$('.addNoteMobile').click(function (a) {
+    a.preventDefault();
+    $("#mobileAddNote").dialog({
+        classes: {
+            "ui-dialog": "ui-dialogMobile"
+        },
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Add": function() {
+                $( this ).dialog( "close" );
+                addNote( $('#mobileDate').val(), $('#mobileText').val(), $('#mobileIsRemind').is(':checked'));
+            },
+            Cancel: function() {
+                $(this).dialog( "close" );
+                $(this).remove();
+            }
+        }
+    });
+
+});
+
+function addNote(date, text, remind) {
+
+    if (text == '') {
+        text = null;
+    }
+
+    var note = {date: date, text: text, remind: remind};
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "post",
+        url: "/addNote",
+        data : JSON.stringify(note),
+        success: $(document).ajaxStop(function(){
+            window.location.reload();
+        })
+    });
+
 }
 
 $(function() {
@@ -130,6 +157,7 @@ $(function() {
         $('.divTableCell.hidden.' + id).show();
     });
 });
+
 $(function() {
     $(".delButton").click(function(d) {
         d.preventDefault();
@@ -148,6 +176,7 @@ $(function() {
         });
     });
 });
+
 $(function() {
     $(".saveButton").click(function (s) {
         s.preventDefault();
@@ -155,24 +184,30 @@ $(function() {
         var noteDate = $('#noteDate' + noteId).val();
         var noteText = $('#noteText' + noteId).val();
         var noteIsRemind = $('#isRemind' + noteId).is(':checked');
-
-        existNoteData = JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind});
-
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            type: "post",
-            url: "/saveExistSalary",
-            dataType : 'json',
-            data : existNoteData,
-            success: $(document).ajaxStop(function(){
-                window.location.reload();
-            })
-        })
+        saveExistNote(noteId, noteDate, noteText, noteIsRemind);
     });
 });
+
+function saveExistNote(id, date, text, isRemind) {
+
+    existNoteData = JSON.stringify({id: id, date: date, text: text, remind: isRemind});
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "post",
+        url: "/saveExistNote",
+        dataType : 'json',
+        data : existNoteData,
+        success: $(document).ajaxStop(function(){
+            window.location.reload();
+        })
+    })
+
+}
+
 $(function() {
     $(".cancelButton").click(function(c) {
         c.preventDefault();
@@ -182,12 +217,17 @@ $(function() {
     });
 });
 
+
 $(function() {
     $(".date").pickadate({
         format: 'yyyy-mm-dd',
         formatSubmit: 'yyyy-mm-dd'
     });
     $("#date").pickadate({
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd'
+    });
+    $("#mobileDate").pickadate({
         format: 'yyyy-mm-dd',
         formatSubmit: 'yyyy-mm-dd'
     });

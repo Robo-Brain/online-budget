@@ -27,7 +27,7 @@ function appendCurrentDateTable() {
                 "<button class='fillButton' value='" + currentMonth[i].amount + "' id='" + i + "'>&nbsp;<<<&nbsp;</button>&nbsp;" +
                 "<span class='" + i + "TMP'>" + parseInt(currentMonth[i].amount).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</span>"+
             "</div>" +
-            "<div class='divTableCell " + i + " " + currentMonth[i].withdraw + "'>" +
+            "<div class='divTableCell " + i + " currentMonth " + currentMonth[i].withdraw + "'>" +
             "</div>" +
             "</div>");
 
