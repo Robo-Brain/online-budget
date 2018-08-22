@@ -1,30 +1,19 @@
-$('#actionForm').submit(function(e) {
-    e.preventDefault();
+function submitMonth() {
 
     var formArr = [];
     var formData = {};
-    var formId;
-    var formDate;
-    var formSpendId;
-    var formAmount;
 
-    $.each(this, function(i, v){
-        var input = $(v);
+    for (i = 0; i < curMonth.length; i++) {
+        var id = curMonth[i].id;
 
-        if (input.attr("name") == 'undefined' || input.attr("name") == undefined){
-            console.log('fkin bttn again tryin to get into JSON!');
-        } else if(input.attr("id") == 'id') {
-            formId = input.val();
-        } else if(input.attr("id") == 'spendId') {
-            formSpendId = input.val();
-        } else if(input.attr("name") == 'amount') {
-            formAmount = input.val();
-            formData = {id : formId, spendId : formSpendId, amount : formAmount};
-            formArr.push(formData);
-        }
-    });
+        var formId = $('.id.' + id).val();
+        var spendId = $('.spendId.' + id).val();
+        var formAmount = $('.amount.' + id).val();
 
-    console.log(">>> " + JSON.stringify(formArr));
+        formData = {id : formId, spendId: spendId, amount : formAmount};
+        formArr.push(formData);
+    }
+
 
     $.ajax({
         headers: {
@@ -36,7 +25,8 @@ $('#actionForm').submit(function(e) {
         dataType : 'json',
         data : JSON.stringify(formArr),
         success: $(document).ajaxStop(function(){
-                        window.location.reload();
-                    })
+            window.location.reload();
+        })
     });
-});
+
+}

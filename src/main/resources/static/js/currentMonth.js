@@ -14,16 +14,17 @@ function appendCurrentDateTable() {
 
     for (i = 0; i < currentMonth.length; i++) {
         $("#currentDate").html(currentMonth[i].date);
-        $(".divTable").append(
+        $("#currentMonth").append(
             "<div  class='divTableRow " + i + "'>" +
             "<div class='divTableCell left'>" + currentMonth[i].name +
-                "<input type='hidden' id='id' name='id' value='" + currentMonth[i].id + "' />" +
-                "<input type='hidden' id='date' name='date' value='" + currentMonth[i].date + "' />" +
+                "<input type='hidden' class='id " + currentMonth[i].id + "' id='id' name='id' value='" + currentMonth[i].id + "' />" +
+                "<input type='hidden' class='date " + currentMonth[i].id + "' id='date' name='date' value='" + currentMonth[i].date + "' />" +
                 "<input type='hidden' id='spendName' name='spendName' value='" + currentMonth[i].spendName + "' />" +
+                "<input type='hidden' class='spendId " + currentMonth[i].id + "' id='spendId' name='spendId' value='" + currentMonth[i].spendId + "' />" +
             "</div>" +
             "<div class='divTableCell left'>" +
-                "<input type='text' class='amount" + i + "' id='amount" + i + "' name='amount' value='" + currentMonth[i].monthAmount + "' autocomplete='off' />&nbsp;" +
-                "<button value='" + currentMonth[i].amount + "' class='" + i + "'>&nbsp;<<<&nbsp;</button>&nbsp;" +
+                "<input type='text' class='amount " + currentMonth[i].id + "' id='amount" + i + "' name='amount' value='" + currentMonth[i].monthAmount + "' autocomplete='off' />&nbsp;" +
+                "<button class='fillButton' value='" + currentMonth[i].amount + "' id='" + i + "'>&nbsp;<<<&nbsp;</button>&nbsp;" +
                 "<span class='" + i + "TMP'>" + parseInt(currentMonth[i].amount).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</span>"+
             "</div>" +
             "<div class='divTableCell " + i + " " + currentMonth[i].withdraw + "'>" +

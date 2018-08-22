@@ -54,7 +54,7 @@ public class MonthlySpendsDAO {
     public void savePaymentTemplate(List<SaveSpends> savePaymentTMP) {
         for (SaveSpends es : savePaymentTMP) {
             SpendsEntity se = new SpendsEntity(es.getId(), es.getName(), es.getAmount(), es.getSalaryPrepaid(), es.getWithdraw(), es.getIndex());
-            sessionFactory.getCurrentSession().saveOrUpdate(se);
+            sessionFactory.getCurrentSession().update(se);
         }
     }
 

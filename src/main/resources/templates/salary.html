@@ -8,21 +8,20 @@
 <body>
 <th:block th:include="_menu"></th:block>
 
-<div id="dialog-confirm">Are you sure?</div>
+<div style="display: none" id="dialog-confirm"><span class="mobileDialogText">Are you sure?</span></div>
 
 <div class="mobileAddWage" style="display: none" id="addWageForm" title="Add Wage">
     <form>
         <fieldset>
             <p>
-                <label for="date">Date: </label>
+                <label for="mobileDate">Date: </label>
                 <input type="text" name="date" id="mobileDate" class="text ui-widget-content ui-corner-all">
             </p>
-            <p>
-                <label for="mobileSalaryPrepaid">Salary / Prepaid: </label>
-                <select id="mobileSalaryPrepaid" name="mobileSalaryPrepaid">
-                    <option>Salary</option>
-                    <option>Prepaid</option>
-                </select>
+            <p><span class="unhideLabel">Salary / Prepaid:</span>
+                <label class="switch">
+                    <input class="mobileSalaryPrepaid" id="mobileSalaryPrepaid" name="mobileSalaryPrepaid" type="checkbox">
+                    <span class="slider salaryPrepaid"></span>
+                </label>
             </p>
             <p>
                 <label for="mobileAmount">Amount: </label>
@@ -70,7 +69,7 @@
     </p>
 </div>
 
-<div id="addButton"> <span>+</span> </div>
+<div id="addButton" class="addWageMobile"> <span>+</span> </div>
 
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
@@ -85,7 +84,7 @@
             $( "#addButton" ).draggable();
 
 
-            $("#addWageMobile").click(function (e) {
+            $(".addWageMobile").click(function (e) {
                 e.preventDefault();
                 addSalaryPrepaidMobile();
             });

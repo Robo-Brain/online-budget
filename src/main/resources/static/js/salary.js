@@ -96,7 +96,7 @@ function deleteSalaryPrepaidFunc(i) {
     var id = i;
     $("#dialog-confirm").dialog({
         classes: {
-            "ui-dialog": dialogClass
+            "ui-dialog": "ui-dialogMobile"
         },
         resizable: false,
         height: "auto",
@@ -137,16 +137,24 @@ function editSalaryPrepaidFunc(i) {
 }
 
 $(function() {
-    $(".date").datepicker({
-        dateFormat: "yy-mm-dd"
+    $(".date").pickadate({
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd'
     });
-    $("#newDate").datepicker({
-        dateFormat: "yy-mm-dd"
+    $("#newDate").pickadate({
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd'
     });
-    $("#salaryDateInput").datepicker({
-        dateFormat: "yy-mm-dd"
+    $("#mobileDate").pickadate({
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd'
     });
-    $("#prepaidDateInput").datepicker({
-        dateFormat: "yy-mm-dd"
+    $("#salaryDateInput").pickadate({
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd'
+    });
+    $("#prepaidDateInput").pickadate({
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd'
     });
 });

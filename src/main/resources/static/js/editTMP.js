@@ -92,32 +92,30 @@ function overloadTooltip() {
     prepaid = (parseInt(lastWage.prepaid) || 0);
     if (salary <= salaryTotal) {
         $(".salaryOverload").toggleClass("overlimit");
-        $(".tooltipSalary").tooltip({
-            tooltipClass: "tooltipOverload",
-            position: { my: "left-10 center-26", at: "left center" },
-            show: {
-                delay: 500
-            }
-        }).tooltip("open");
-        $( "body" ).click(function() {
-            $( ".tooltipSalary" ).tooltip( "close" );
-        });
+        // $(".tooltipSalary").tooltip({
+        //     tooltipClass: "tooltipOverload",
+        //     position: { my: "left-10 center-26", at: "left center" },
+        //     show: {
+        //         delay: 500
+        //     }
+        // }).tooltip("open");
+        // $( "body" ).click(function() {
+        //     $( ".tooltipSalary" ).tooltip( "close" );
+        // });
     } else {}
     if ( prepaid <= prepaidTotal) {
         $(".prepaidOverload").toggleClass("overlimit");
-        $(".tooltipPrepaid").tooltip({
-            tooltipClass: "tooltipOverload",
-            position: { my: "left-10 center-24", at: "left center" },
-            show: {
-                delay: 500
-            }
-        }).tooltip("open");
-        $( "body" ).click(function() {
-            $( ".tooltipPrepaid" ).tooltip( "close" );
-        });
-    } else {
-
-    }
+        // $(".tooltipPrepaid").tooltip({
+        //     tooltipClass: "tooltipOverload",
+        //     position: { my: "left-10 center-24", at: "left center" },
+        //     show: {
+        //         delay: 500
+        //     }
+        // }).tooltip("open");
+        // $( "body" ).click(function() {
+        //     $( ".tooltipPrepaid" ).tooltip( "close" );
+        // });
+    } else {}
 }
 
 function delTMPFunc(i) {
@@ -207,7 +205,7 @@ $(function() {
     }
 });
 
-$("#unstuck").click(function (u) {
+$(".unstuck").click(function (u) {
     u.preventDefault();
     $('#tmpTable').removeClass("cancel");
     $( "#tmpTable" ).disableSelection();

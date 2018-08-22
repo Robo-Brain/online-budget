@@ -58,6 +58,8 @@ textarea {
     padding: 0.2em;
     width: 15em;
     border: solid #286A91 1px;
+    font-size: 1.2em;
+    font-weight: 600;
 }
 .loginForm .submit{
     color: #fff;
@@ -356,7 +358,7 @@ input:checked + .slider.salaryPrepaid:after {
     display: none;
 }
 
-#unstuck {
+.unstuck {
     display: none;
 }
 
@@ -453,7 +455,16 @@ input:checked + .slider.salaryPrepaid:after {
     .divTable.tmp .divTableCell.withdraw {
         float: left;
     }
-	
+
+    #showAddForm {
+        display: none;
+    }
+    #tmpSubmit {
+        width: 44%;
+        margin: 0 1% 0 0;
+        font-size: 2em;
+    }
+
     .divTableCell.nope {
         display: none !important;
         border: none !important;
@@ -556,14 +567,14 @@ input:checked + .slider.salaryPrepaid:after {
     #addButton {
         display: block;
         border-radius: 50%;
-        width: 2.5em;
-        height: 2.5em;
+        width: 2.2em;
+        height: 2.2em;
         position: fixed;
-        bottom: 0.5em;
-        right: 0.5em;
+        bottom: 1em;
+        right: 0.2em;
         background-color: #5CDC6B;
         border: solid #5EB268 1px;
-        font-size: 2.5em;
+        font-size: 2.2em;
         font-weight: bold;
         text-align: center;
         vertical-align: top;
@@ -595,7 +606,11 @@ input:checked + .slider.salaryPrepaid:after {
 
     /* adaptive mobile add salary content design END */
 
-    #unstuck {
+    .unstuck {
         display: block;
+        width: 44%;
+        font-size: 2em;
+        margin: 0 1% 0 0 !important;
+        float: left;
     }
 }

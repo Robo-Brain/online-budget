@@ -12,12 +12,10 @@
 
 <th:block th:include="_menu"></th:block>
 <div id="currentDate"></div>
-<form id="actionForm" method="post">
-    <div class="divTable currentMonth"></div>
-    <p>
-        <button class="submit" value="Submit">Submit</button>
-    </p>
-</form>
+<div id="currentMonth" class="divTable currentMonth"></div>
+<p>
+    <button id="submitMonth" class="submit" value="Submit">Submit</button>
+</p>
 <div class="resultTable"></div>
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
@@ -28,14 +26,17 @@
 
             appendResultTable();
 
-            $("button").click( function(e) {
-                var myClass = $(this).attr("class");
+            $("#submitMonth").click( function(e) {
+                e.preventDefault();
+                submitMonth();
+            });
+
+            $(".fillButton").click( function(f) {
+                f.preventDefault();
+                var myId = $(this).attr("id");
+                console.log(myId);
                 var myValue = $(this).attr("value");
-                if ( myClass == 'submit'){
-                } else{
-                    e.preventDefault();
-                    $('#amount' + myClass).val(myValue);
-                }
+                $('#amount' + myId).val(myValue);
             });
         });
     </script>

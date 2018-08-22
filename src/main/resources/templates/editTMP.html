@@ -6,7 +6,7 @@
 <body>
 <th:block th:include="_menu"></th:block>
 
-<div style="display: none" id="dialog-confirm" title="Delete the spend?">Are you sure?</div>
+<div style="display: none" id="dialog-confirm" title="Delete the spend?"><span class="mobileDialogText">Are you sure?</span></div>
 <div style="display: none" id="mobileAddSpend">
     <form>
         <fieldset>
@@ -18,13 +18,13 @@
                 <label for="mobileAmount">Amount: </label>
                 <input type="text" name="mobileAmount" id="mobileAmount" class="text ui-widget-content ui-corner-all">
             </p>
-            <p>Salary / Prepaid:
+            <p><span class="unhideLabel">Salary / Prepaid:</span>
                 <label class="switch">
                     <input class="mobileSalaryPrepaid" id="mobileSalaryPrepaid" name="mobileSalaryPrepaid" type="checkbox">
                     <span class="slider salaryPrepaid"></span>
                 </label>
             </p>
-            <p>Withdraw:
+            <p><span class="unhideLabel">Withdraw:</span>
                 <label class="switch">
                     <input class="mobileWithdraw" id="mobileWithdraw" name="mobileWithdraw" type="checkbox">
                     <span class="slider withdraw"></span>
@@ -33,8 +33,6 @@
         </fieldset>
     </form>
 </div>
-
-<button id="unstuck">Sort</button>
 
 <div id="tmpTable" class="divTable tmp">
     <div class="divTableRow head">
@@ -45,8 +43,9 @@
         <div class="divTableCell">X</div>
     </div>
 </div>
-<button id="tmpSubmit" class="submit" value="Submit">Save</button>
 
+<button class="unstuck">Sort</button>
+<button id="tmpSubmit" class="submit" value="Submit">Save</button>
 
 <p><button id="hideAddForm">Hide form</button></p>
 
@@ -78,14 +77,13 @@
     <p>
         <button id="addNewSpend" class="submit" value="Submit">Add</button>
     </p>
+    <br />
 </form>
-<p>
     <button id="showAddForm">Add new spend</button>
-</p>
 
-<div class="mobileAddButton" id="addButton"> <span>+</span> </div>
-
-<button id="z">!</button>
+<div class="mobileAddButton" id="addButton">
+    <span>+</span>
+</div>
 
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">

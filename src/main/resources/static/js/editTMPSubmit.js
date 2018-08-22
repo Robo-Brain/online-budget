@@ -17,8 +17,6 @@ function saveTMPTable() {
         formArr.push(formData);
     }
 
-    console.log(formArr);
-
     $.ajax({
         headers: {
             'Accept': 'application/json',
