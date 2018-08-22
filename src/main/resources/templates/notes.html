@@ -76,9 +76,13 @@
                 
                 if ($(this).hasClass('false')) {
                     var noteIsRemind = true;
+                    $(this).switchClass('false', 'true', 400, "swing");
                 } else if ($(this).hasClass('true')) {
                     var noteIsRemind = false;
+                    $(this).switchClass('true', 'false', 400, "swing");
                 }
+
+                console.log(JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind}));
 
                 $.ajax({
                     headers: {
@@ -89,19 +93,14 @@
                     url: "/saveExistNote",
                     dataType : 'json',
                     data : JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind}),
-                    success: function () {
-                        if (noteIsRemind == true) {
-                            $('span#' + noteId).toggleClass('false true');
-                        } else if (noteIsRemind == false)  {
-                            $('span#' + noteId).toggleClass('true false');
-                        }
-                    }
-                    // success: $(document).ajaxStop(function(){
-                    //     window.location.reload();
-                    // })
+                    // success: function () {
+                    //     if (noteIsRemind == true) {
+                    //         $('span#' + noteId).switchClass('false', 'true', 1000, "easeInOutQuad");
+                    //     } else if (noteIsRemind == false)  {
+                    //         $('span#' + noteId).switchClass('true', 'false', 1000, "easeInOutQuad");
+                    //     }
+                    // }
                 });
-
-                saveExistNote(noteId, noteDate, noteText, noteIsRemind);
             });
 
         })
