@@ -489,12 +489,12 @@ input:checked + .slider.salaryPrepaid:after {
     .divTable.tmp .divTableCell.del {
         float: right;
         display: block;
-        width: 23%;
+        width: 20%;
         padding: 0.2em;
     }
     .divTable.tmp .divTableCell.del button{
         margin: 0 auto !important;
-        width: 82%;
+        width: 86%;
         font-size: 1.1em;
         height: 1.8em;
         line-height: 1em;
