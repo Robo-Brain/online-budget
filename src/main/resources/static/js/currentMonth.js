@@ -16,16 +16,16 @@ function appendCurrentDateTable() {
         $("#currentDate").html(currentMonth[i].date);
         $("#currentMonth").append(
             "<div  class='divTableRow " + i + "'>" +
-            "<div class='divTableCell left'>" + currentMonth[i].name +
+            "<div class='divTableCell left name'>" + currentMonth[i].name +
                 "<input type='hidden' class='id " + currentMonth[i].id + "' id='id' name='id' value='" + currentMonth[i].id + "' />" +
                 "<input type='hidden' class='date " + currentMonth[i].id + "' id='date' name='date' value='" + currentMonth[i].date + "' />" +
                 "<input type='hidden' id='spendName' name='spendName' value='" + currentMonth[i].spendName + "' />" +
                 "<input type='hidden' class='spendId " + currentMonth[i].id + "' id='spendId' name='spendId' value='" + currentMonth[i].spendId + "' />" +
             "</div>" +
-            "<div class='divTableCell left'>" +
+            "<div class='divTableCell left amount'>" +
                 "<input type='text' class='amount " + currentMonth[i].id + "' id='amount" + i + "' name='amount' value='" + currentMonth[i].monthAmount + "' autocomplete='off' />&nbsp;" +
-                "<button class='fillButton' value='" + currentMonth[i].amount + "' id='" + i + "'>&nbsp;<<<&nbsp;</button>&nbsp;" +
-                "<span class='" + i + "TMP'>" + parseInt(currentMonth[i].amount).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</span>"+
+                "<button class='fillButton " + currentMonth[i].salaryPrepaid + "' value='" + currentMonth[i].amount + "' id='" + i + "'>&nbsp;<<<&nbsp;</button>&nbsp;" +
+                "<span class='TMP " + currentMonth[i].salaryPrepaid +"'>" + parseInt(currentMonth[i].amount).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</span>"+
             "</div>" +
             "<div class='divTableCell " + i + " currentMonth " + currentMonth[i].withdraw + "'>" +
             "</div>" +
@@ -55,18 +55,18 @@ function appendCurrentDateTable() {
 function appendResultTable() {
     $(".resultTable").append( // amount of expenses from prepaid and salary
         "<div class='divTableRow salary'>" +
-        "<div class='divTableCell true'></div>" +
+        "<div class='divTableCell currentMonth true'></div>" +
         "<div class='divTableCell'>" + withdrawSalary.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div>" +
-        "<div class='divTableCell false'></div>" +
+        "<div class='divTableCell currentMonth false'></div>" +
         "<div class='divTableCell'>" + withdrawNotSalary.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div></div>" +
         "<div class='divTableRow'>" +
         "<div class='divTableCell nope'></div><div class='divTableCell nope'></div><div class='divTableCell nope'></div>" +
         "<div class='divTableCell salary'>" + sum(withdrawSalary, withdrawNotSalary).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div></div>"
         +
         "<div class='divTableRow prepaid'>" +
-        "<div class='divTableCell true'></div>" +
+        "<div class='divTableCell currentMonth true'></div>" +
         "<div class='divTableCell'>" + withdrawPrepaid.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div>" +
-        "<div class='divTableCell false'></div>" +
+        "<div class='divTableCell currentMonth false'></div>" +
         "<div class='divTableCell'>" + withdrawNotPrepaid.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</div></div>" +
         "<div class='divTableRow'>" +
         "<div class='divTableCell nope'></div><div class='divTableCell nope'></div><div class='divTableCell nope'></div>" +

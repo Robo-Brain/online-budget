@@ -9,12 +9,11 @@ body {
 }
 
 button {
-    background-color: #5986A0;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
+    background-color: #5986A0;
     border:1px solid #286A91;
-    cursor:pointer;
     color:#BDDCEE;
     padding:6px 8px;
     text-decoration:none;
@@ -366,11 +365,7 @@ input:checked + .slider.salaryPrepaid:after {
 
     #menuButton {
         display: block;
-        background-color: #BDBDBD;
-        color: white;
-        padding: 8px;
-        font-size: 14px;
-        border: none;
+        font-size: 2em;
         cursor: pointer;
         margin: 0 0 1em 0;
     }
@@ -378,35 +373,50 @@ input:checked + .slider.salaryPrepaid:after {
     #mainmenu {
         position: relative;
         display: inline-block;
-        margin: 10px 5px;
+        margin: 0.4em;
     }
 
     #dropdown-content {
         display: none;
         position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+        top: 2.8em;
+        left: 0.1em;
+        background-color: #BFF4C6;
+        font-size: 1.2em;
+        min-width: 15em;
+        box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.9);
         z-index: 1;
+        line-height: 1.6em;
     }
 
     #dropdown-content a {
-        color: black;
-        padding: 6px 8px;
+        font-size: 1.5em;
+        color: #5986A0;
+        padding: 0.3em 0.5em 0.5em 0.5em;
         text-decoration: none;
         display: block;
     }
 
-    #dropdown-content a:hover {background-color: #f1f1f1}
+    #dropdown-content a:hover {
+        color: #286A91;
+        background-color: #5CDC6B;
+    }
 
     #mainmenu:hover #dropdown-content {
         display: block;
     }
 
-    #mainmenu:hover #menuButton {
-        background-color: #999999;
+
+    /*TMP section start*/
+
+    #currentDate {
+        font-size: 2em;
+        padding: 0.2em;
     }
 
+    #tmpTable {
+        width: 94% !important;
+    }
 
     .divTable.tmp{
         display: block;
@@ -456,14 +466,55 @@ input:checked + .slider.salaryPrepaid:after {
         float: left;
     }
 
-    #showAddForm {
-        display: none;
+    .TMP {
+        display: block;
+        width: 53%;
+        border-top: solid #5986A0 1px;
+        margin: 0.4em 0 0 0;
     }
+    .TMP.false {
+        border-top: solid #5EB268 1px;
+    }
+
+    .fillButton {
+        width: 40%;
+        height: 3.5em;
+        float: right;
+        font-weight: 600;
+    }
+    .fillButton.false {
+        background-color: #5EB268;
+        border:1px solid #29A138;
+        color:#BFF4C6;
+    }
+    .fillButton.false:hover {
+        background-color: #29A138;
+        text-shadow: 0px 1px 1px #5EB268;
+    }
+
+
+    .divTableCell.left.name {
+        width: 33%;
+    }
+    .divTableCell.left.amount {
+        width: 52%;
+    }
+    .divTableRow.prepaid .divTableCell {
+        border: 1px solid #5EB268;
+    }
+
     #tmpSubmit {
         width: 44%;
         margin: 0 1% 0 0;
         font-size: 2em;
     }
+
+    /*TMP section end*/
+
+    #showAddForm {
+        display: none;
+    }
+
 
     .divTableCell.nope {
         display: none !important;
@@ -546,20 +597,60 @@ input:checked + .slider.salaryPrepaid:after {
         display: block;
         padding: 1px 1px !important;
     }
-    .divTableCell.salaryEditButtons {
+    .salaryEditButtons {
+        padding: 0.1em  0.2em !important;
         border-top: 0px;
         display: block;
         margin: 0 0 1em 0;
     }
-    .salaryHiddenButtons {
-        height: 1em;
+
+    .editButtons {
+        margin: 0 auto !important;
+        width: 100%;
     }
-    .divTableCell.salaryEditButtons button {
-        width: 4em !important;
-        margin: 0 1em 0 0 !important;
+    .salaryHiddenButtons {
+        margin: 0 auto !important;
+        width: 100%;
+    }
+
+    .salaryEditButtons button{
+        width: 49%;
+        font-size: 1.2em;
+        line-height: 1.2em;
+        height: 1.6em;
     }
 
     /* adaptive mobile add salary content design START */
+
+    .hidden .date {
+        font-size: 1.1em;
+        line-height: 1.3em;
+        width: 86%;
+        background-color: #BDDCEE;
+        border: solid #599EC7 1px;
+    }
+
+    .hidden .date.prepaid {
+        background-color: #BFF4C6;
+        border: solid #5CDC6B 1px;
+    }
+
+    .hidden .salaryInput {
+        text-align: center;
+        font-size: 1.1em;
+        line-height: 1.3em;
+        border: solid #599EC7 1px;
+        width: 58%;
+        background-color: #BDDCEE;
+    }
+    .hidden .prepaidInput {
+        text-align: center;
+        font-size: 1.1em;
+        line-height: 1.3em;
+        width: 58%;
+        background-color: #BFF4C6;
+        border: solid #5CDC6B 1px;
+    }
 
     #showWageButton {
         display: none;
@@ -601,9 +692,9 @@ input:checked + .slider.salaryPrepaid:after {
         width: 100% !important;
     }
 
-    #tmpTable {
-        width: 94% !important;
-    }
+    .amount input {
+        width : 50%;
+     }
 
     /* adaptive mobile add salary content design END */
 
