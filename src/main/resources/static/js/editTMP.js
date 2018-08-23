@@ -17,11 +17,14 @@ function appendTMPTable() {
 
         $("#tmpTable").append(
             "<div class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + " tmp'>" +
-                "<div class='divTableCell left'>" +
+                "<div class='divTableCell left name'>" +
                     "<input type='text' class='name " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
                     "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
                     "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
                     "<input type='hidden' class='index " + tmpVal[i].id + "' id='indexEntry' name='indexEntry' value='" + tmpVal[i].index + "' />" +
+                "</div>" +
+                "<div class='divTableCell del'>" +
+                    "<button class='delButton' id='" + tmpVal[i].id + "'>del</button>" +
                 "</div>" +
                 "<div class='divTableCell amount'>" +
                     "<span class='hiddenMobileLabels'>Amount: </span><br /><input type='text' class='amount " + tmpVal[i].id + "' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
@@ -40,9 +43,6 @@ function appendTMPTable() {
                         "<span class='slider'></span>" +
                     "</label>" +
                 "</div>" +
-                "<div class='divTableCell del'>" +
-                    "<button class='delButton' id='" + tmpVal[i].id + "'>del</button>" +
-                "</div>" +
             "</div>");
 
         $('.salaryPrepaid.true').prop('checked', true);
@@ -52,8 +52,8 @@ function appendTMPTable() {
 
         preTotal(tmpVal[i].salaryPrepaid, tmpVal[i].amount);
     }
-    $("#tmpTable").append(
-        "<div class='divTableRow'>" +
+    $("#tmpAmount").append(
+        "<div class='divTableRow result'>" +
             "<div class='divTableCell nope'></div>" +
             "<div class='divTableCell salaryOverload'>" +
                 salaryTotal.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) +
@@ -63,7 +63,7 @@ function appendTMPTable() {
             "<div class='divTableCell nope'></div>" +
             "<div class='divTableCell nope'></div>" +
         "</div>" +
-        "<div class='divTableRow'>" +
+        "<div class='divTableRow result'>" +
             "<div class='divTableCell nope'></div>" +
             "<div class='divTableCell prepaidOverload'>" +
                 prepaidTotal.toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) +
