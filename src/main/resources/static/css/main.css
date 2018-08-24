@@ -361,15 +361,12 @@ input:checked + .slider.salaryPrepaid:after {
 #notesTable {
     font-size: 12px;
 }
-#notesTable .divTableRow:nth-child(even),
+/*#notesTable .divTableRow:nth-child(even),*/
 #analysisListTable .divTableRow:nth-child(even),
 #summaryTable .divTableRow:nth-child(even),
-#addNoteTable .divTableRow:nth-child(even){
-    background-color: #ebfced !important;
-}
-
-#notesTable .editButtons, #analysisListTable .editButtons {
-    display: block !important;
+#addNoteTable .divTableRow:nth-child(even)
+{
+    background-color: #98F4A3 !important;
 }
 
 .hiddenMobileLabels {
@@ -840,10 +837,6 @@ input:checked + .slider.salaryPrepaid:after {
         width: 100% !important;
     }
 
-    /*.amount input {*/
-        /*width : 50%;*/
-     /*}*/
-
     /* adaptive mobile add salary content design END */
 
     .unstuck {
@@ -872,19 +865,44 @@ input:checked + .slider.salaryPrepaid:after {
     }
 
     .noteDate {
-        display: block !important;
-        float: none !important;
-        font-size: 2em !important;
+        display: block;
+        float: none;
+        font-size: 2em;
+    }
+    .noteDate input {
+        width: 50% !important;
+        margin: 0 auto;
+        background: #BDDCEE !important;
+        border: solid #99CEEE 1px !important;
     }
 
     .noteText {
-        display: block !important;
-        float: none !important;
-        border-top: 0 !important;
-        height: 5em !important;
-        overflow: auto !important;
-        line-height: 1.2em !important;
-        padding: 0.8em !important;
+        display: block;
+        float: none;
+        border-top: 0 ;
+        height: 6em;
+        overflow: auto;
+        line-height: 1.2em;
+        padding: 0.8em;
+    }
+    .noteTextInput {
+        display: block;
+        float: none;
+        border-top: 0 ;
+        height: 8.5em;
+        overflow: hidden;
+        line-height: 1em;
+        padding: 0 !important;
+    }
+    .noteTextarea{
+        margin: 0.2em 0 0 0 !important;
+        padding: 0 !important;
+        width: 98% !important;
+        resize: none;
+        overflow: auto;
+        height: 7em;
+        background: #BDDCEE !important;
+        border: none !important;
     }
 
     /* width */

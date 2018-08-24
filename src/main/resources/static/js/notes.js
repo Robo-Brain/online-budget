@@ -4,36 +4,32 @@ function appendNotes() {
             "<div class='divTableRow " + notes[i].id + " note'>" +
                 "<input type='hidden' id='id' name='id' value='" + notes[i].id + "' />" +
                 "<div class='divTableCell " + notes[i].id + " noteDate'>" + notes[i].date + "</div>" +
+                    "<div class='divTableCell hidden " + notes[i].id + " noteDate'>" +
+                    "<input type='hidden' id='noteId' name='noteId' value='" + notes[i].id + "' />" +
+                    "<input type='text' id='noteDate" + notes[i].id + "' name='noteDate' class='date' value='" + notes[i].date + "' />" +
+                    "</div>" +
+
                 "<div class='divTableCell " + notes[i].id + " noteText'>" + notes[i].text + "</div>" +
+                    "<div class='divTableCell hidden " + notes[i].id + " noteTextInput'>" +
+                        "<textarea class='noteTextarea' id='noteText" + notes[i].id + "' name='noteText' >" + notes[i].text + "</textarea>" +
+                    "</div>" +
+
                 "<div class='divTableCell " + notes[i].id + ' ' + notes[i].remind + " noteRemind'>" +
                     "<span id='" + notes[i].id + "' class='bell " + notes[i].remind + "'>&nbsp;</span>" +
                     "<span class='remindBoolean'>" + notes[i].remind + "</span>" +
                 "</div>" +
-                "<div class='divTableCell " + notes[i].id + " noteButtons'>" +
-                "<div class='editButtons'>" +
-                    "<button class='editButton' id='" + notes[i].id + "'>EDIT</button>&nbsp;" +
-                    "<button class='delButton' id='" + notes[i].id + "'>DEL</button>" +
-                "</div>" +
-                "</div>" +
 
-                "<div class='divTableCell hidden " + notes[i].id + "'>" +
-                    "<input type='hidden' id='noteId' name='noteId' value='" + notes[i].id + "' />" +
-                    "<input style='width: 90px;' type='text' id='noteDate" + notes[i].id + "' name='noteDate' class='date' value='" + notes[i].date + "' />" +
+                "<div class='divTableCell salaryEditButtons " + notes[i].id + "'>" +
+                    "<div class='editButtons'>" +
+                        "<button class='editButton' id='" + notes[i].id + "'>EDIT</button>&nbsp;" +
+                        "<button class='delButton' id='" + notes[i].id + "'>DEL</button>" +
+                    "</div>" +
                 "</div>" +
-                "<div class='divTableCell hidden " + notes[i].id + "'>" +
-                    "<textarea rows='4' cols='50' id='noteText" + notes[i].id + "' name='noteText' >" + notes[i].text + "</textarea>" +
-                "</div>" +
-                "<div class='divTableCell hidden " + notes[i].id + "'>" +
-                    "<label class='switch'>" +
-                        "<input type='checkbox' id='isRemind" + notes[i].id + "' class='" + notes[i].remind +"' name='isRemind' />" +
-                        "<span class='slider'></span>" +
-                    "</label>" +
-                "</div>" +
-                "<div class='divTableCell hidden " + notes[i].id + "'>" +
-                "<div class='salaryHiddenButtons'>" +
-                    "<button class='saveButton' id='" + notes[i].id + "'>✓</button><button class='cancelButton' id='" + notes[i].id + "'>X</button>" +
-                "</div>" +
-                "</div>" +
+                    "<div class='divTableCell hidden salaryEditButtons " + notes[i].id + "'>" +
+                        "<div class='salaryHiddenButtons'>" +
+                            "<button class='saveButton' id='" + notes[i].id + "'>✓</button><button class='cancelButton' id='" + notes[i].id + "'>X</button>" +
+                        "</div>" +
+                    "</div>" +
 
             "</div>");
 
@@ -150,6 +146,7 @@ $(function() {
     $(".editButton").click(function(e) {
         e.preventDefault();
         var id = $(this).attr('id');
+
         $('.divTableCell').show();
         $('.divTableCell.hidden').hide();
 
