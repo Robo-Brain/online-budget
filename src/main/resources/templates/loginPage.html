@@ -3,6 +3,7 @@
 <head>
     <title>Login</title>
     <th:block th:include="_header"></th:block>
+    <th:block sec:authorize="isAuthenticated()" th:include="_menu"></th:block>
 </head>
 <body>
 <div th:if="${#request.getParameter('error') == 'true'}"

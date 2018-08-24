@@ -371,51 +371,57 @@ input:checked + .slider.salaryPrepaid:after {
     display: none;
 }
 
+.swipeDelete {
+    display: none;
+}
+
 @media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px) {
 
     #menuButton {
         display: block;
         font-size: 2em;
+        font-weight: 600;
+        height: 1.6em;
+        line-height: 0.3em;
+        width: 1.6em;
         cursor: pointer;
         margin: 0 0 1em 0;
+        text-align: center;
     }
 
-    #mainmenu {
-        position: relative;
-        display: inline-block;
-        margin: 0.4em;
-    }
-
-    #dropdown-content {
-        display: none;
-        position: absolute;
-        top: 2.8em;
-        left: 0.1em;
-        background-color: #BFF4C6;
-        font-size: 1.2em;
-        min-width: 15em;
-        box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.9);
+    .mainmenu {
+        height: 100%;
+        width: 0;
+        position: fixed;
         z-index: 1;
-        line-height: 1.6em;
+        top: 0;
+        left: 0;
+        background-color: #286A91;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
     }
 
-    #dropdown-content a {
-        font-size: 1.5em;
-        color: #5986A0;
-        padding: 0.3em 0.5em 0.5em 0.5em;
+    .mainmenu a {
+        padding: 8px 8px 8px 32px;
         text-decoration: none;
+        font-size: 25px;
+        color: #99CEEE;
         display: block;
+        transition: 0.3s;
     }
 
-    #dropdown-content a:hover {
-        color: #286A91;
-        background-color: #5CDC6B;
+    .mainmenu a:hover {
+        color: #BDDCEE;
     }
 
-    #mainmenu:hover #dropdown-content {
-        display: block;
+    .mainmenu .mainMenuCloseBtn {
+        position: absolute;
+        top: 0.2em;
+        right: 0.2em;
+        font-size: 3em;
+        margin-left: 5em;
     }
-
 
     /*TMP section start*/
 
@@ -482,23 +488,36 @@ input:checked + .slider.salaryPrepaid:after {
     .divTable.tmp .divTableCell.name {
         display: block;
         float: left;
-        width: 69%;
+        width: 92%;
         border: none;
         font-size: 1.2em;
     }
     .divTable.tmp .divTableCell.del {
-        float: right;
+        display: none;
+    }
+
+    .swipeDelete span{color: #fff;
         display: block;
-        width: 20%;
-        padding: 0.2em;
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        margin-top: -0.5em;
+        text-align: center;
     }
-    .divTable.tmp .divTableCell.del button{
-        margin: 0 auto !important;
-        width: 86%;
-        font-size: 1.1em;
-        height: 1.8em;
+    .swipeDelete {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.5s linear;
         line-height: 1em;
+        width: 40% !important;
+        background-color: red !important;
+        height: 7em !important;
+        position: relative;
+        left: 60%;
+        top: 0;
+        z-index: 99;
     }
+
     .divTable.tmp .divTableCell.amount {
         float: left;
         width: 40%;

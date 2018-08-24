@@ -16,15 +16,12 @@ function appendTMPTable() {
         amount += parseInt(tmpVal[i].amount);
 
         $("#tmpTable").append(
-            "<div class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + " tmp'>" +
+            "<div id='" + tmpVal[i].id + "' class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + " tmp'>" +
                 "<div class='divTableCell left name'>" +
                     "<input type='text' class='name " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
                     "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
                     "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
                     "<input type='hidden' class='index " + tmpVal[i].id + "' id='indexEntry' name='indexEntry' value='" + tmpVal[i].index + "' />" +
-                "</div>" +
-                "<div class='divTableCell del'>" +
-                    "<button class='delButton' id='" + tmpVal[i].id + "'>del</button>" +
                 "</div>" +
                 "<div class='divTableCell amount'>" +
                     "<span class='hiddenMobileLabels'>Amount: </span><br /><input type='text' class='amount " + tmpVal[i].id + "' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
@@ -37,12 +34,16 @@ function appendTMPTable() {
                     "</label>" +
                 "</div>" +
                 "<div class='divTableCell withdraw switcher'>" +
-                "<span class='hiddenMobileLabels'>Withdraw: </span><br />" +
+                    "<span class='hiddenMobileLabels'>Withdraw: </span><br />" +
                     "<label class='switch'>" +
                         "<input type='checkbox' id='withdraw' class='withdraw " + tmpVal[i].withdraw + ' ' + tmpVal[i].id + "' name='withdraw" + tmpVal[i].id +"' />" +
                         "<span class='slider'></span>" +
                     "</label>" +
                 "</div>" +
+                "<div class='divTableCell del'>" +
+                    "<button class='delButton' id='" + tmpVal[i].id + "'>del</button>" +
+                "</div>" +
+                "<div class='swipeDelete "+ tmpVal[i].id + "' id='"+ tmpVal[i].id + "'><span>Delete?</span></div>" +
             "</div>");
 
         $('.salaryPrepaid.true').prop('checked', true);
@@ -118,8 +119,24 @@ function overloadTooltip() {
     } else {}
 }
 
-function delTMPFunc(i) {
+function delTMPFunc(i, a) {
     var id = i;
+
+    if (a == 'yes' || a == null || a == undefined) {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "post",
+            url: "/deleteSpend",
+            data : id,
+            success: $(document).ajaxStop(function(){
+                window.location.reload();
+            })
+        });
+    }
+
     $("#dialog-confirm").dialog({
         classes: {
             "ui-dialog": "ui-dialogNew"
@@ -174,39 +191,56 @@ function addNewSPendMobile() {
     });
 }
 
-$( function() {
-    var indexNum = 1;
-    $("#tmpTable").sortable({
-        sort: function() {
-            if ($(this).hasClass("cancel")) {
-                $(this).sortable("cancel");
-            }
-        },
-        axix         : "y",
-        opacity      : 0.6,
-        revert       : 600,
-        scroll       : true,
-        connectWith  : "#tmpTable",
-        stop         : function(){
-            $('.divTableRow.tmp input#indexEntry').each(function () {
-                $(this).val(indexNum);
-                indexNum++;
-            });
-            saveTMPTable();
-        }
-    });
-    $( "#tmpTable" ).disableSelection();
-});
 
-$(function() {
-    if(screen.width<1000) {
-        $('#tmpTable').addClass("cancel");
-        $( "#tmpTable" ).enableSelection();
-    }
-});
-
-$(".unstuck").click(function (u) {
-    u.preventDefault();
-    $('#tmpTable').removeClass("cancel");
-    $( "#tmpTable" ).disableSelection();
-});
+// $(function() {
+//     if(screen.width>2000) {
+//         var indexNum = 1;
+//
+//         $("#tmpTable").sortable({
+//             sort: function() {
+//                 if ($(this).hasClass("cancel")) {
+//                     $(this).sortable("cancel");
+//                 }
+//             },
+//             axis         : "y",
+//             opacity      : 0.6,
+//             revert       : 600,
+//             scroll       : true,
+//             connectWith  : "#tmpTable",
+//             stop         : function(){
+//                 $('.divTableRow.tmp input#indexEntry').each(function () {
+//                     $(this).val(indexNum);
+//                     indexNum++;
+//                 });
+//                 saveTMPTable();
+//             }
+//         });
+//         $( "#tmpTable" ).disableSelection();
+//     }
+// });
+//
+// $(".unstuck").click(function (u) {
+//     u.preventDefault();
+//     var indexNum = 1;
+//
+//     $("#tmpTable").sortable({
+//         sort: function() {
+//             if ($(this).hasClass("cancel")) {
+//                 $(this).sortable("cancel");
+//             }
+//         },
+//         axis         : "y",
+//         opacity      : 0.6,
+//         revert       : 600,
+//         scroll       : true,
+//         connectWith  : "#tmpTable",
+//         stop         : function(){
+//             $('.divTableRow.tmp input#indexEntry').each(function () {
+//                 $(this).val(indexNum);
+//                 indexNum++;
+//             });
+//             saveTMPTable();
+//         }
+//     });
+//     $( "#tmpTable" ).disableSelection();
+// });

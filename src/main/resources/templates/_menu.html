@@ -1,17 +1,18 @@
-<div id="mainmenu" xmlns:th="http://www.thymeleaf.org">
-    <button id="menuButton" type="button">Menu</button>
-    <div id="dropdown-content">
-        <a th:href="@{/admin}">Admin</a>&nbsp;
-        <span sec:authorize="isAuthenticated()">
-            <a th:href="@{/salary}">Salaries</a>&nbsp;
-            <a th:href="@{/editTMP}">Edit payment template</a>&nbsp;
-            <a th:href="@{/currentMonth}">Current month</a>&nbsp;
-            <a th:href="@{/notes}">Notes</a>&nbsp;
-            <a id="newMonth" href="#">Create new month</a>&nbsp;
-            <a th:href="@{/analysisList}">Analysis List</a>&nbsp;
-        </span>
-        <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
-    </div>
+<button id="menuButton" type="button">— — —</button>
+<div class="mainmenu" xmlns:th="http://www.thymeleaf.org">
+
+    <a href="#" class="mainMenuCloseBtn">&times;</a>
+
+    <a th:href="@{/admin}">Admin</a>&nbsp;
+    <span sec:authorize="isAuthenticated()">
+        <a th:href="@{/salary}">Salaries</a>&nbsp;
+        <a th:href="@{/editTMP}">Edit payment template</a>&nbsp;
+        <a th:href="@{/currentMonth}">Current month</a>&nbsp;
+        <a th:href="@{/notes}">Notes</a>&nbsp;
+        <a id="newMonth" href="#">Create new month</a>&nbsp;
+        <a th:href="@{/analysisList}">Analysis List</a>&nbsp;
+    </span>
+    <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
 </div>
 <th:block sec:authorize="isAuthenticated()">
     <div style="display: none" id="month-success" title="Create success">
@@ -67,6 +68,14 @@
         notes = /*[[${notes}]]*/ "";
         $(document).ready(function() {
             searchForRemind();
+
+            $('#menuButton').click(function () {
+                $(".mainmenu").css("width","20em");
+            });
+            $('.mainMenuCloseBtn').click(function () {
+                $(".mainmenu").css("width","0");
+            });
+
         });
     </script>
 <script src="../static/js/notes.js" th:src="@{/js/notes.js}" type="text/javascript"></script>
