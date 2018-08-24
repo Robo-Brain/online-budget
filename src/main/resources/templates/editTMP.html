@@ -95,9 +95,27 @@
             $("#hideAddForm").hide();
             $("#pcAddForm").hide();
 
+            // $(function() {
+            //     $(".divTableRow").swipe( {
+            //         swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+            //             var id = $(this).attr('id');
+            //
+            //             $(".swipeDelete").css("visibility","hidden");
+            //             $(".swipeDelete").css("opacity","0");
+            //
+            //             $(".swipeDelete." + id).css("visibility","visible");
+            //             $(".swipeDelete." + id).css("opacity","0.9");
+            //         }
+            //     });
+            // });
+
             $(function() {
                 $(".divTableRow").swipe( {
                     swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+                        var id = $(this).attr('id');
+
+                        console.log(id);
+
                         var id = $(this).attr('id');
 
                         $(".swipeDelete").css("visibility","hidden");
