@@ -252,11 +252,13 @@ $(function() {
         swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
             id = $(this).attr('id');
 
-            $(".swipeDelete").css("visibility", "hidden");
-            $(".swipeDelete").css("opacity", "0");
+            if (direction == 'left') {
+                $(".swipeDelete").css("visibility", "hidden");
+                $(".swipeDelete").css("opacity", "0");
 
-            $(".swipeDelete." + id).css("visibility", "visible");
-            $(".swipeDelete." + id).css("opacity", "0.9");
+                $(".swipeDelete." + id).css("visibility", "visible");
+                $(".swipeDelete." + id).css("opacity", "0.9");
+            }
         }
     });
 
