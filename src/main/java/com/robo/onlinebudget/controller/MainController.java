@@ -53,7 +53,7 @@ public class MainController {
 
     @PostMapping(value = "/addNewSpend", produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
-    public String addNewSpend(@RequestBody SaveSpends saveSpend) {
+    public String addNewSpend(@RequestBody SaveSpends saveSpend) throws Exception {
         monthlySpendsDAO.addNewSpendToTemplate(saveSpend);
         return "success";
     }

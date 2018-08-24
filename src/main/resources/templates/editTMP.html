@@ -50,37 +50,38 @@
 </div>
 <p><button id="hideAddForm">Hide form</button></p>
 
-<form id="pcAddForm" action="#" >
-    <div class="divTableAdd">
-        <div class="divTableRow">
-            <div class="divTableCell">Name:</div>
-            <div class="divTableCell">Amount:</div>
-            <div class="divTableCell">Salary/Prepaid:</div>
-            <div class="divTableCell">Withdraw:</div>
+
+<div class="divTable pcAddForm">
+    <div class="divTableRow">
+        <div class="divTableCell">Name:</div>
+        <div class="divTableCell">Amount:</div>
+        <div class="divTableCell">Salary/Prepaid:</div>
+        <div class="divTableCell">Withdraw:</div>
+    </div>
+    <div class="divTableRow">
+        <div class="divTableCell"><input type="text" id="newName" name="newName" /></div>
+        <div class="divTableCell"><input type="text" id="newAmount" name="amount" /></div>
+        <div class="divTableCell">
+            <label class="switch">
+                <input class="salaryPrepaid" id="newSalaryPrepaid" name="newSalaryPrepaid" type="checkbox">
+                <span class="slider salaryPrepaid"></span>
+            </label>
         </div>
-        <div class="divTableRow">
-            <div class="divTableCell"><input type="text" id="newName" name="newName" /></div>
-            <div class="divTableCell"><input type="text" id="newAmount" name="amount" /></div>
-            <div class="divTableCell">
-                <label class="switch">
-                    <input class="salaryPrepaid" id="newSalaryPrepaid" name="newSalaryPrepaid" type="checkbox">
-                    <span class="slider salaryPrepaid"></span>
-                </label>
-            </div>
-            <div class="divTableCell">
-                <label class="switch">
-                    <input class="withdraw" id="newWithdraw" name="withdraw" type="checkbox">
-                    <span class="slider withdraw"></span>
-                </label>
-            </div>
+        <div class="divTableCell">
+            <label class="switch">
+                <input class="withdraw" id="newWithdraw" name="withdraw" type="checkbox">
+                <span class="slider withdraw"></span>
+            </label>
         </div>
     </div>
+
     <p>
-        <button id="addNewSpend" class="submit" value="Submit">Add</button>
+    <button id="addNewSpend" class="submit" value="Submit">Add</button>
     </p>
-    <br />
-</form>
-    <button id="showAddForm">Add new spend</button>
+</div>
+
+<button id="showAddForm">Add new spend</button>
+
 
 <div class="mobileAddButton" id="addButton">
     <span>+</span>
@@ -93,17 +94,17 @@
             lastWage = /*[[${lastWage}]]*/ "";
 
             $("#hideAddForm").hide();
-            $("#pcAddForm").hide();
+            $(".pcAddForm").hide();
 
             $("#hideAddForm").click(function(h){
                 h.preventDefault();
-                $("#pcAddForm").hide();
+                $(".pcAddForm").hide();
                 $("#showAddForm").show();
                 $("#hideAddForm").hide();
             });
             $("#showAddForm").click(function(s){
                 s.preventDefault();
-                $("#pcAddForm").show();
+                $(".pcAddForm").show();
                 $("#showAddForm").hide();
                 $("#hideAddForm").show();
             });

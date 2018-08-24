@@ -58,7 +58,15 @@ public class MonthlySpendsDAO {
         }
     }
 
-    public void addNewSpendToTemplate(SaveSpends editTMPSpends) {
+    public void addNewSpendToTemplate(SaveSpends editTMPSpends) throws Exception {
+
+        if (editTMPSpends.getName() == null || editTMPSpends.getName().isEmpty()){
+            throw new Exception("Name of spend must not be empty");
+        }
+
+        if (editTMPSpends.getAmount() == null){
+            throw new Exception("Amount of spend must not be empty");
+        }
 
         String hql = "SELECT new " + SpendsEntity.class.getName() + "(e.index) FROM " + SpendsEntity.class.getName() + " e " + "ORDER BY e.index DESC";
         SpendsEntity indexMaxNum = sessionFactory.getCurrentSession().createQuery(hql, SpendsEntity.class).setMaxResults(1).uniqueResult();

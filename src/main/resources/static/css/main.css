@@ -375,6 +375,10 @@ input:checked + .slider.salaryPrepaid:after {
     display: none;
 }
 
+.mainMenuCloseBtn {
+    display: none;
+}
+
 @media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px) {
 
     #menuButton {

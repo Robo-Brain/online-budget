@@ -24,17 +24,17 @@ function appendTMPTable() {
                     "<input type='hidden' class='index " + tmpVal[i].id + "' id='indexEntry' name='indexEntry' value='" + tmpVal[i].index + "' />" +
                 "</div>" +
                 "<div class='divTableCell amount'>" +
-                    "<span class='hiddenMobileLabels'>Amount: </span><br /><input type='text' class='amount " + tmpVal[i].id + "' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
+                    "<span class='hiddenMobileLabels'>Amount: <br /></span><input type='text' class='amount " + tmpVal[i].id + "' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
                 "</div>" +
                 "<div class='divTableCell switcher'>" +
-                    "<span class='hiddenMobileLabels'>Salary: </span><br />" +
+                    "<span class='hiddenMobileLabels'>Salary: <br /></span>" +
                     "<label class='switch'>" +
                         "<input type='checkbox' id='salaryPrepaid' class='salaryPrepaid " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id + "' name='salaryPrepaid" + tmpVal[i].id +"' />" +
                         "<span class='slider salaryPrepaid'></span>" +
                     "</label>" +
                 "</div>" +
                 "<div class='divTableCell withdraw switcher'>" +
-                    "<span class='hiddenMobileLabels'>Withdraw: </span><br />" +
+                    "<span class='hiddenMobileLabels'>Withdraw: <br /></span>" +
                     "<label class='switch'>" +
                         "<input type='checkbox' id='withdraw' class='withdraw " + tmpVal[i].withdraw + ' ' + tmpVal[i].id + "' name='withdraw" + tmpVal[i].id +"' />" +
                         "<span class='slider'></span>" +
@@ -194,9 +194,10 @@ function addNewSPendMobile() {
 
 
 $(function() {
-    if(screen.width>2000) {
+    if(screen.width<2100) {
+        $("#tmpTable").sortable( "disable" )
+    } else {
         var indexNum = 1;
-
         $("#tmpTable").sortable({
             sort: function() {
                 if ($(this).hasClass("cancel")) {
@@ -216,79 +217,82 @@ $(function() {
                 saveTMPTable();
             }
         });
-        $( "#tmpTable" ).disableSelection();
+    $( "#tmpTable" ).disableSelection();
     }
 });
-//
-// $(".unstuck").click(function (u) {
-//     u.preventDefault();
-//     var indexNum = 1;
-//
-//     $("#tmpTable").sortable({
-//         sort: function() {
-//             if ($(this).hasClass("cancel")) {
-//                 $(this).sortable("cancel");
-//             }
-//         },
-//         axis         : "y",
-//         opacity      : 0.6,
-//         revert       : 600,
-//         scroll       : true,
-//         connectWith  : "#tmpTable",
-//         stop         : function(){
-//             $('.divTableRow.tmp input#indexEntry').each(function () {
-//                 $(this).val(indexNum);
-//                 indexNum++;
-//             });
-//             saveTMPTable();
-//         }
-//     });
-//     $( "#tmpTable" ).disableSelection();
-// });
+
+$(".unstuck").click(function (u) {
+    u.preventDefault();
+    var indexNum = 1;
+
+    $("#tmpTable").sortable({
+        sort: function() {
+            if ($(this).hasClass("cancel")) {
+                $(this).sortable("cancel");
+            }
+        },
+        axis         : "y",
+        opacity      : 0.6,
+        revert       : 600,
+        scroll       : true,
+        connectWith  : "#tmpTable",
+        stop         : function(){
+            $('.divTableRow.tmp input#indexEntry').each(function () {
+                $(this).val(indexNum);
+                indexNum++;
+            });
+            saveTMPTable();
+        }
+    });
+    $( "#tmpTable" ).disableSelection();
+});
+
 $(function() {
-    id = 0;
+    if(screen.width<1000) {
+        id = 0;
 
-    $(".divTableRow").swipe( {
-        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-            id = $(this).attr('id');
+        $(".divTableRow").swipe({
+            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+                id = $(this).attr('id');
 
-            if (direction == 'left') {
+                if (direction == 'left') {
+                    $(".swipeDelete").css("visibility", "hidden");
+                    $(".swipeDelete").css("opacity", "0");
+
+                    $(".swipeDelete." + id).css("visibility", "visible");
+                    $(".swipeDelete." + id).css("opacity", "0.9");
+                }
+            }
+        });
+
+        $(".swipeDelete").swipe({
+            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+                if (direction == 'left') {
+                    $(this).addClass('swipeConfirmDelete', 800, "swing");
+                } else if (direction == 'right') {
+                    $(".swipeDelete").css("visibility", "hidden");
+                    $(".swipeDelete").css("opacity", "0");
+                }
+
+            }
+        });
+
+        $('.swipeDelete').click(function (s) {
+            s.preventDefault();
+            if ($(this).hasClass('swipeConfirmDelete')) {
+                delTMPFunc(id, 'yes');
+            } else {
                 $(".swipeDelete").css("visibility", "hidden");
                 $(".swipeDelete").css("opacity", "0");
-
-                $(".swipeDelete." + id).css("visibility", "visible");
-                $(".swipeDelete." + id).css("opacity", "0.9");
             }
-        }
-    });
+        });
 
-    $(".swipeDelete").swipe( {
-        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-            if (direction == 'left') {
-                $(this).addClass('swipeConfirmDelete', 800, "swing");
-            } else if (direction == 'right') {
-                $(".swipeDelete").css("visibility","hidden");
-                $(".swipeDelete").css("opacity","0");
-            }
+        $('body').click(function () {
+            $(".swipeDelete").css("visibility", "hidden");
+            $(".swipeDelete").css("opacity", "0");
 
-        }
-    });
-
-    $('.swipeDelete').click(function (s) {
-        s.preventDefault();
-        if ($(this).hasClass('swipeConfirmDelete')) {
-            delTMPFunc(id, 'yes');
-        } else {
-            $(".swipeDelete").css("visibility","hidden");
-            $(".swipeDelete").css("opacity","0");
-        }
-    });
-
-    $('body').click(function () {
-        $(".swipeDelete").css("visibility", "hidden");
-        $(".swipeDelete").css("opacity", "0");
-
-        $('.swipeDelete').removeClass('swipeConfirmDelete', 800, "swing");
-    })
+            $('.swipeDelete').removeClass('swipeConfirmDelete', 800, "swing");
+        })
+    }
 
 });
