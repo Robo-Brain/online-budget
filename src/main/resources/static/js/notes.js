@@ -3,7 +3,7 @@ function appendNotes() {
         $("#notesTable").append(
             "<div class='divTableRow " + notes[i].id + " note'>" +
                 "<input type='hidden' id='id' name='id' value='" + notes[i].id + "' />" +
-                "<div class='divTableCell " + notes[i].id + " noteDate'>" + notes[i].date + "</div>" +
+                "<div class='divTableCell " + notes[i].id + " noteDate exist'>" + notes[i].date + "</div>" +
                     "<div class='divTableCell hidden " + notes[i].id + " noteDate'>" +
                     "<input type='hidden' id='noteId' name='noteId' value='" + notes[i].id + "' />" +
                     "<input type='text' id='noteDate" + notes[i].id + "' name='noteDate' class='date' value='" + notes[i].date + "' />" +

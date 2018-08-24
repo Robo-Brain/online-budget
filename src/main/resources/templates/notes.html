@@ -71,7 +71,10 @@
                 b.preventDefault();
 
                 var noteId = $(this).attr('id');
-                var noteDate = $('.divTableCell.' + noteId + '.noteDate').text();
+
+                console.log($('.divTableCell.' + noteId + '.noteDate.exist').text());
+
+                var noteDate = $('.divTableCell.' + noteId + '.noteDate.exist').text();
                 var noteText = $('.divTableCell.' + noteId + '.noteText').text();
                 
                 if ($(this).hasClass('false')) {
