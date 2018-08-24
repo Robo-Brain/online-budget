@@ -123,6 +123,7 @@ function delTMPFunc(i, a) {
     var id = i;
 
     if (a == 'yes' || a == null || a == undefined) {
+        $("#dialog-confirm").dialog({}).remove();
         $.ajax({
             headers: {
                 'Accept': 'application/json',
@@ -192,32 +193,32 @@ function addNewSPendMobile() {
 }
 
 
-// $(function() {
-//     if(screen.width>2000) {
-//         var indexNum = 1;
-//
-//         $("#tmpTable").sortable({
-//             sort: function() {
-//                 if ($(this).hasClass("cancel")) {
-//                     $(this).sortable("cancel");
-//                 }
-//             },
-//             axis         : "y",
-//             opacity      : 0.6,
-//             revert       : 600,
-//             scroll       : true,
-//             connectWith  : "#tmpTable",
-//             stop         : function(){
-//                 $('.divTableRow.tmp input#indexEntry').each(function () {
-//                     $(this).val(indexNum);
-//                     indexNum++;
-//                 });
-//                 saveTMPTable();
-//             }
-//         });
-//         $( "#tmpTable" ).disableSelection();
-//     }
-// });
+$(function() {
+    if(screen.width>2000) {
+        var indexNum = 1;
+
+        $("#tmpTable").sortable({
+            sort: function() {
+                if ($(this).hasClass("cancel")) {
+                    $(this).sortable("cancel");
+                }
+            },
+            axis         : "y",
+            opacity      : 0.6,
+            revert       : 600,
+            scroll       : true,
+            connectWith  : "#tmpTable",
+            stop         : function(){
+                $('.divTableRow.tmp input#indexEntry').each(function () {
+                    $(this).val(indexNum);
+                    indexNum++;
+                });
+                saveTMPTable();
+            }
+        });
+        $( "#tmpTable" ).disableSelection();
+    }
+});
 //
 // $(".unstuck").click(function (u) {
 //     u.preventDefault();
@@ -244,3 +245,48 @@ function addNewSPendMobile() {
 //     });
 //     $( "#tmpTable" ).disableSelection();
 // });
+$(function() {
+    id = 0;
+
+    $(".divTableRow").swipe( {
+        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+            id = $(this).attr('id');
+
+            $(".swipeDelete").css("visibility", "hidden");
+            $(".swipeDelete").css("opacity", "0");
+
+            $(".swipeDelete." + id).css("visibility", "visible");
+            $(".swipeDelete." + id).css("opacity", "0.9");
+        }
+    });
+
+    $(".swipeDelete").swipe( {
+        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+            if (direction == 'left') {
+                $(this).addClass('swipeConfirmDelete', 800, "swing");
+            } else if (direction == 'right') {
+                $(".swipeDelete").css("visibility","hidden");
+                $(".swipeDelete").css("opacity","0");
+            }
+
+        }
+    });
+
+    $('.swipeDelete').click(function (s) {
+        s.preventDefault();
+        if ($(this).hasClass('swipeConfirmDelete')) {
+            delTMPFunc(id, 'yes');
+        } else {
+            $(".swipeDelete").css("visibility","hidden");
+            $(".swipeDelete").css("opacity","0");
+        }
+    });
+
+    $('body').click(function () {
+        $(".swipeDelete").css("visibility", "hidden");
+        $(".swipeDelete").css("opacity", "0");
+
+        $('.swipeDelete').removeClass('swipeConfirmDelete', 800, "swing");
+    })
+
+});

@@ -92,14 +92,7 @@
                     type: "post",
                     url: "/saveExistNote",
                     dataType : 'json',
-                    data : JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind}),
-                    // success: function () {
-                    //     if (noteIsRemind == true) {
-                    //         $('span#' + noteId).switchClass('false', 'true', 1000, "easeInOutQuad");
-                    //     } else if (noteIsRemind == false)  {
-                    //         $('span#' + noteId).switchClass('true', 'false', 1000, "easeInOutQuad");
-                    //     }
-                    // }
+                    data : JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind})
                 });
             });
 
