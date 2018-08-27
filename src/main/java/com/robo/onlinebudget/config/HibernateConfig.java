@@ -39,6 +39,7 @@ public class HibernateConfig {
         properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         properties.put("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
+        properties.put("server.servlet.session.timeout", env.getProperty("server.servlet.session.timeout"));
 
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 
@@ -55,7 +56,13 @@ public class HibernateConfig {
     @Bean(name = "transactionManager")
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
-
         return transactionManager;
     }
+
+//    @Bean
+//    public PersistentTokenRepository persistentTokenRepository() {
+//        JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+//        tokenRepositoryImpl.setDataSource(getDataSource());
+//        return tokenRepositoryImpl;
+//    }
 }

@@ -3,7 +3,7 @@ datasource.url=jdbc:mysql://localhost:3306/budget?useUnicode=true&useSSL=false&u
 datasource.username=root
 datasource.password=1ccc12
 hibernate.show-sql=true
-
+server.servlet.session.timeout=180s
 spring.profiles.active=web
 
 spring.datasource.driver=com.mysql.cj.jdbc.Driver

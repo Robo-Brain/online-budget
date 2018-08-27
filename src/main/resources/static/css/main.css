@@ -62,6 +62,7 @@ textarea {
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    font-size: 1.2rem;
 }
 .loginForm input{
     border-radius: 4px;
@@ -69,8 +70,15 @@ textarea {
     padding: 0.2em 0.4em;
     width: 15em;
     border: solid #286A91 1px;
-    font-size: 1.2em;
+    font-size: 1.2rem !important;
     font-weight: 600;
+}
+.rememberMeCheckbox {
+    line-height: 1em !important;
+    vertical-align: bottom;
+    margin: 1em 0 0 0 !important;
+    width: 1.5em !important;
+    height: 1.5em !important;
 }
 .loginForm .submit{
     color: #fff;
@@ -851,7 +859,7 @@ input:checked + .slider.salaryPrepaid:after {
         text-align: center;
         vertical-align: top;
         color: #fff;
-        opacity: 0.7;
+        opacity: 0.5;
         cursor: pointer;
     }
     #addButton:hover {
