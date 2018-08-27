@@ -428,9 +428,9 @@ input:checked + .slider.salaryPrepaid:after {
     }
 
     .mainmenu a {
-        padding: 8px 8px 8px 32px;
+        padding: 0.2em 0.2em 0.2em 0.5em;
         text-decoration: none;
-        font-size: 25px;
+        font-size: 1.5em;
         color: #99CEEE;
         display: block;
         transition: 0.3s;
