@@ -472,10 +472,6 @@ input:checked + .slider.salaryPrepaid:after {
     .divTable.tmp input {
         font-size: 1em;
     }
-    .divTable.tmp input#name {
-        width: 100%;
-        font-size: 1em;
-    }
     .divTable.tmp .divTableRow {
         display: block;
         border: solid white 3px;
@@ -575,20 +571,30 @@ input:checked + .slider.salaryPrepaid:after {
         margin-top: -0.5em;
         text-align: center;
     }
-
+    .divTable.tmp .divTableCell.name {
+        float: left;
+        width: 60%;
+        padding: 0.5em 0.5em 0 0.6em;
+        font-size: 1.1em;
+    }
+    .divTable.tmp input#name {
+        width: 100%;
+        font-size: 1em;
+        text-align: left !important;
+    }
     .divTable.tmp .divTableCell.amount {
         float: left;
-        width: 33%;
-        height: 4em;
-        padding: 0 1em 0 0.6em;
+        width: 28%;
+        height: 1.5em;
+        padding: 0.5em 0.5em 0 0.2em;
         font-size: 1.1em;
     }
     .divTable.tmp .divTableCell.amount input{
-        width: 80%;
+        width: 75%;
         margin-top: 0rem !important;
         height: 1.9rem;
         padding: 0 0 !important;
-        text-align: right;
+        text-align: center;
         font-size: 1.2em;
     }
     .divTableRow.true input {
@@ -599,30 +605,23 @@ input:checked + .slider.salaryPrepaid:after {
         background-color: #98F4A3;
         border: solid #98F4A3 1px;
     }
-    input#name {
-        text-align: left !important;
-    }
     .divTableRow.true input:hover, .divTableRow.true input:focus{
         background: #BDDCEE;
         border: solid #286A91 1px;
-        text-align: center !important;
     }
     .divTableRow.false input:hover, .divTableRow.false input:focus{
         background: #BFF4C6;
         border: solid #5CDC6B 1px;
-        text-align: center !important;
     }
     .divTable.tmp .divTableCell.switcher {
+        display: inline-block;
         margin: 0 !important;
         padding: 0 !important;
-        float: left;
-        width: 28%;
+        width: 50%;
     }
 
     /* slider start */
     .divTable.tmp .switch {
-        position: relative;
-        display: inline-block;
         top: 0.1em;
         width: 90%;
         height: 1.8em;

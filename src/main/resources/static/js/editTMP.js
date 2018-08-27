@@ -30,7 +30,7 @@ function appendTMPTable() {
                     "<input type='hidden' class='index " + tmpVal[i].id + "' id='indexEntry' name='indexEntry' value='" + tmpVal[i].index + "' />" +
                 "</div>" +
                 "<div class='divTableCell amount'>" +
-                    "<span class='hiddenMobileLabels'>Amount: <br /></span><input type='text' class='amount " + tmpVal[i].id + "' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
+                    "<input type='text' class='amount " + tmpVal[i].id + "' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
                 "</div>" +
                 "<div class='divTableCell switcher'>" +
                     "<span class='hiddenMobileLabels'>Salary: <br /></span>" +
