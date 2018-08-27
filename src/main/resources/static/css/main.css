@@ -149,6 +149,10 @@ textarea {
     padding: 0.1em;
     border: solid #286A91 1px;
 }
+.divTable.currentMonth input {
+    color: #29A138;
+}
+
 input#name {
     width: 10em;
     font-size: 14px;
@@ -208,7 +212,7 @@ input#name {
 }
 
 .notEnough {
-    border: solid red 1px !important;
+    color: red !important;
 }
 
 .resultTable{
@@ -458,17 +462,17 @@ input:checked + .slider.salaryPrepaid:after {
         height: 1.9em;
     }
     .divTable.tmp input {
-        font-size: 1.2em;
+        font-size: 1em;
     }
     .divTable.tmp input#name {
         width: 100%;
-        font-size: 1.2em;
+        font-size: 1em;
     }
     .divTable.tmp .divTableRow {
         display: block;
         border: solid white 3px;
-        min-height: 7em;
-        height: 7em;
+        min-height: 6.5em;
+        height: 6.5em;
     }
     .divTable.tmp .divTableRow.result {
         display: block;
@@ -531,7 +535,7 @@ input:checked + .slider.salaryPrepaid:after {
         line-height: 1em;
         width: 40% !important;
         background: red !important;
-        height: 7em !important;
+        height: 6.5em !important;
         position: relative;
         left: 60%;
         top: 0;
@@ -566,13 +570,39 @@ input:checked + .slider.salaryPrepaid:after {
 
     .divTable.tmp .divTableCell.amount {
         float: left;
-        width: 40%;
+        width: 33%;
         height: 4em;
-        padding: 0 0 0 0.5em;
-        font-size: 1.2em;
+        padding: 0 1em 0 0.6em;
+        font-size: 1.1em;
     }
     .divTable.tmp .divTableCell.amount input{
         width: 80%;
+        margin-top: 0rem !important;
+        height: 1.9rem;
+        padding: 0 0 !important;
+        text-align: right;
+        font-size: 1.2em;
+    }
+    .divTableRow.true input {
+        background-color: #99CEEE;
+        border: solid #99CEEE 1px;
+    }
+    .divTableRow.false input {
+        background-color: #98F4A3;
+        border: solid #98F4A3 1px;
+    }
+    input#name {
+        text-align: left !important;
+    }
+    .divTableRow.true input:hover, .divTableRow.true input:focus{
+        background: #BDDCEE;
+        border: solid #286A91 1px;
+        text-align: center !important;
+    }
+    .divTableRow.false input:hover, .divTableRow.false input:focus{
+        background: #BFF4C6;
+        border: solid #5CDC6B 1px;
+        text-align: center !important;
     }
     .divTable.tmp .divTableCell.switcher {
         margin: 0 !important;
@@ -585,14 +615,15 @@ input:checked + .slider.salaryPrepaid:after {
     .divTable.tmp .switch {
         position: relative;
         display: inline-block;
+        top: 0.1em;
         width: 90%;
-        height: 2em;
+        height: 1.8em;
     }
 
     .divTable.tmp .slider:before {
         position: absolute;
         content: "";
-        height: 1.8em;
+        height: 1.6em;
         width: 50%;
         left: 0.1em;
         bottom: 0.1em;
@@ -678,6 +709,11 @@ input:checked + .slider.salaryPrepaid:after {
         width: 100%;
     }
 
+    #submitMonth {
+        width: 100%;
+        font-size: 1.5em;
+    }
+
     .resultTable {
         display: table;
         width: 100%;
@@ -692,8 +728,7 @@ input:checked + .slider.salaryPrepaid:after {
 
     .hiddenMobileLabels {
         display: inline;
-        vertical-align: top;
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .divTableAdd, .addWage, #addNoteTable{

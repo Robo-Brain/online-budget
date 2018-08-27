@@ -46,7 +46,7 @@ function appendCurrentDateTable() {
         }
 
         if (parseInt(currentMonth[i].amount) > parseInt(currentMonth[i].monthAmount)) {
-            $(".amount" + i).toggleClass('notEnough');
+            $(".amount." + currentMonth[i].id).toggleClass('notEnough');
         }
 
     }
