@@ -8,6 +8,9 @@ function appendAllWages() {
     for (i = 0; i < allWages.length; i++) {
 
         date = new Date(allWages[i].salaryDate), locale = "en-us", year = date.getFullYear(), month = date.toLocaleString(locale, { month: 'long'});
+        if (year == '1970'){
+            date = new Date(allWages[i].prepaidDate), locale = "en-us", year = date.getFullYear(), month = date.toLocaleString(locale, { month: 'long'});
+        }
 
         $("#salaryTable").append(
             "<div class='mobileWageDate'>" + year + ' ' + month + "</div>" +
