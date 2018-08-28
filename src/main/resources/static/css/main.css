@@ -142,6 +142,9 @@ textarea {
     border: solid #ccc 1px;
 }
 
+.mobileWageDate {
+    display: none;
+}
 
 /* DivTable.com */
 .divTable{
@@ -402,16 +405,27 @@ input:checked + .slider.salaryPrepaid:after {
 
 @media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px) {
 
+    .menuButtonDiv {
+        height: 4em;
+    }
     #menuButton {
         display: block;
+        position: fixed;
         font-size: 2em;
         font-weight: 600;
         height: 1.6em;
         line-height: 0.3em;
         width: 1.6em;
+        left: 0.4em;
         cursor: pointer;
-        margin: 0 0 1em 0;
         text-align: center;
+        opacity: 0.5;
+        z-index: 1;
+        background-color: #286A91;
+        border:1px solid #5986A0;
+    }
+    #menuButton:hover, #menuButton:active {
+        opacity: 1;
     }
 
     .mainmenu {
@@ -746,6 +760,15 @@ input:checked + .slider.salaryPrepaid:after {
 
     #summaryTable button {
         display: block !important;
+    }
+
+    .mobileWageDate {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 1.3em;
+        color: #286A91;
+        padding: 0.2em 0;
     }
 
     .divTableRow.salaryTable {

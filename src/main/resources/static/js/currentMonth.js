@@ -10,7 +10,6 @@ function appendCurrentDateTable() {
     currentMonth.sort(function(a,b) {
         return a.index - b.index;
     });
-    console.log(currentMonth);
 
     for (i = 0; i < currentMonth.length; i++) {
         $("#currentDate").html(currentMonth[i].date);

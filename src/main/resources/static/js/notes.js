@@ -1,4 +1,10 @@
 function appendNotes() {
+
+    notes = notesArr.slice(0);
+    notes.sort(function(a,b) {
+        return new Date(b.date) - new Date(a.date);
+    });
+
     for (i = 0; i < notes.length; i++) {
         $("#notesTable").append(
             "<div class='divTableRow " + notes[i].id + " note'>" +

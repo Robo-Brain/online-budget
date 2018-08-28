@@ -62,7 +62,7 @@
 
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
-        notes = /*[[${notes}]]*/ "";
+        notesArr = /*[[${notes}]]*/ "";
         $(document).ready(function() {
 
             appendNotes();
@@ -71,9 +71,6 @@
                 b.preventDefault();
 
                 var noteId = $(this).attr('id');
-
-                console.log($('.divTableCell.' + noteId + '.noteDate.exist').text());
-
                 var noteDate = $('.divTableCell.' + noteId + '.noteDate.exist').text();
                 var noteText = $('.divTableCell.' + noteId + '.noteText').text();
                 
@@ -84,8 +81,6 @@
                     var noteIsRemind = false;
                     $(this).switchClass('true', 'false', 400, "swing");
                 }
-
-                console.log(JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind}));
 
                 $.ajax({
                     headers: {

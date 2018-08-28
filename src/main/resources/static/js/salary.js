@@ -1,6 +1,16 @@
 function appendAllWages() {
+
+    allWages = wages.slice(0);
+    allWages.sort(function(a,b) {
+        return new Date(b.salaryDate) - new Date(a.salaryDate);
+    });
+
     for (i = 0; i < allWages.length; i++) {
+
+        date = new Date(allWages[i].salaryDate), locale = "en-us", year = date.getFullYear(), month = date.toLocaleString(locale, { month: 'long'});
+
         $("#salaryTable").append(
+            "<div class='mobileWageDate'>" + year + ' ' + month + "</div>" +
             "<div class='divTableRow salaryTable " + allWages[i].id + "'>" +
             "<input type='hidden' id='id' name='id' value='" + allWages[i].id + "' />" +
 
