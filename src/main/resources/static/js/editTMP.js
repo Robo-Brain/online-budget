@@ -278,6 +278,7 @@ $(function() {
                 } else if (direction == 'right') {
                     $(".swipeDelete").css("visibility", "hidden");
                     $(".swipeDelete").css("opacity", "0");
+                    $(this).removeClass('swipeConfirmDelete');
                 }
 
             }
@@ -290,6 +291,7 @@ $(function() {
             } else {
                 $(".swipeDelete").css("visibility", "hidden");
                 $(".swipeDelete").css("opacity", "0");
+                $(this).removeClass('swipeConfirmDelete');
             }
         });
 
