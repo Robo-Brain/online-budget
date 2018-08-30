@@ -20,16 +20,21 @@
     <div style="display: none" id="month-success" title="Create success">
         <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>The month has been created successfully.</p>
     </div>
-    <div style="display: none" id="month-fail" title="ERROR">
-        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0"></span>ERROR. The month already been created?</p>
+    <div style="display: none" id="ignore" title="Ignore ALL errors?">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+            <input type="checkbox" id="ignoreCheckbox" class="ignoreCheckbox" /><label for="ignoreCheckbox">I realize what I'm doing.</label>
+        </p>
     </div>
     <script th:inline="javascript">
         $(document).ready(function() {
+
             $('#newMonth').click(function () {
                 $.ajax({
                     type: "get",
                     url : '/createNewMonth'
-                }).done(function()  {
+                })
+                    .done(function()  {
                     $("#month-success").dialog({
                         classes: {
                             "ui-dialog-titlebar": "done-dialog-titlebar",
@@ -46,29 +51,82 @@
                             }
                         }
                     })
-                }).fail(function()  {
-                    $("#month-fail").dialog({
-                        classes: {
-                            "ui-dialog": "ui-dialog-fail"
-                        },
-                        resizable: false,
-                        height: "auto",
-                        width: 400,
-                        modal: true,
-                        draggable: false,
-                        buttons: {
-                            "OK": function () {
-                                $(this).dialog("close");
+                })
+                    .fail(function(xhr, status, error)  {
+                        var err = JSON.parse(xhr.responseText);
+                        $("<div>" + err["message"] + "</div>").dialog({
+                            classes: {
+                                "ui-dialog": "ui-dialog-fail"
+                            },
+                            resizable: false,
+                            height: "auto",
+                            width: 400,
+                            modal: true,
+                            draggable: false,
+                            buttons: {
+                                "OK": function () {
+                                    $(this).dialog("close");
+                                },
+                                "Ignore error": function () {
+                                    var ignore = false;
+                                    $(this).dialog("close");
+                                    $("#ignore").dialog({
+                                        classes: {
+                                            "ui-dialog": "ui-dialog-fail"
+                                        },
+                                        resizable: false,
+                                        height: "auto",
+                                        width: 400,
+                                        modal: true,
+                                        draggable: false,
+                                        buttons: {
+                                            "Create" : function () {
+                                                $(this).dialog("close");
+                                                ignore = $('#ignoreCheckbox').is(':checked');
+                                                if (ignore) {
+                                                    $.ajax({
+                                                        type: "get",
+                                                        url : '/createNewMonthUncheck'
+                                                    })
+                                                } else {
+                                                    alert('You must confirm an unprotected month creation!')
+                                                }
+                                            },
+                                            "Cancel" : function () {
+                                                $(this).dialog("close");
+                                            }
+                                        },
+                                        create:function () {
+                                            $(this).closest(".ui-dialog")
+                                                .find(".ui-button")
+                                                .eq(1)
+                                                .attr('id', 'confirmButton')
+                                                .addClass("inactive");
+                                            $('.ui-button.inactive').attr('disabled','disabled');
+                                        }
+                                    })
+                                }
                             }
-                        }
                     })
                 });
             });
+
+            $('#ignoreCheckbox').click(function() {
+                $('#confirmButton').attr('disabled', !this.checked);
+                if ($('#confirmButton').hasClass('inactive')) {
+                    $('#confirmButton').removeClass('inactive');
+                } else {
+                    $('#confirmButton').addClass('inactive');
+                }
+
+            });
+
         });
     </script>
     <script th:inline="javascript">
-        notes = /*[[${notes}]]*/ "";
         $(document).ready(function() {
+            notes = /*[[${notes}]]*/ "";
+
             searchForRemind();
 
             $('#menuButton').click(function () {

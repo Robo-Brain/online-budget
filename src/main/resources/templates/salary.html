@@ -70,11 +70,11 @@
 </div>
 
 <div id="addButton" class="addWageMobile"> <span>+</span> </div>
+<button id="error">error</button>
 
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
         $(document).ready(function() {
-
             wages = /*[[${allWages}]]*/ "";
 
             appendAllWages();

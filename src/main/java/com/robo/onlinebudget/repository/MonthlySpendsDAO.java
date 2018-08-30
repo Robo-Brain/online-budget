@@ -96,33 +96,64 @@ public class MonthlySpendsDAO {
 
     }
 
-    @SuppressWarnings("unchecked")
-    public void createNewMonth() throws Exception { // ADD NEW PAYMENT MONTH
-
+    public String checkBeforeCreateNewMonth() {
         String hql = "SELECT new " + SpendsMonthlyEntity.class.getName() + "(e.date) FROM " + SpendsMonthlyEntity.class.getName() + " e " + "ORDER BY e.id DESC";
         SpendsMonthlyEntity smeDate = sessionFactory.getCurrentSession().createQuery(hql, SpendsMonthlyEntity.class).setMaxResults(1).uniqueResult();
 
         LocalDate ldIncoming = LocalDate.now();
         LocalDate ldDB = LocalDate.parse(smeDate.getDate());
 
-        boolean sameDay = ldIncoming.getYear() == ldDB.getYear() &&  ldIncoming.getMonth() == ldDB.getMonth(); // check if the current month exists or not
-
-        if (sameDay){
-            throw new Exception("Date already exists!");
-        } else{
-            List<SpendsEntity> sne = sessionFactory.getCurrentSession().createQuery("SELECT new " + SpendsEntity.class.getName() +
-                    "(e.id, e.name) FROM " + SpendsEntity.class.getName() + " e ").getResultList();
-            List<LocalDate> list = new ArrayList<>(Collections.nCopies(sne.size(), ldIncoming)); // create list and fill it with number of rows with date(LocalDate.now()) = SpendsEntity number of rows
-
-        for(int i=0; i<list.size(); i++) {
-                SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
-                sme.setDate(String.valueOf(list.get(i)));
-                sme.setSpendId(sne.get(i).getId());
-                sme.setAmount(0);
-                sessionFactory.getCurrentSession().persist(sme);
-            }
+        String hql2 = "SELECT new " + SpendsEntity.class.getName() + "(s.id, s.amount) FROM " + SpendsEntity.class.getName() + " s";
+        List<SpendsEntity> spendsList = sessionFactory.getCurrentSession().createQuery(hql2, SpendsEntity.class).getResultList();
+        Map<Long, Integer> spendsMap = new HashMap<>();
+        for (int i = 0; i < spendsList.size(); i++) {
+            SpendsEntity se = spendsList.get(i);
+            spendsMap.put(se.getId(), se.getAmount());
         }
 
+        List<SpendsMonthlyEntity> spendsMonthlyList = getLastMonth();
+        Map<Long, Integer> spendsMonthlyMap = new HashMap<>();
+        for (int i = 0; i < spendsMonthlyList.size(); i++) {
+            SpendsMonthlyEntity sme = spendsMonthlyList.get(i);
+            spendsMonthlyMap.put(sme.getSpendId(), sme.getAmount());
+        }
+
+        boolean sameDay = ldIncoming.getYear() == ldDB.getYear() &&  ldIncoming.getMonth() == ldDB.getMonth(); // check for the current date already exist
+        boolean done = spendsMap.equals(spendsMonthlyMap);
+
+
+        if (sameDay){
+            return "The current month is not over yet!";
+        }
+        else if (!done) {
+            return "The current month not all payments are paid off!";
+        }
+        else {
+            createNewMonth();
+            return null;
+        }
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public void createNewMonth() { // ADD NEW PAYMENT MONTH
+        LocalDate ldIncoming = LocalDate.now();
+
+        List<SpendsEntity> sne = sessionFactory.getCurrentSession().createQuery("SELECT new "
+                + SpendsEntity.class.getName()
+                + "(e.id, e.name) FROM "
+                + SpendsEntity.class.getName()
+                + " e ")
+                .getResultList();
+        List<LocalDate> list = new ArrayList<>(Collections.nCopies(sne.size(), ldIncoming)); // create list and fill it with number of rows with date(LocalDate.now()) = SpendsEntity number of rows
+
+        for(int i=0; i<list.size(); i++) {
+            SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
+            sme.setDate(String.valueOf(list.get(i)));
+            sme.setSpendId(sne.get(i).getId());
+            sme.setAmount(0);
+            sessionFactory.getCurrentSession().persist(sme);
+        }
     }
 
     public List getLastMonth() {

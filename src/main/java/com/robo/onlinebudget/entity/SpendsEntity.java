@@ -48,6 +48,11 @@ public class SpendsEntity {
         this.index = index;
     }
 
+    public SpendsEntity(Long id, Integer amount) {
+        this.id = id;
+        this.amount = amount;
+    }
+
     public SpendsEntity(Integer index) {
         this.index = index;
     }

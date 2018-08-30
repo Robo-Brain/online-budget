@@ -40,6 +40,9 @@ public class HibernateConfig {
         properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         properties.put("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
         properties.put("server.servlet.session.timeout", env.getProperty("server.servlet.session.timeout"));
+        properties.put("server.error.whitelabel.enabled", env.getProperty("server.error.whitelabel.enabled"));
+        properties.put("spring.mvc.throw-exception-if-no-handler-found", env.getProperty("spring.mvc.throw-exception-if-no-handler-found"));
+        properties.put("spring.resources.add-mappings", env.getProperty("spring.resources.add-mappings"));
 
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 

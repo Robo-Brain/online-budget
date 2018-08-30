@@ -293,12 +293,12 @@ $(function() {
             }
         });
 
-        $('body').click(function () {
-            $(".swipeDelete").css("visibility", "hidden");
-            $(".swipeDelete").css("opacity", "0");
+    //     $('body').click(function () {
+    //         $(".swipeDelete").css("visibility", "hidden");
+    //         $(".swipeDelete").css("opacity", "0");
+    //
+    //         $('.swipeDelete').removeClass('swipeConfirmDelete', 800, "swing");
+    //     })
 
-            $('.swipeDelete').removeClass('swipeConfirmDelete', 800, "swing");
-        })
     }
-
 });

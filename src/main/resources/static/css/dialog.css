@@ -86,6 +86,18 @@
     text-shadow: 0px 1px 1px #5986A0;
 }
 
+.ui-button.inactive {
+    background: #8F231F !important;
+    color: #000 !important;
+    border: 1px solid #691b17 !important;
+}
+
+.ui-button.inactive:hover {
+    background: #8F231F !important;
+    color: #000 !important;
+    border: 1px solid #691b17 !important;
+}
+
 /* adaptive mobile design */
 @media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px) {
     .ui-dialogMobile {

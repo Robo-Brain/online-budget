@@ -491,6 +491,7 @@ input:checked + .slider.salaryPrepaid:after {
         border: solid white 3px;
         min-height: 6.5em;
         height: 6.5em;
+        position: relative;
     }
     .divTable.tmp .divTableRow.result {
         display: block;
@@ -554,7 +555,7 @@ input:checked + .slider.salaryPrepaid:after {
         width: 40% !important;
         background: red !important;
         height: 6.5em !important;
-        position: relative;
+        position: absolute;
         left: 60%;
         top: 0;
         z-index: 99;
@@ -570,8 +571,8 @@ input:checked + .slider.salaryPrepaid:after {
         line-height: 1em;
         width: 100% !important;
         background: red !important;
-        height: 7em !important;
-        position: relative;
+        height: 6.5em !important;
+        position: absolute;
         left: 0;
         z-index: 99;
         opacity: 0.95;

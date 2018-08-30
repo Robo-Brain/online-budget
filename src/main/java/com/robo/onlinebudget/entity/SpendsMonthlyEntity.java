@@ -39,6 +39,11 @@ public class SpendsMonthlyEntity {
         this.amount = amount;
     }
 
+    public SpendsMonthlyEntity(Long id, Long spendId, Integer amount) {
+        this.spendId = spendId;
+        this.amount = amount;
+    }
+
     public Long getId() {
         return id;
     }

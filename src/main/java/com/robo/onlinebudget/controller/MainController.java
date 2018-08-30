@@ -70,7 +70,13 @@ public class MainController {
 
     @GetMapping("/createNewMonth")
     @ResponseBody
-    public void saveNewMonth() throws Exception {
+    public void saveNewMonthWithCheck() {
+        String result = monthlySpendsDAO.checkBeforeCreateNewMonth();
+        if (result != null) throw new SecurityException(result);
+    }
+    @GetMapping("/createNewMonthUncheck")
+    @ResponseBody
+    public void saveNewMonthWithOUTCheck() {
         monthlySpendsDAO.createNewMonth();
     }
 
@@ -162,5 +168,6 @@ public class MainController {
 
         return "403Page";
     }
+
 
 }
