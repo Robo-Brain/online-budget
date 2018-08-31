@@ -295,12 +295,12 @@ $(function() {
             }
         });
 
-    //     $('body').click(function () {
-    //         $(".swipeDelete").css("visibility", "hidden");
-    //         $(".swipeDelete").css("opacity", "0");
-    //
-    //         $('.swipeDelete').removeClass('swipeConfirmDelete', 800, "swing");
-    //     })
+        $('body').click(function () {
+            $(".swipeDelete").css("visibility", "hidden");
+            $(".swipeDelete").css("opacity", "0");
+
+            $('.swipeDelete').removeClass('swipeConfirmDelete', 800, "swing");
+        })
 
     }
 });
