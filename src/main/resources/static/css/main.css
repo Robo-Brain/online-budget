@@ -160,6 +160,9 @@ textarea {
     padding: 0.1em;
     border: solid #286A91 1px;
 }
+.divTable input#date {
+    width: 5.5em;
+}
 .divTable.currentMonth input {
     color: #29A138;
 }

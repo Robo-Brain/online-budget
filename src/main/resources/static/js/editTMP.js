@@ -128,7 +128,7 @@ function overloadTooltip() {
 function delTMPFunc(i, a) {
     var id = i;
 
-    if (a == 'yes' || a == null || a == undefined) {
+    if (a == 'yes') {
         $("#dialog-confirm").dialog({}).remove();
         $.ajax({
             headers: {

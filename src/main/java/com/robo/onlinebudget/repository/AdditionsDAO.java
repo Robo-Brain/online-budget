@@ -56,6 +56,7 @@ public class AdditionsDAO {
     }
 
     public void delNote(Long id) {
+        System.out.println("ID IS: " + id);
         String hql = "DELETE " + NotesEntity.class.getName() + " WHERE id = :id";
         Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
         q.executeUpdate();

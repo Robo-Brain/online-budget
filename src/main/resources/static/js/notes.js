@@ -100,29 +100,6 @@ $(function() {
     $(".divTableCell.hidden").hide();
 });
 
-function searchForRemind() {
-    var today = new Date();
-    var nowAYear = today.getFullYear();
-    var nowAMonth = today.getMonth() + 1;
-    var nowAday = today.getDate();
-
-    for (i = 0; i < notes.length; i++) {
-        var arrIsRemind = notes[i].remind;
-
-        if (arrIsRemind == 1) {
-
-            var date = notes[i].date;
-            var notesYear = date.substring(0,4);
-            var notesMonth = date.substring(5,7);
-            var notesDay = date.substring(8,10);
-
-            if (notesYear <= nowAYear && notesMonth <= nowAMonth && notesDay <= nowAday) {
-                notice(notes[i].id);
-            }
-        }
-    }
-}
-
 function notice(id) {
     var n = new Noty({
         type: 'error',
@@ -165,18 +142,50 @@ $(function() {
     $(".delButton").click(function(d) {
         d.preventDefault();
         var id = $(this).attr('id');
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+        $("<div>Are you sure?</div>").dialog({
+            classes: {
+                "ui-dialog": "ui-dialogNew"
             },
-            type: "post",
-            url: "/delNote",
-            data : id,
-            success: $(document).ajaxStop(function(){
-                window.location.reload();
-            })
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Delete note": function() {
+                    $( this ).dialog( "close" );
+
+                    $.ajax({
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        type: "post",
+                        url: "/delNote",
+                        data : JSON.stringify(id),
+                        success: $(document).ajaxStop(function(){
+                            window.location.reload();
+                        })
+                    });
+                },
+                Cancel: function() {
+                    $(this).dialog( "close" );
+                    $(this).remove();
+                }
+            }
         });
+        // var id = $(this).attr('id');
+        // $.ajax({
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     type: "post",
+        //     url: "/delNote",
+        //     data : id,
+        //     success: $(document).ajaxStop(function(){
+        //         window.location.reload();
+        //     })
+        // });
     });
 });
 

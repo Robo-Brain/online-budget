@@ -107,6 +107,13 @@
         opacity: 0.95;
     }
 
+    .ui-dialog-fail {
+        width: 90% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        opacity: 0.95;
+    }
+
     .ui-dialogMobile fieldset {
         border: none;
     }
