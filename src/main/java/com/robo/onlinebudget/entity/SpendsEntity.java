@@ -35,6 +35,9 @@ public class SpendsEntity {
     @Column(name = "indexNum")
     private Integer index;
 
+    @Column(name = "inactive")
+    private boolean inactive;
+
     @OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
     @JoinColumn(name = "spendId", updatable = false)
     private List<SpendsMonthlyEntity> spendsMonthly = new ArrayList<>();
@@ -48,19 +51,29 @@ public class SpendsEntity {
         this.index = index;
     }
 
-    public SpendsEntity(Long id, Integer amount) {
-        this.id = id;
-        this.amount = amount;
-    }
+//    public SpendsEntity(Long id, Integer amount) {
+//        this.id = id;
+//        this.amount = amount;
+//    }
+//
+//    public SpendsEntity(Integer index) {
+//        this.index = index;
+//    }
+//
+//    public SpendsEntity(Long id, String name) {
+//        this.id = id;
+//        this.name = name;
+//    }
 
-    public SpendsEntity(Integer index) {
-        this.index = index;
-    }
-
-    public SpendsEntity(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+//    public SpendsEntity(Long id, String name, Integer amount, boolean salaryPrepaid, boolean withdraw, Integer index, boolean inactive) {
+//        this.id = id;
+//        this.name = name;
+//        this.amount = amount;
+//        this.salaryPrepaid = salaryPrepaid;
+//        this.withdraw = withdraw;
+//        this.index = index;
+//        this.inactive = inactive;
+//    }
 
     public Long getId() {
         return id;
@@ -116,5 +129,13 @@ public class SpendsEntity {
 
     public void setIndex(Integer index) {
         this.index = index;
+    }
+
+    public boolean getInactive() {
+        return inactive;
+    }
+
+    public void setInactive(boolean inactive) {
+        this.inactive = inactive;
     }
 }

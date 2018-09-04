@@ -37,6 +37,13 @@ public class MainController {
         return "loginPage";
     }
 
+    @GetMapping(value = "/allMonths")
+    public String allMonths (Model model) {
+        model.addAttribute("title", "All Months");
+        model.addAttribute("allMonths", monthlySpendsDAO.getAllMonths());
+        return "allMonths";
+    }
+
 
 // MONTHLY SPENDS
     @GetMapping(value = "/editTMP")
@@ -97,6 +104,7 @@ public class MainController {
 
     @GetMapping("/salary")
     public String getAllWages(Model model) {
+        model.addAttribute("title", "Salary");
         model.addAttribute("allWages", monthlySpendsDAO.getAllWages());
         return "salary";
     }
@@ -140,7 +148,7 @@ public class MainController {
 
     @GetMapping("/login")
     public String loginPage(Model model) {
-
+        model.addAttribute("title", "Login page");
         return "loginPage";
     }
 

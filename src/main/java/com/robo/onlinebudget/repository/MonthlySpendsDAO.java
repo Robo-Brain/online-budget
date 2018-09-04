@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -29,7 +30,7 @@ public class MonthlySpendsDAO {
 //  METHODS OF MONTHLY WAGES
     public List getPaymentTemplate() {
 
-        String hql = "FROM " + SpendsEntity.class.getName();
+        String hql = "FROM " + SpendsEntity.class.getName() + " WHERE inactive = 0";
         List<SpendsEntity> list = sessionFactory.getCurrentSession().createQuery(hql).list();
         List<Map> map = new ArrayList<>();
 
@@ -83,15 +84,18 @@ public class MonthlySpendsDAO {
     }
 
     public void deleteSpendFromTemplate(Long id) {
+        String hql = "FROM " + SpendsEntity.class.getName() + " WHERE id = :id";
+        SpendsEntity seResult = (SpendsEntity) sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id).getSingleResult();
 
-        String hql = "DELETE " + SpendsEntity.class.getName() + " WHERE id = :id";
-        Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
+        seResult.setInactive(true);
+
+        sessionFactory.getCurrentSession().update(seResult);
 
         List<SpendsMonthlyEntity> smeList = getLastMonth();
-        String hq2 = "DELETE " + SpendsMonthlyEntity.class.getName() + " WHERE spendId = :spendId";
-        Query q2 = sessionFactory.getCurrentSession().createQuery(hq2).setParameter("spendId", id);
+        String smeDate = smeList.get(0).getDate();
+        String hq2 = "DELETE " + SpendsMonthlyEntity.class.getName() + " WHERE spendId = :spendId AND date = :date";
+        Query q2 = sessionFactory.getCurrentSession().createQuery(hq2).setParameter("spendId", id).setParameter("date", smeDate);
 
-        q.executeUpdate();
         q2.executeUpdate();
 
     }
@@ -156,10 +160,45 @@ public class MonthlySpendsDAO {
         }
     }
 
+    public List getAllMonths() {
+
+        String hql = "SELECT new "
+                + SpendsMonthlyEntity.class.getName()
+                + " (s.date) FROM "
+                + SpendsMonthlyEntity.class.getName()
+                + " AS s";
+
+        List<SpendsMonthlyEntity> smeList = sessionFactory.getCurrentSession().createQuery(hql, SpendsMonthlyEntity.class).getResultList();
+
+        List<String> datesList = new ArrayList<>();
+
+        for(SpendsMonthlyEntity smeUnit : smeList) {
+            datesList.add(smeUnit.getDate());
+        }
+
+        List<String> uniqueDatesList = datesList.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        List<List> result = new ArrayList<>();
+
+        for (String uniqueDate : uniqueDatesList){
+            LocalDate date = LocalDate.parse(uniqueDate);
+            try {
+                result.add(getMonthByDate(date));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return result;
+
+    }
+
     public List getLastMonth() {
 
         Query query = sessionFactory.getCurrentSession().createQuery("FROM " + SpendsMonthlyEntity.class.getName() +
-                "  WHERE month(date) = :month and year(date) = :year");
+                " WHERE month(date) = :month and year(date) = :year");
 
         int month = LocalDate.now().getMonth().getValue();
         int year = LocalDate.now().getYear();
@@ -237,6 +276,7 @@ public class MonthlySpendsDAO {
             submap.put("salaryPrepaid", String.valueOf(se.getSalaryPrepaid()));
             submap.put("withdraw", String.valueOf(se.getWithdraw()));
             submap.put("index", String.valueOf(se.getIndex()));
+            submap.put("inactive", String.valueOf(se.getInactive()));
             submap.put("id", String.valueOf(sme.getId()));
             submap.put("date", String.valueOf(sme.getDate()));
             submap.put("spendId", String.valueOf(sme.getSpendId()));

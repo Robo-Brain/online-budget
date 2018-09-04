@@ -406,6 +406,34 @@ input:checked + .slider.salaryPrepaid:after {
     display: none;
 }
 
+/* AllMonths start */
+
+.divTableRow.inactive {
+    opacity: 0.5;
+}
+.monthDate {
+    display: block;
+    padding: 0.2em;
+    width: 7em;
+    text-align: center;
+    font-weight: 600;
+    border: solid #5986A0 1px;
+    background: #BDDCEE;
+    color: #286A91;
+    border-radius: 3px;
+    margin-bottom: 0.2em;
+}
+.monthDate:hover {
+    background: #286A91;
+    color: #fff;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.hidden {
+    display:none;
+}
+
 @media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px) {
 
     .menuButtonDiv {
@@ -1020,6 +1048,24 @@ input:checked + .slider.salaryPrepaid:after {
         background: url("../img/remind.png") transparent no-repeat center center;
         height: 32px;
         width: 36px;
+    }
+
+    /* AllMonths start */
+    #allMonthsTable {
+        width: 100%;
+    }
+    .allMonths .divTableCell.name {
+        width: 27%;
+    }
+    .allMonths .divTableCell.amount {
+        width: 38%;
+    }
+    .allMonths .divTableCell.salaryPrepaid {
+        width: 15%;
+    }
+    .monthDate {
+        width: 98%;
+        margin: 0.5em 0 0.5em 0;
     }
 
 }

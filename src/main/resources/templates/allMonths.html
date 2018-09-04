@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="_header"></th:block>
+</head>
+
+<body>
+<th:block th:include="_menu"></th:block>
+
+<div id="allMonthsTable" class="allMonths">
+</div>
+
+<th:block sec:authorize="isAuthenticated()">
+    <script th:inline="javascript">
+        months = /*[[${allMonths}]]*/ "";
+        $(document).ready(function() {
+
+        })
+    </script>
+    <script src="../static/js/allMonths.js" th:src="@{/js/allMonths.js}" type="text/javascript"></script>
+</th:block>
+</body>
+</html>
