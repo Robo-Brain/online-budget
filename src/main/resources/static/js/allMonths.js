@@ -5,7 +5,7 @@ var salaryPrepaid;
 var active;
 
     months.forEach(function (item, i) {
-console.log(item);
+
         month = item.slice(0);
         month.sort(function(a,b) {
             return a.index - b.index;
