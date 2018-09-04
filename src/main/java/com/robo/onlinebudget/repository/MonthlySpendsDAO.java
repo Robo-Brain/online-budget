@@ -191,6 +191,8 @@ public class MonthlySpendsDAO {
             }
         }
 
+        Collections.reverse(result);
+
         return result;
 
     }
