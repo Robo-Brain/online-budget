@@ -56,24 +56,24 @@ public class SpendsEntity {
         this.amount = amount;
     }
 
-//    public SpendsEntity(Integer index) {
-//        this.index = index;
-//    }
-//
-//    public SpendsEntity(Long id, String name) {
-//        this.id = id;
-//        this.name = name;
-//    }
+   public SpendsEntity(Integer index) {
+       this.index = index;
+   }
 
-//    public SpendsEntity(Long id, String name, Integer amount, boolean salaryPrepaid, boolean withdraw, Integer index, boolean inactive) {
-//        this.id = id;
-//        this.name = name;
-//        this.amount = amount;
-//        this.salaryPrepaid = salaryPrepaid;
-//        this.withdraw = withdraw;
-//        this.index = index;
-//        this.inactive = inactive;
-//    }
+   public SpendsEntity(Long id, String name) {
+       this.id = id;
+       this.name = name;
+   }
+
+   public SpendsEntity(Long id, String name, Integer amount, boolean salaryPrepaid, boolean withdraw, Integer index, boolean inactive) {
+       this.id = id;
+       this.name = name;
+       this.amount = amount;
+       this.salaryPrepaid = salaryPrepaid;
+       this.withdraw = withdraw;
+       this.index = index;
+       this.inactive = inactive;
+   }
 
     public Long getId() {
         return id;
