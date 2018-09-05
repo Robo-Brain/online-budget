@@ -674,18 +674,15 @@ input:checked + .slider.salaryPrepaid:after {
         right: 0;
     }
 
-/*     .clickDelete:hover .yes,  */
-	.clickDelete:active .yes {
+    .clickDelete:hover .yes {
         width:50%;
         color:#fff;
     }
-/*     .clickDelete:hover .no,  */
-	.clickDelete:active .no {
+    .clickDelete:hover .no {
         width:50%;
         color:#fff;
     }
-/*     .clickDelete:hover .confirm,  */
-	.clickDelete:active .confirm {
+    .clickDelete:hover .confirm {
         height:50%;
         transform: height 0.3s;
         color:#fff;
