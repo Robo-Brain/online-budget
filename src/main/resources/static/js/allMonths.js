@@ -22,17 +22,20 @@ var active;
                 "<div class='divTableCell " + i + "'>Withdraw:</div>" +
             "</div>"
         );
-        month.forEach(function (subitem) {
+        month.forEach(function (subitem, n) {
             salaryPrepaid = (subitem.salaryPrepaid == 'true') ? "ЗП" : "Аванс";
             active = (subitem.inactive == 'false') ? "active" : "inactive";
                 $('#allMonthsTable').append(
-                "<div class='divTableRow hide " + active + " " + i + " " + " hide'>" +
-                    "<div class='divTableCell name " + i + "'>" + subitem.name + "</div>" +
-                    "<div class='divTableCell amount " + i + "'>" + subitem.monthAmount + " / " + subitem.amount + "</div>" +
-                    "<div class='divTableCell salaryPrepaid " + subitem.salaryPrepaid + " " + i + "'>" + salaryPrepaid + "</div >" +
-                    "<div class='divTableCell currentMonth " + subitem.withdraw + " " + i + "'></div>" +
+                "<div class='divTableRow hide " + active + " " + i + "'>" +
+                    "<div class='divTableCell name " + n + "'>" + subitem.name + "</div>" +
+                    "<div class='divTableCell amount " + n + "'>" + subitem.monthAmount + " / " + subitem.amount + "</div>" +
+                    "<div class='divTableCell salaryPrepaid " + subitem.salaryPrepaid + " " + n + "'>" + salaryPrepaid + "</div >" +
+                    "<div class='divTableCell currentMonth " + subitem.withdraw + " " + n + "'></div>" +
                 "</div>"
-            )
+            );
+                if (subitem.monthAmount < subitem.amount ) {
+                    $('.amount.' + n).addClass();
+                }
         });
     });
 });

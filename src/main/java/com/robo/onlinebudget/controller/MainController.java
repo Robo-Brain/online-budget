@@ -46,12 +46,12 @@ public class MainController {
 
 
 // MONTHLY SPENDS
-    @GetMapping(value = "/editTMP")
-    public String editTMP (Model model) {
+    @GetMapping(value = "/editTemplate")
+    public String editTemplate (Model model) {
         model.addAttribute("title", "Edit Payment Template");
         model.addAttribute("lastWage", monthlySpendsDAO.getLastWage());
-        model.addAttribute("paymentTMP", monthlySpendsDAO.getPaymentTemplate());
-        return "editTMP";
+        model.addAttribute("payments", monthlySpendsDAO.getPaymentTemplate(false));
+        return "editTemplate";
     }
 
     @PostMapping(value = "/saveTMP", produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -135,7 +135,7 @@ public class MainController {
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("lastMonth", monthlySpendsDAO.getLastMonth());
-
+        model.addAttribute("disabledPayments", monthlySpendsDAO.getPaymentTemplate(true));
         return "adminPage";
     }
 

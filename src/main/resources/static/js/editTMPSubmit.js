@@ -6,11 +6,11 @@ function saveTMPTable() {
     for (i = 0; i < tmpVal.length; i++) {
         var id = tmpVal[i].id;
 
-        var formName = $('.name.' + id).val();
-        var formAmount = $('.amount.' + id).val();
-        var formSalaryPrepaid = $('.salaryPrepaid.' + id).is(':checked');
-        var formWithdraw = $('.withdraw.' + id).is(':checked');
-        var formIndex = $('.index.' + id).val();
+        var formName = $('.tmp.name.' + id).val();
+        var formAmount = $('.tmp.amount.' + id).val();
+        var formSalaryPrepaid = $('.tmp.salaryPrepaid.' + id).is(':checked');
+        var formWithdraw = $('.tmp.withdraw.' + id).is(':checked');
+        var formIndex = $('.tmp.index.' + id).val();
 
         formData = {id : id, name: formName, amount : formAmount, salaryPrepaid: formSalaryPrepaid, withdraw: formWithdraw, index: formIndex};
 

@@ -11,16 +11,26 @@
     <span id="lastMonthIs">Последний месяц: </span><br />
     <a href="#" id="delLastMonth">Удалить</a><br />
     <a href="#">Сбросить счетчик ID</a>
+    <br /><br />
+    <a id="deletedSpends" href="#">Удаленные статьи расходов</a>
 
 
 </div>
 
 <h2>Admin Page</h2>
+
 <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+
+<div id="disabledPayments" class="divTable disabledPayments"></div>
+
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
         lastMonth = /*[[${lastMonth}]]*/ "";
+        disabledPayments = /*[[${disabledPayments}]]*/ "";
         $(document).ready(function() {
+
+            $('#disabledPayments').hide();
+
             $('#delLastMonth').click(function () {
                 $.ajax({
                     headers: {
@@ -28,13 +38,59 @@
                         'Content-Type': 'application/json'
                     },
                     type: "GET",
-                    url: "/delLastMonth",
+                    // url: "/delLastMonth",
                     success: $(document).ajaxStop(function () {
                         window.location.reload();
                     })
                 });
             });
+
             $('#lastMonthIs').append(lastMonth[0].date);
+
+            $('#deletedSpends').click(function () {
+
+                if( $('#disabledPayments').is(':empty') ) {
+
+                    payments = disabledPayments.slice(0);
+                    payments.sort(function(a,b) {
+                        return a.index - b.index;
+                    });
+
+                    payments.forEach(function (item, n) {
+
+                        var salaryPrepaid;
+                        if (item.salaryPrepaid == 'true') salaryPrepaid = 'ЗП';
+                        else salaryPrepaid = 'Аванс';
+                        $('#disabledPayments').append(
+                            "<div class='divTableRow " + item.id + "'>"
+                            + "<div class='divTableCell left disabled name'>"
+                            + item.name
+                            + "<input type='hidden' name='id' value='" + item.id + "' disabled />"
+                            + "</div>"
+                            + "<div class='divTableCell amount'>"
+                            + item.amount
+                            + " ₽"
+                            + "</div>"
+                            + "<div class='divTableCell salaryPrepaid'>"
+                            + salaryPrepaid
+                            + "</div>"
+                            + "<div class='divTableCell withdraw currentMonth " + item.withdraw + "'></div>"
+                            + "</div>"
+                        );
+
+                    });
+                    $('#disabledPayments').show(1000);
+                } else {
+                    $('#disabledPayments').hide(1000);
+                    setTimeout(function(){
+                        $('#disabledPayments').empty()
+                    }, 900);
+                }
+
+            });
+
+
+
         })
     </script>
 </th:block>

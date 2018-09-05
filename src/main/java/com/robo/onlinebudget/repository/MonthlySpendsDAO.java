@@ -28,9 +28,9 @@ public class MonthlySpendsDAO {
     }
 
 //  METHODS OF MONTHLY WAGES
-    public List getPaymentTemplate() {
+    public List getPaymentTemplate(boolean isInactive) {
 
-        String hql = "FROM " + SpendsEntity.class.getName() + " WHERE inactive = 0";
+        String hql = "FROM " + SpendsEntity.class.getName() + " WHERE inactive = " + isInactive;
         List<SpendsEntity> list = sessionFactory.getCurrentSession().createQuery(hql).list();
         List<Map> map = new ArrayList<>();
 
@@ -44,6 +44,7 @@ public class MonthlySpendsDAO {
             submap.put("salaryPrepaid", String.valueOf(se.getSalaryPrepaid()));
             submap.put("withdraw", String.valueOf(se.getWithdraw()));
             submap.put("index", String.valueOf(se.getIndex()));
+            submap.put("inactive", String.valueOf(se.getInactive()));
 
             map.add(i, submap);
         }
@@ -107,7 +108,7 @@ public class MonthlySpendsDAO {
         LocalDate ldIncoming = LocalDate.now();
         LocalDate ldDB = LocalDate.parse(smeDate.getDate());
 
-        String hql2 = "SELECT new " + SpendsEntity.class.getName() + "(s.id, s.amount) FROM " + SpendsEntity.class.getName() + " s";
+        String hql2 = "SELECT new " + SpendsEntity.class.getName() + "(s.id, s.amount) FROM " + SpendsEntity.class.getName() + " s WHERE s.inactive = 0";
         List<SpendsEntity> spendsList = sessionFactory.getCurrentSession().createQuery(hql2, SpendsEntity.class).getResultList();
         Map<Long, Integer> spendsMap = new HashMap<>();
         for (int i = 0; i < spendsList.size(); i++) {
@@ -143,11 +144,9 @@ public class MonthlySpendsDAO {
     public void createNewMonth() { // ADD NEW PAYMENT MONTH
         LocalDate ldIncoming = LocalDate.now();
 
-        List<SpendsEntity> sne = sessionFactory.getCurrentSession().createQuery("SELECT new "
+        List<SpendsEntity> sne = sessionFactory.getCurrentSession().createQuery("FROM "
                 + SpendsEntity.class.getName()
-                + "(e.id, e.name) FROM "
-                + SpendsEntity.class.getName()
-                + " e ")
+                + " WHERE inactive = 0")
                 .getResultList();
         List<LocalDate> list = new ArrayList<>(Collections.nCopies(sne.size(), ldIncoming)); // create list and fill it with number of rows with date(LocalDate.now()) = SpendsEntity number of rows
 
@@ -225,7 +224,7 @@ public class MonthlySpendsDAO {
 
         Query query = sessionFactory.getCurrentSession().createQuery("FROM " + SpendsEntity.class.getName() +
                 " AS se INNER JOIN se.spendsMonthly" +
-                "  WHERE month(date) = :month and year(date) = :year");
+                "  WHERE month(date) = :month and year(date) = :year and se.inactive = 0");
 
         if (nowadays.length > 0 ){
             int month = LocalDate.now().getMonth().getValue();

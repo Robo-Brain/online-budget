@@ -8,10 +8,11 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     isMobile = true;
 }
 
+
+
 var tmpVal = [{}];
 
 function appendTMPTable() {
-
     tmpVal = tmp.slice(0);
     tmpVal.sort(function(a,b) {
         return a.index - b.index;
@@ -22,35 +23,42 @@ function appendTMPTable() {
         amount += parseInt(tmpVal[i].amount);
 
         $("#tmpTable").append(
-            "<div id='" + tmpVal[i].id + "' class='divTableRow " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + " tmp'>" +
-                "<div class='divTableCell left name'>" +
-                    "<input type='text' class='name " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id +"' id='name' name='name' value='" + tmpVal[i].name + "' />" +
-                    "<input type='hidden' id='id' name='id' value='" + tmpVal[i].id + "' />" +
-                    "<input type='hidden' id='spendName' name='spendName' value='" + tmpVal[i].name + "' />" +
-                    "<input type='hidden' class='index " + tmpVal[i].id + "' id='indexEntry' name='indexEntry' value='" + tmpVal[i].index + "' />" +
+            "<div id='" + tmpVal[i].id + "' class='divTableRow click " + tmpVal[i].id + " " + tmpVal[i].salaryPrepaid + " tmp'>"
+                + "<div class='divTableCell left name'>" +
+                    "<input type='text' class='tmp name " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id +"' value='" + tmpVal[i].name + "' />" +
+                    "<input type='hidden' value='" + tmpVal[i].id + "' />" +
+                    "<input type='hidden' id='spendName'  value='" + tmpVal[i].name + "' />" +
+                    "<input type='hidden' class='tmp index " + tmpVal[i].id + "' id='indexEntry' value='" + tmpVal[i].index + "' />" +
                 "</div>" +
                 "<div class='divTableCell amount'>" +
-                    "<input type='text' class='amount " + tmpVal[i].id + "' id='amount' name='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
+                    "<input type='text' class='tmp amount " + tmpVal[i].id + "' id='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
                 "</div>" +
-                "<div class='divTableCell switcher'>" +
+                "<div class='divTableCell salaryPrepaid switcher'>" +
                     "<span class='hiddenMobileLabels'>Salary: <br /></span>" +
                     "<label class='switch'>" +
-                        "<input type='checkbox' id='salaryPrepaid' class='salaryPrepaid " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id + "' name='salaryPrepaid" + tmpVal[i].id +"' />" +
+                        "<input type='checkbox' id='salaryPrepaid' class='tmp salaryPrepaid " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id + "' />" +
                         "<span class='slider salaryPrepaid'></span>" +
                     "</label>" +
                 "</div>" +
                 "<div class='divTableCell withdraw switcher'>" +
                     "<span class='hiddenMobileLabels'>Withdraw: <br /></span>" +
                     "<label class='switch'>" +
-                        "<input type='checkbox' id='withdraw' class='withdraw " + tmpVal[i].withdraw + ' ' + tmpVal[i].id + "' name='withdraw" + tmpVal[i].id +"' />" +
+                        "<input type='checkbox' id='withdraw' class='tmp withdraw " + tmpVal[i].withdraw + ' ' + tmpVal[i].id + "' />" +
                         "<span class='slider'></span>" +
                     "</label>" +
                 "</div>" +
                 "<div class='divTableCell del'>" +
                     "<button class='delButton' id='" + tmpVal[i].id + "'>del</button>" +
-                "</div>" +
-                "<div class='swipeDelete "+ tmpVal[i].id + "' id='"+ tmpVal[i].id + "'><span>Delete?</span></div>" +
-            "</div>");
+                "</div>"
+
+            + "<div class='clickDelete " + tmpVal[i].id + "'>"
+                + "<div class='confirm'><span>Delete?</span></div>"
+                + "<div id='"+ tmpVal[i].id + "' class='yes'><span>YES</span></div>"
+                + "<div id='"+ tmpVal[i].id + "' class='no'><span>NO</span></div>"
+            + "</div>"
+
+
+            + "</div>");
 
         $('.salaryPrepaid.true').prop('checked', true);
         $('.salaryPrepaid.false').prop('unchecked', false);
@@ -59,6 +67,7 @@ function appendTMPTable() {
 
         preTotal(tmpVal[i].salaryPrepaid, tmpVal[i].amount);
     }
+
     $("#tmpAmount").append(
         "<div class='divTableRow result'>" +
             "<div class='divTableCell nope'></div>" +
@@ -83,6 +92,7 @@ function appendTMPTable() {
             "<div class='divTableCell nope'>" +
         "</div>"
     );
+
 }
 
 
@@ -129,6 +139,7 @@ function delTMPFunc(i, a) {
     var id = i;
 
     if (a == 'yes') {
+        console.log(id);
         $("#dialog-confirm").dialog({}).remove();
         $.ajax({
             headers: {
@@ -136,10 +147,10 @@ function delTMPFunc(i, a) {
                 'Content-Type': 'application/json'
             },
             type: "post",
-            url: "/deleteSpend",
+            // url: "/deleteSpend",
             data : id,
             success: $(document).ajaxStop(function(){
-                window.location.reload();
+                // window.location.reload();
             })
         });
     }
@@ -200,9 +211,9 @@ function addNewSPendMobile() {
 
 
 $(function() {
-    if(screen.width<1100 || isMobile) {
-        $("#tmpTable").sortable( "disable" )
-    } else {
+    // if(screen.width<1100 || isMobile) {
+    //     $("#tmpTable").sortable( "disable" )
+    // } else {
         var indexNum = 1;
         $("#tmpTable").sortable({
             sort: function() {
@@ -224,83 +235,49 @@ $(function() {
             }
         });
     $( "#tmpTable" ).disableSelection();
-    }
+    // }
 });
 
-$(".unstuck").click(function (u) {
-    u.preventDefault();
-    var indexNum = 1;
-
-    $("#tmpTable").sortable({
-        sort: function() {
-            if ($(this).hasClass("cancel")) {
-                $(this).sortable("cancel");
-            }
-        },
-        axis         : "y",
-        opacity      : 0.6,
-        revert       : 600,
-        scroll       : true,
-        connectWith  : "#tmpTable",
-        stop         : function(){
-            $('.divTableRow.tmp input#indexEntry').each(function () {
-                $(this).val(indexNum);
-                indexNum++;
-            });
-            saveTMPTable();
-        }
-    });
-    $( "#tmpTable" ).disableSelection();
-});
+// $(".unstuck").click(function (u) {
+//     u.preventDefault();
+//     var indexNum = 1;
+//
+//     $("#tmpTable").sortable({
+//         sort: function() {
+//             if ($(this).hasClass("cancel")) {
+//                 $(this).sortable("cancel");
+//             }
+//         },
+//         axis         : "y",
+//         opacity      : 0.6,
+//         revert       : 600,
+//         scroll       : true,
+//         connectWith  : "#tmpTable",
+//         stop         : function(){
+//             $('.divTableRow.tmp input#indexEntry').each(function () {
+//                 $(this).val(indexNum);
+//                 indexNum++;
+//             });
+//             saveTMPTable();
+//         }
+//     });
+//     $( "#tmpTable" ).disableSelection();
+// });
 
 $(function() {
-    if(screen.width<1100 || isMobile) {
+    if(screen.width<3100 || isMobile) {
         id = 0;
 
-        $(".divTableRow").swipe({
-            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
-                id = $(this).attr('id');
-
-                if (direction == 'left') {
-                    $(".swipeDelete").css("visibility", "hidden");
-                    $(".swipeDelete").css("opacity", "0");
-
-                    $(".swipeDelete." + id).css("visibility", "visible");
-                    $(".swipeDelete." + id).css("opacity", "0.9");
-                }
-            }
+        $('.yes').click(function () {
+            id = $(this).attr('id');
+            delTMPFunc(id, 'yes');
         });
-
-        $(".swipeDelete").swipe({
-            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
-                if (direction == 'left') {
-                    $(this).addClass('swipeConfirmDelete', 800, "swing");
-                } else if (direction == 'right') {
-                    $(".swipeDelete").css("visibility", "hidden");
-                    $(".swipeDelete").css("opacity", "0");
-                    $(this).removeClass('swipeConfirmDelete');
-                }
-
-            }
+        $('.no').click(function () {
+            id = $(this).attr('id');
+            console.log(id);
+            $('.clickDelete.' + id).hide(500);
+            setTimeout( "$('.clickDelete.' + id).show();", 3000);
         });
-
-        $('.swipeDelete').click(function (s) {
-            s.preventDefault();
-            if ($(this).hasClass('swipeConfirmDelete')) {
-                delTMPFunc(id, 'yes');
-            } else {
-                $(".swipeDelete").css("visibility", "hidden");
-                $(".swipeDelete").css("opacity", "0");
-                $(this).removeClass('swipeConfirmDelete');
-            }
-        });
-
-        $('body').click(function () {
-            $(".swipeDelete").css("visibility", "hidden");
-            $(".swipeDelete").css("opacity", "0");
-
-            $('.swipeDelete').removeClass('swipeConfirmDelete', 800, "swing");
-        })
 
     }
 });
