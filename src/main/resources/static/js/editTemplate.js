@@ -265,7 +265,7 @@ $(function() {
 // });
 
 $(function() {
-    if(screen.width<3100 || isMobile) {
+    if(screen.width<1100 || isMobile) {
         id = 0;
 
         $('.yes').click(function () {
