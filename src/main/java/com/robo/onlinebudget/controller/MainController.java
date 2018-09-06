@@ -139,6 +139,13 @@ public class MainController {
         return "adminPage";
     }
 
+    @PostMapping(value = "/restoreSpend")
+    @ResponseBody
+    public String restoreSpend(@RequestBody Long id) {
+        monthlySpendsDAO.restoreSpend(id);
+        return "success";
+    }
+
     @GetMapping("/delLastMonth")
     @ResponseBody
     public String delLastMonth() {

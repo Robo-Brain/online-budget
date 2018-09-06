@@ -52,9 +52,9 @@ function appendTMPTable() {
                 "</div>"
 
             + "<div class='clickDelete " + tmpVal[i].id + "'>"
-                + "<div class='confirm'><span>Delete?</span></div>"
-                + "<div id='"+ tmpVal[i].id + "' class='yes'><span>YES</span></div>"
-                + "<div id='"+ tmpVal[i].id + "' class='no'><span>NO</span></div>"
+                + "<div id='"+ tmpVal[i].id + "' class='confirm " + tmpVal[i].id + "'><span>Delete?</span></div>"
+                + "<div id='"+ tmpVal[i].id + "' class='yes " + tmpVal[i].id + "'><span>YES</span></div>"
+                + "<div id='"+ tmpVal[i].id + "' class='no " + tmpVal[i].id + "'><span>NO</span></div>"
             + "</div>"
 
 
@@ -147,10 +147,10 @@ function delTMPFunc(i, a) {
                 'Content-Type': 'application/json'
             },
             type: "post",
-            // url: "/deleteSpend",
+            url: "/deleteSpend",
             data : id,
             success: $(document).ajaxStop(function(){
-                // window.location.reload();
+                window.location.reload();
             })
         });
     }
@@ -210,74 +210,114 @@ function addNewSPendMobile() {
 }
 
 
-// $(function() {
-//     if(screen.width<1100 || isMobile) {
-//         $("#tmpTable").sortable( "disable" )
-//     } else {
-//         var indexNum = 1;
-//         $("#tmpTable").sortable({
-//             sort: function() {
-//                 if ($(this).hasClass("cancel")) {
-//                     $(this).sortable("cancel");
-//                 }
-//             },
-//             axis         : "y",
-//             opacity      : 0.6,
-//             revert       : 600,
-//             scroll       : true,
-//             connectWith  : "#tmpTable",
-//             stop         : function(){
-//                 $('.divTableRow.tmp input#indexEntry').each(function () {
-//                     $(this).val(indexNum);
-//                     indexNum++;
-//                 });
-//                 saveTMPTable();
-//             }
-//         });
-//     $( "#tmpTable" ).disableSelection();
-//     }
-// });
+$(function() {
+    if(screen.width<1100 || isMobile) {
+        $("#tmpTable").sortable( "disable" )
+    } else {
+        var indexNum = 1;
+        $("#tmpTable").sortable({
+            sort: function() {
+                if ($(this).hasClass("cancel")) {
+                    $(this).sortable("cancel");
+                }
+            },
+            axis         : "y",
+            opacity      : 0.6,
+            revert       : 600,
+            scroll       : true,
+            connectWith  : "#tmpTable",
+            stop         : function(){
+                $('.divTableRow.tmp input#indexEntry').each(function () {
+                    $(this).val(indexNum);
+                    indexNum++;
+                });
+                saveTMPTable();
+            }
+        });
+    $( "#tmpTable" ).disableSelection();
+    }
+});
 
-// $(".unstuck").click(function (u) {
-//     u.preventDefault();
-//     var indexNum = 1;
+$(".unstuck").click(function (u) {
+    u.preventDefault();
+    var indexNum = 1;
 
-//     $("#tmpTable").sortable({
-//         sort: function() {
-//             if ($(this).hasClass("cancel")) {
-//                 $(this).sortable("cancel");
-//             }
-//         },
-//         axis         : "y",
-//         opacity      : 0.6,
-//         revert       : 600,
-//         scroll       : true,
-//         connectWith  : "#tmpTable",
-//         stop         : function(){
-//             $('.divTableRow.tmp input#indexEntry').each(function () {
-//                 $(this).val(indexNum);
-//                 indexNum++;
-//             });
-//             saveTMPTable();
-//         }
-//     });
-//     $( "#tmpTable" ).disableSelection();
-// });
+    $("#tmpTable").sortable({
+        sort: function() {
+            if ($(this).hasClass("cancel")) {
+                $(this).sortable("cancel");
+            }
+        },
+        axis         : "y",
+        opacity      : 0.6,
+        revert       : 600,
+        scroll       : true,
+        connectWith  : "#tmpTable",
+        stop         : function(){
+            $('.divTableRow.tmp input#indexEntry').each(function () {
+                $(this).val(indexNum);
+                indexNum++;
+            });
+            saveTMPTable();
+        }
+    });
+    $( "#tmpTable" ).disableSelection();
+});
+
 
 $(function() {
     if(screen.width<1100 || isMobile) {
         id = 0;
 
+        $(".divTableRow").swipe({
+            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+                id = $(this).attr('id');
+
+                if (direction == 'left') {
+                    $(".confirm." + id).addClass('activeTop');
+                    $(".yes." + id).addClass('activeLR');
+                    $(".no." + id).addClass('activeLR');
+                }
+            }
+        });
+
+        $(".confirm").swipe({
+            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+                id = $(this).attr('id');
+                $('.confirm.' + id).removeClass('activeTop');
+                $('.yes.' + id).removeClass('activeLR');
+                $('.no.' + id).removeClass('activeLR');
+            }
+        });
+        $(".yes").swipe({
+            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+                id = $(this).attr('id');
+                $('.confirm.' + id).removeClass('activeTop');
+                $('.yes.' + id).removeClass('activeLR');
+                $('.no.' + id).removeClass('activeLR');
+            }
+        });
+        $(".no").swipe({
+            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+                id = $(this).attr('id');
+                $('.confirm.' + id).removeClass('activeTop');
+                $('.yes.' + id).removeClass('activeLR');
+                $('.no.' + id).removeClass('activeLR');
+            }
+        });
+
         $('.yes').click(function () {
             id = $(this).attr('id');
             delTMPFunc(id, 'yes');
         });
+
         $('.no').click(function () {
             id = $(this).attr('id');
-            console.log(id);
-            $('.clickDelete.' + id).hide(500);
-            setTimeout( "$('.clickDelete.' + id).show();", 3000);
+            $('.confirm.' + id).removeClass('activeTop');
+            $('.yes.' + id).removeClass('activeLR');
+            $('.no.' + id).removeClass('activeLR');
         });
 
     }
 });
+

@@ -435,21 +435,29 @@ input:checked + .slider.salaryPrepaid:after {
     display:none;
 }
 
+.clickDelete {
+    display: none;
+}
+
+/* admin features  start */
+
 #disabledPayments {
-    opacity: 0.7;
-    border-left: solid #000 1px !important;
+    border-left: solid #1a1a1a 1px !important;
 }
 .disabledPayments .divTableRow {
     background: #808080 !important;
 }
 .disabledPayments .divTableCell {
-    border: solid #000 1px !important;
+    opacity: 0.7;
+    border: solid #1a1a1a 1px !important;
     border-left: 0px !important;
 }
-
-.clickDelete {
-/*     display: none; */
+.restore {
+    background: url("../img/restore.png") no-repeat center center #98F4A3;
+    opacity: 1 !important;
+    /*padding: 14px;*/
 }
+
 
 @media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px) {
 
@@ -646,6 +654,8 @@ input:checked + .slider.salaryPrepaid:after {
         z-index: 99;
         text-align:center;
         color:transparent;
+        visibility: hidden;
+        display: block !important;
     }
 
     .confirm {
@@ -654,6 +664,7 @@ input:checked + .slider.salaryPrepaid:after {
         height: 0;
         transition-duration: .5s;
         transition-timing-function: ease-out;
+        visibility: visible;
     }
 
     .yes,.no {
@@ -663,6 +674,7 @@ input:checked + .slider.salaryPrepaid:after {
         bottom:0;
         transition-duration: .5s;
         transition-timing-function: ease-out;
+        visibility: visible;
     }
     .yes {
         background:red;
@@ -674,26 +686,22 @@ input:checked + .slider.salaryPrepaid:after {
         right: 0;
     }
 
-    .clickDelete:hover .yes, .clickDelete:active .yes {
+    .activeLR {
         width:50%;
         color:#fff;
     }
-    .clickDelete:hover .no, .clickDelete:active .no {
-        width:50%;
-        color:#fff;
-    }
-    .clickDelete:hover .confirm, .clickDelete:active .confirm {
+    .activeTop {
         height:50%;
         transform: height 0.3s;
         color:#fff;
     }
 
-    .yes span, .no span{
+    .activeLR span{
         position: absolute;
         top: 27%;
         left: 42%;
     }
-    .confirm span {
+    .activeTop span {
         position: absolute;
         top: 14%;
         left: 43%;
@@ -1153,5 +1161,13 @@ input:checked + .slider.salaryPrepaid:after {
         width: 98%;
         margin: 0.5em 0 0.5em 0;
     }
+
+    /* admin features  start */
+
+    .divTable.disabledPayments {
+        width: 100%!important;
+    }
+
+
 
 }

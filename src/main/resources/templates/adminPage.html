@@ -16,7 +16,6 @@
 
 
 </div>
-
 <h2>Admin Page</h2>
 
 <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
@@ -30,6 +29,14 @@
         $(document).ready(function() {
 
             $('#disabledPayments').hide();
+
+            $('#deletedSpends').click(function () {
+                if ($('#disabledPayments').is(':visible')) {
+                    $('#disabledPayments').hide(500);
+                } else {
+                    $('#disabledPayments').show(500);
+                }
+            });
 
             $('#delLastMonth').click(function () {
                 $.ajax({
@@ -47,51 +54,69 @@
 
             $('#lastMonthIs').append(lastMonth[0].date);
 
-            $('#deletedSpends').click(function () {
+            $(function() {
+                payments = disabledPayments.slice(0);
+                payments.sort(function(a,b) {
+                    return a.index - b.index;
+                });
 
-                if( $('#disabledPayments').is(':empty') ) {
+                payments.forEach(function (item, n) {
 
-                    payments = disabledPayments.slice(0);
-                    payments.sort(function(a,b) {
-                        return a.index - b.index;
-                    });
-
-                    payments.forEach(function (item, n) {
-
-                        var salaryPrepaid;
-                        if (item.salaryPrepaid == 'true') salaryPrepaid = 'ЗП';
-                        else salaryPrepaid = 'Аванс';
-                        $('#disabledPayments').append(
-                            "<div class='divTableRow " + item.id + "'>"
+                    var salaryPrepaid;
+                    if (item.salaryPrepaid == 'true') salaryPrepaid = 'ЗП';
+                    else salaryPrepaid = 'Аванс';
+                    $('#disabledPayments').append(
+                        "<div name='" + item.id + "' class='divTableRow " + item.id + "'>"
                             + "<div class='divTableCell left disabled name'>"
-                            + item.name
+                                + item.name
                             + "<input type='hidden' name='id' value='" + item.id + "' disabled />"
                             + "</div>"
                             + "<div class='divTableCell amount'>"
-                            + item.amount
-                            + " ₽"
+                                + item.amount
+                                + " ₽"
                             + "</div>"
                             + "<div class='divTableCell salaryPrepaid'>"
-                            + salaryPrepaid
+                                + salaryPrepaid
                             + "</div>"
                             + "<div class='divTableCell withdraw currentMonth " + item.withdraw + "'></div>"
-                            + "</div>"
-                        );
+                            + "<div style='display: none' id='" + item.id + "' class='divTableCell restore " + item.id + "'>&nbsp;</div>"
+                        + "</div>"
+                    );
 
-                    });
-                    $('#disabledPayments').show(1000);
-                } else {
-                    $('#disabledPayments').hide(1000);
-                    setTimeout(function(){
-                        $('#disabledPayments').empty()
-                    }, 900);
-                }
+                });
 
             });
 
+            $('#disabledPayments').on("click", ".divTableCell", function (x) {
+                var id = $(x.currentTarget).parent().attr("name");
+                if ($('#' + id).is(':visible')) {
+                    if ($(this).hasClass('restore')) {
+                        restoreSpend(id)
+                    } else {
+                        $('#' + id).hide(300);
+                    }
+                } else {
+                    $('#' + id).show(300);
+                }
+            });
 
+            function restoreSpend(i) {
+                var id = i;
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: "post",
+                    url: "/restoreSpend",
+                    data: id,
+                    success: $(document).ajaxStop(function () {
+                        window.location.reload();
+                    })
+                });
+            }
 
-        })
+        });
     </script>
 </th:block>
 </body>

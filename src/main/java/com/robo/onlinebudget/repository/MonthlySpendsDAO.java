@@ -84,6 +84,22 @@ public class MonthlySpendsDAO {
         sessionFactory.getCurrentSession().persist(sme);
     }
 
+    public void restoreSpend(Long id) {
+        String hql = "FROM " + SpendsEntity.class.getName() + " WHERE id = :id";
+        Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
+
+        SpendsEntity se = (SpendsEntity) q.getSingleResult();
+        se.setInactive(false);
+        sessionFactory.getCurrentSession().update(se);
+
+        SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
+        List<SpendsMonthlyEntity> smeList = getLastMonth();
+        sme.setDate(smeList.get(0).getDate());
+        sme.setSpendId(se.getId());
+        sme.setAmount(0);
+        sessionFactory.getCurrentSession().persist(sme);
+    }
+
     public void deleteSpendFromTemplate(Long id) {
         String hql = "FROM " + SpendsEntity.class.getName() + " WHERE id = :id";
         SpendsEntity seResult = (SpendsEntity) sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id).getSingleResult();
