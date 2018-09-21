@@ -1168,6 +1168,27 @@ input:checked + .slider.salaryPrepaid:after {
         width: 100%!important;
     }
 
+    .stickQuestion {
+        font-size: 1.5em;
+        height: 1.5em;
+    }
+    .stickQuestion input{
+        line-height: 1em !important;
+        vertical-align: middle;
+        margin: 0 !important;
+        width: 0.8em !important;
+        height: 0.8em !important;
+    }
 
 
+
+}
+.stuckSpend {
+    background: url("../img/arrow.png") transparent no-repeat right top;
+    cursor: pointer;
+    position:relative;
+}
+.allMonthNote {
+    font-size: 0.9em !important;
+    width: 58% !important;
 }

@@ -13,6 +13,7 @@ public class SaveNote {
     private String date;
     private String text;
     private boolean isRemind;
+    private Long stuckSpendId;
 
     public Long getId() {
         return id;
@@ -46,9 +47,24 @@ public class SaveNote {
         isRemind = remind;
     }
 
-    public SaveNote(String date, String text, boolean isRemind) {
+    public Long getStuckSpendId() {
+        return stuckSpendId;
+    }
+
+    public void setStuckSpendId(Long stuckSpendId) {
+        this.stuckSpendId = stuckSpendId;
+    }
+
+    public SaveNote(String date, String text, boolean isRemind, Long stuckSpendId) {
         this.date = date;
         this.text = text;
         this.isRemind = isRemind;
+        this.stuckSpendId = stuckSpendId;
     }
+
+    @Override
+    public String toString() {
+        return "id: '" + this.id + "', date: '" + this.date + "', text: '" + this.text + "'" + "', isRemind: '" + this.isRemind + "'" + "', stuckSpendId: '" + this.stuckSpendId + "'";
+    }
+
 }

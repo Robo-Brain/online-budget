@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.List;
 
 @EnableWebMvc
@@ -41,6 +40,8 @@ public class MainController {
     public String allMonths (Model model) {
         model.addAttribute("title", "All Months");
         model.addAttribute("allMonths", monthlySpendsDAO.getAllMonths());
+        model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
+        model.addAttribute("notes", additionsDAO.getNotes());
         return "allMonths";
     }
 
@@ -90,7 +91,7 @@ public class MainController {
     @GetMapping(value = "/currentMonth")
     public String get(Model model) throws Exception {
         model.addAttribute("title", "Current Month");
-        model.addAttribute("currentMonth", monthlySpendsDAO.getMonthByDate(LocalDate.now(), "lastmonth")); //without string, method expects for already existing date in DB
+        model.addAttribute("currentMonth", monthlySpendsDAO.getNLastMonth(1)); // 1 = it's a last month
         return "currentMonth";
     }
 
@@ -134,7 +135,8 @@ public class MainController {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
-        model.addAttribute("lastMonth", monthlySpendsDAO.getLastMonth());
+//        model.addAttribute("lastMonth", monthlySpendsDAO.getLastMonth());
+        model.addAttribute("lastMonth", monthlySpendsDAO.getNLastMonth(1));
         model.addAttribute("disabledPayments", monthlySpendsDAO.getPaymentTemplate(true));
         return "adminPage";
     }

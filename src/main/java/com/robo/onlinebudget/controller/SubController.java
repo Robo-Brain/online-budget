@@ -4,6 +4,7 @@ import com.robo.onlinebudget.entity.NotesEntity;
 import com.robo.onlinebudget.form.SaveAnalysis;
 import com.robo.onlinebudget.form.SaveNote;
 import com.robo.onlinebudget.repository.AdditionsDAO;
+import com.robo.onlinebudget.repository.MonthlySpendsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,8 @@ public class SubController {
 
     @Autowired
     private AdditionsDAO additionsDAO;
+    @Autowired
+    private MonthlySpendsDAO monthlySpendsDAO;
 
     @ModelAttribute("notes")
     public List<NotesEntity> notes() {
@@ -28,6 +31,8 @@ public class SubController {
     @GetMapping("/notes")
     public String getAllNotes(Model model) {
         model.addAttribute("notes", additionsDAO.getNotes());
+//        model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
+        model.addAttribute("months", monthlySpendsDAO.getSpendsNames(3));
         return "notes";
     }
 

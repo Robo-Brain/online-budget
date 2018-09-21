@@ -27,6 +27,9 @@ public class NotesEntity {
     @Column(name = "isRemind")
     private boolean isRemind;
 
+    @Column(name = "stuckSpendId")
+    private Long stuckSpendId;
+
     public Long getId() {
         return id;
     }
@@ -59,10 +62,25 @@ public class NotesEntity {
         isRemind = remind;
     }
 
+    public Long getStuckSpendId() {
+        return stuckSpendId;
+    }
+
+    public void setStuckSpendId(Long stuckSpendId) {
+        this.stuckSpendId = stuckSpendId;
+    }
+
     public NotesEntity(Long id, String date, boolean isRemind) {
         this.id = id;
         this.date = date;
         this.isRemind = isRemind;
+    }
+
+    public NotesEntity(Long id, String date, boolean isRemind, Long stuckSpendId) {
+        this.id = id;
+        this.date = date;
+        this.isRemind = isRemind;
+        this.stuckSpendId = stuckSpendId;
     }
 
 }

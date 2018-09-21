@@ -25,6 +25,14 @@
                     <span class="slider"></span>
                 </label>
             </p>
+            <p class="stickQuestion">
+                <input id="stickCheckbox" type="checkbox" /> Stick to spend?
+            </p>
+            <p class="stickToSpend">
+                <label for="mobileText">Stick to spend: </label>
+                <select class="months"><option disabled hidden selected value></option></select>
+                <div class="spends"></div>
+            </p>
         </fieldset>
     </form>
 </div>
@@ -63,36 +71,62 @@
 <th:block sec:authorize="isAuthenticated()">
     <script th:inline="javascript">
         notesArr = /*[[${notes}]]*/ "";
+        months = /*[[${months}]]*/ "";
+        spendId = null;
         $(document).ready(function() {
 
             appendNotes();
 
-            $(".bell").click(function (b) {
-                b.preventDefault();
+            $('.stickToQuestion').hide();
+            $('.stickToSpend').hide();
 
-                var noteId = $(this).attr('id');
-                var noteDate = $('.divTableCell.' + noteId + '.noteDate.exist').text();
-                var noteText = $('.divTableCell.' + noteId + '.noteText').text();
-                
-                if ($(this).hasClass('false')) {
-                    var noteIsRemind = true;
-                    $(this).switchClass('false', 'true', 400, "swing");
-                } else if ($(this).hasClass('true')) {
-                    var noteIsRemind = false;
-                    $(this).switchClass('true', 'false', 400, "swing");
+            $('#stickCheckbox').change(function(){
+                if(this.checked) {
+                    $('.stickToSpend').fadeIn('fast');
+                    $('.stickQuestion').hide();
+                } else {
+                    $('.stickToSpend').fadeOut('fast');
+                    $('.stickQuestion').show();
                 }
 
-                $.ajax({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    type: "post",
-                    url: "/saveExistNote",
-                    dataType : 'json',
-                    data : JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind})
-                });
+
             });
+
+            months.forEach(function (item, n) {
+                var iter = n;
+
+                $('.months').append(
+                    "<option class='month " + iter + "' id='" + iter + "'>" + months[iter].date + "</option>"
+                );
+
+                $('.spends').append(
+                  "<select style='display: none' class='spend' id='spend" + iter + "'><option disabled hidden selected value></option></select>"
+                );
+
+                $.each(item,function(key,value){
+                    if (key != 'date') {
+                        $('#spend' + iter).append(
+                            "<option class='spendOption' id='" + key + "'>" + value + "</option>"
+                        );
+                    }
+                });
+
+            });
+
+            $(".months")
+                .change(function() {
+                    var id = $(this).children(":selected").attr("id");
+                    if (id != undefined) {
+                        $('.spend').hide();
+                        $('#spend' + id).show();
+                    }
+                });
+
+            $(".spend")
+                .change(function() {
+                    var id = $(this).children(":selected").attr("id");
+                    spendId = id;
+                });
 
         })
     </script>

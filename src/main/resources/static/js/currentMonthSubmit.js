@@ -25,7 +25,7 @@ console.log(JSON.stringify(formArr));
         dataType : 'json',
         data : JSON.stringify(formArr),
         success: $(document).ajaxStop(function(){
-//             window.location.reload();
+            window.location.reload();
         })
     });
 

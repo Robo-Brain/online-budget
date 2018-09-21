@@ -11,7 +11,8 @@ var active;
             return a.index - b.index;
         });
 
-        date = item[i].date;
+        var dateOptions = { year: 'numeric', month: 'long' };
+        var date = new Date(item[i].date).toLocaleDateString("en-US", dateOptions);
 
         $('#allMonthsTable').append(
             "<a id='" + i + "' class='monthDate'>" + date + "</a>" +
@@ -27,9 +28,9 @@ var active;
             active = (subitem.inactive == 'false') ? "active" : "inactive";
                 $('#allMonthsTable').append(
                 "<div class='divTableRow hide " + active + " " + i + "'>" +
-                    "<div class='divTableCell name " + n + "'>" + subitem.name + "</div>" +
+                    "<div id='" + subitem.id + "' class='divTableCell'>" + subitem.name + "</div>" +
                     "<div class='divTableCell amount " + n + "'>" + subitem.monthAmount + " / " + subitem.amount + "</div>" +
-                    "<div class='divTableCell salaryPrepaid " + subitem.salaryPrepaid + " " + n + "'>" + salaryPrepaid + "</div >" +
+                    "<div class='divTableCell salaryPrepaid " + n + "'>" + salaryPrepaid + "</div >" +
                     "<div class='divTableCell currentMonth " + subitem.withdraw + " " + n + "'></div>" +
                 "</div>"
             );
@@ -38,6 +39,24 @@ var active;
                 }
         });
     });
+});
+
+$(function() {
+    notes.forEach(function (item) {
+        console.log(item.stuckSpendId);
+        var id = '#' + item.stuckSpendId;
+        $(id).toggleClass('stuckSpend');
+        $('.stuckSpend').attr("title", item.text);
+    });
+
+    $('.stuckSpend').tooltip({
+        position: {
+            my: "left-10 top",
+            at: "right top"
+        },
+        tooltipClass: "allMonthNote"
+    });
+
 });
 
 $(function() {

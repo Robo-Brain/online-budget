@@ -51,12 +51,12 @@ public class AdditionsDAO {
         ne.setDate(addNote.getDate());
         ne.setText(addNote.getText());
         ne.setRemind(addNote.getRemind());
+        ne.setStuckSpendId(addNote.getStuckSpendId());
 
         sessionFactory.getCurrentSession().save(ne);
     }
 
     public void delNote(Long id) {
-        System.out.println("ID IS: " + id);
         String hql = "DELETE " + NotesEntity.class.getName() + " WHERE id = :id";
         Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
         q.executeUpdate();
@@ -70,6 +70,7 @@ public class AdditionsDAO {
         ne.setDate(saveNote.getDate());
         ne.setText(saveNote.getText());
         ne.setRemind(saveNote.getRemind());
+        ne.setStuckSpendId(saveNote.getStuckSpendId());
 
         sessionFactory.getCurrentSession().update(ne);
     }

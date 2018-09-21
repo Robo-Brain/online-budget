@@ -62,7 +62,7 @@ $('.addNoteMobile').click(function (a) {
         buttons: {
             "Add": function() {
                 $( this ).dialog( "close" );
-                addNote( $('#mobileDate').val(), $('#mobileText').val(), $('#mobileIsRemind').is(':checked'));
+                addNote( $('#mobileDate').val(), $('#mobileText').val(), $('#mobileIsRemind').is(':checked'), spendId);
             },
             Cancel: function() {
                 $(this).dialog( "close" );
@@ -73,13 +73,13 @@ $('.addNoteMobile').click(function (a) {
 
 });
 
-function addNote(date, text, remind) {
+function addNote(date, text, remind, spendId) {
 
     if (text == '') {
         text = null;
     }
 
-    var note = {date: date, text: text, remind: remind};
+    var note = {date: date, text: text, remind: remind, stuckSpendId: spendId};
 
     $.ajax({
         headers: {
@@ -90,7 +90,7 @@ function addNote(date, text, remind) {
         url: "/addNote",
         data : JSON.stringify(note),
         success: $(document).ajaxStop(function(){
-            window.location.reload();
+            // window.location.reload();
         })
     });
 
@@ -242,5 +242,34 @@ $(function() {
     $("#mobileDate").pickadate({
         format: 'yyyy-mm-dd',
         formatSubmit: 'yyyy-mm-dd'
+    });
+});
+
+$(function() {
+    $(".bell").click(function (b) {
+        b.preventDefault();
+
+        var noteId = $(this).attr('id');
+        var noteDate = $('.divTableCell.' + noteId + '.noteDate.exist').text();
+        var noteText = $('.divTableCell.' + noteId + '.noteText').text();
+
+        if ($(this).hasClass('false')) {
+            var noteIsRemind = true;
+            $(this).switchClass('false', 'true', 400, "swing");
+        } else if ($(this).hasClass('true')) {
+            var noteIsRemind = false;
+            $(this).switchClass('true', 'false', 400, "swing");
+        }
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "post",
+            url: "/saveExistNote",
+            dataType : 'json',
+            data : JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind})
+        });
     });
 });
