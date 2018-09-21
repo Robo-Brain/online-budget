@@ -19,7 +19,7 @@
                 <label for="mobileText">Text: </label>
                 <textarea id="mobileText"></textarea>
             </p>
-            <p><span class="unhideLabel">Is remind?:</span>
+            <p class="remind"><span class="unhideLabel">Is remind?:</span>
                 <label class="switch">
                     <input class="mobileIsRemind" id="mobileIsRemind" type="checkbox">
                     <span class="slider"></span>
@@ -84,12 +84,9 @@
                 if(this.checked) {
                     $('.stickToSpend').fadeIn('fast');
                     $('.stickQuestion').hide();
-                } else {
-                    $('.stickToSpend').fadeOut('fast');
-                    $('.stickQuestion').show();
+                    $('.remind').hide();
                 }
-
-
+                
             });
 
             months.forEach(function (item, n) {

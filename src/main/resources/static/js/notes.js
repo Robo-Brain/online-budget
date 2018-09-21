@@ -90,7 +90,7 @@ function addNote(date, text, remind, spendId) {
         url: "/addNote",
         data : JSON.stringify(note),
         success: $(document).ajaxStop(function(){
-            // window.location.reload();
+            window.location.reload();
         })
     });
 

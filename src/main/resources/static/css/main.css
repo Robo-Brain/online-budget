@@ -951,9 +951,9 @@ input:checked + .slider.salaryPrepaid:after {
 
     .salaryEditButtons button{
         width: 49%;
-        font-size: 1.2em;
+        font-size: 1.5em;
         line-height: 1.2em;
-        height: 1.6em;
+        height: 1.8em;
     }
 
     /* adaptive mobile add salary content design START */
@@ -1068,6 +1068,7 @@ input:checked + .slider.salaryPrepaid:after {
     }
 
     .noteText {
+        font-size: 1.1em;
         display: block;
         float: none;
         border-top: 0 ;
@@ -1132,6 +1133,7 @@ input:checked + .slider.salaryPrepaid:after {
     .bell.false {
         display: block;
         margin: 0 auto;
+        padding: 0.5em 0;
         background: url("../img/notRemind.png") transparent no-repeat center center;
         height: 32px;
         width: 29px;
@@ -1139,6 +1141,7 @@ input:checked + .slider.salaryPrepaid:after {
     .bell.true {
         display: block;
         margin: 0 auto;
+        padding: 0.5em 0;
         background: url("../img/remind.png") transparent no-repeat center center;
         height: 32px;
         width: 36px;
