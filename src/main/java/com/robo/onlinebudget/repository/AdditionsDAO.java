@@ -37,7 +37,9 @@ public class AdditionsDAO {
 
         ne.setDate(date);
         ne.setText(text);
-        ne.setRemind(false);
+        if (ne.getRemind() == false) {
+            ne.setRemind(true);
+        } else ne.setRemind(false);
         sessionFactory.getCurrentSession().update(ne);
     }
 

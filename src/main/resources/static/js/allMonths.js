@@ -31,7 +31,7 @@ var active;
                     "<div id='" + subitem.id + "' class='divTableCell'>" + subitem.name + "</div>" +
                     "<div class='divTableCell amount " + n + "'>" + subitem.monthAmount + " / " + subitem.amount + "</div>" +
                     "<div class='divTableCell salaryPrepaid " + n + "'>" + salaryPrepaid + "</div >" +
-                    "<div class='divTableCell currentMonth " + subitem.withdraw + " " + n + "'></div>" +
+                    "<div class='divTableCell allMonths " + subitem.withdraw + " " + n + "'></div>" +
                 "</div>"
             );
                 if (subitem.monthAmount < subitem.amount ) {

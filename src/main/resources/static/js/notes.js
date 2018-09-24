@@ -7,26 +7,25 @@ function appendNotes() {
 
     for (i = 0; i < notes.length; i++) {
         $("#notesTable").append(
-            "<div class='divTableRow " + notes[i].id + " note'>" +
-                "<input type='hidden' id='id' name='id' value='" + notes[i].id + "' />" +
-                "<div class='divTableCell " + notes[i].id + " noteDate exist'>" + notes[i].date + "</div>" +
-                    "<div class='divTableCell hidden " + notes[i].id + " noteDate'>" +
-                    "<input type='hidden' id='noteId' name='noteId' value='" + notes[i].id + "' />" +
-                    "<input type='text' id='noteDate" + notes[i].id + "' name='noteDate' class='date' value='" + notes[i].date + "' />" +
-                    "</div>" +
-
-                "<div class='divTableCell " + notes[i].id + " noteText'>" + notes[i].text + "</div>" +
-                    "<div class='divTableCell hidden " + notes[i].id + " noteTextInput'>" +
-                        "<textarea class='noteTextarea' id='noteText" + notes[i].id + "' name='noteText' >" + notes[i].text + "</textarea>" +
-                    "</div>" +
-
-                "<div class='divTableCell " + notes[i].id + ' ' + notes[i].remind + " noteRemind'>" +
-                    "<span id='" + notes[i].id + "' class='bell " + notes[i].remind + "'>&nbsp;</span>" +
-                    "<span class='remindBoolean'>" + notes[i].remind + "</span>" +
-                "</div>" +
-
-                "<div class='divTableCell salaryEditButtons " + notes[i].id + "'>" +
-                    "<div class='editButtons'>" +
+            "<div class='divTableRow " + notes[i].id + " note'>"
+                + "<input type='hidden' id='id' name='id' value='" + notes[i].id + "' />"
+                + "<div class='divTableCell " + notes[i].id + " noteDate exist'>"
+                    + "<span>" + notes[i].date + "</span>"
+                    + "<span id='" + notes[i].id + "' class='bell " + notes[i].remind + "'>&nbsp;</span>"
+                    + "<span class='remindBoolean'>" + notes[i].remind + "</span>"
+                + "</div>"
+                + "<div class='divTableCell hidden " + notes[i].id + " noteDate'>"
+                    + "<input type='hidden' id='noteId' name='noteId' value='" + notes[i].id + "' />"
+                    + "<input type='text' id='noteDate" + notes[i].id + "' name='noteDate' class='date' value='" + notes[i].date + "' />"
+            + "</div>"
+            + "<div title='" + notes[i].id + "' class='divTableCell " + notes[i].id + " noteTextCrop'>"
+                + notes[i].text
+            + "</div>"
+            + "<div class='divTableCell hidden " + notes[i].id + " noteTextInput'>"
+                + "<textarea class='noteTextarea' id='noteText" + notes[i].id + "' name='noteText' >" + notes[i].text + "</textarea>"
+            + "</div>"
+            + "<div class='divTableCell salaryEditButtons " + notes[i].id + "'>" +
+                    "<div class='noteEditButtons'>" +
                         "<button class='editButton' id='" + notes[i].id + "'>EDIT</button>&nbsp;" +
                         "<button class='delButton' id='" + notes[i].id + "'>DEL</button>" +
                     "</div>" +
@@ -41,8 +40,31 @@ function appendNotes() {
 
         $('.true').prop('checked', true);
         $('.false').prop('unchecked', false);
+
+        if (notes[i].stuckSpendId != null) $('#' + notes[i].id).hide();
+
+        if (notes[i].text.length <= 40) $('.divTableCell.' + notes[i].id + '.noteTextCrop').addClass('short')
     }
 }
+
+$(function() {
+    $('.noteTextCrop').click(function () {
+        var id = $(this).attr('title');
+        var thisClass = '.divTableCell.' + id + '.noteTextCrop';
+
+        if ($(thisClass).hasClass('short')) {
+            thisClass = null;
+        }
+
+        if ($(thisClass).hasClass('shown')) {
+            $(thisClass).css({"height": "2em", "white-space": "nowrap", "overflow": "hidden"});
+            $(thisClass).removeClass('shown')
+        } else {
+            $(thisClass).css({"height": "6em", "white-space": "normal", "overflow": "auto"});
+            $(thisClass).addClass('shown')
+        }
+    });
+});
 
 $(".addNotePC").click(function (x) {
     x.preventDefault();
@@ -113,7 +135,7 @@ function notice(id) {
                         'Content-Type': 'application/json'
                     },
                     type: "post",
-                    url: "/muteNote",
+                    url: "/muteUnmuteNote",
                     data : JSON.stringify(id)
                 });
                 n.close();
@@ -250,14 +272,13 @@ $(function() {
         b.preventDefault();
 
         var noteId = $(this).attr('id');
-        var noteDate = $('.divTableCell.' + noteId + '.noteDate.exist').text();
-        var noteText = $('.divTableCell.' + noteId + '.noteText').text();
+        noteIsRemind = null;
 
         if ($(this).hasClass('false')) {
-            var noteIsRemind = true;
+            noteIsRemind = true;
             $(this).switchClass('false', 'true', 400, "swing");
         } else if ($(this).hasClass('true')) {
-            var noteIsRemind = false;
+            noteIsRemind = false;
             $(this).switchClass('true', 'false', 400, "swing");
         }
 
@@ -267,9 +288,9 @@ $(function() {
                 'Content-Type': 'application/json'
             },
             type: "post",
-            url: "/saveExistNote",
-            dataType : 'json',
-            data : JSON.stringify({id: noteId, date: noteDate, text: noteText, remind: noteIsRemind})
+            url: "/muteUnmuteNote",
+            data : JSON.stringify(noteId)
         });
+
     });
 });

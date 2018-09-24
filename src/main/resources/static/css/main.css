@@ -951,9 +951,9 @@ input:checked + .slider.salaryPrepaid:after {
 
     .salaryEditButtons button{
         width: 49%;
-        font-size: 1.5em;
+        font-size: 1.2em;
         line-height: 1.2em;
-        height: 1.8em;
+        height: 1.6em;
     }
 
     /* adaptive mobile add salary content design START */
@@ -1058,7 +1058,8 @@ input:checked + .slider.salaryPrepaid:after {
     .noteDate {
         display: block;
         float: none;
-        font-size: 2em;
+        font-size: 2.5em;
+        text-align: center;
     }
     .noteDate input {
         width: 50% !important;
@@ -1066,16 +1067,22 @@ input:checked + .slider.salaryPrepaid:after {
         background: #BDDCEE !important;
         border: solid #99CEEE 1px !important;
     }
+    .noteDate span {
+        display: inline-block;
+        margin: auto 0.4em;
+    }
 
-    .noteText {
-        font-size: 1.1em;
+    .noteTextCrop {
+        font-size: 1.2em;
         display: block;
         float: none;
-        border-top: 0 ;
-        height: 6em;
-        overflow: auto;
+        border-top: 0;
+        height: 2em;
         line-height: 1.2em;
-        padding: 0.8em;
+        width: 26.1em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .noteTextInput {
         display: block;
@@ -1117,10 +1124,6 @@ input:checked + .slider.salaryPrepaid:after {
         background: #29A138;
     }
 
-    .noteRemind {
-        display: block !important;
-        border-top: 0 !important;
-    }
     .noteButtons {
         display: block !important;
         border-top: 0 !important;
@@ -1131,20 +1134,16 @@ input:checked + .slider.salaryPrepaid:after {
     }
 
     .bell.false {
-        display: block;
-        margin: 0 auto;
-        padding: 0.5em 0;
         background: url("../img/notRemind.png") transparent no-repeat center center;
         height: 32px;
         width: 29px;
+        cursor: pointer;
     }
     .bell.true {
-        display: block;
-        margin: 0 auto;
-        padding: 0.5em 0;
         background: url("../img/remind.png") transparent no-repeat center center;
         height: 32px;
         width: 36px;
+        cursor: pointer;
     }
 
     /* AllMonths start */
@@ -1183,7 +1182,11 @@ input:checked + .slider.salaryPrepaid:after {
         height: 0.8em !important;
     }
 
-
+    .noteEditButtons button {
+        font-size: 1.5em !important;
+        line-height: 1.5em !important;
+        height: 2em !important;
+    }
 
 }
 .stuckSpend {
@@ -1194,4 +1197,13 @@ input:checked + .slider.salaryPrepaid:after {
 .allMonthNote {
     font-size: 0.9em !important;
     width: 58% !important;
+}
+
+.allMonths.true {
+    background: url("../img/cash3.png") transparent no-repeat center center;
+    padding: 0 16px;
+}
+.allMonths.false {
+    background: url("../img/card.png") transparent no-repeat center center;
+    padding: 0 18px;
 }

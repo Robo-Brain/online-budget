@@ -61,6 +61,10 @@
     border-radius: 0px !important;
 }
 
+.ui-dialogNew {
+    width: 96% !important;
+}
+
 .ui-dialogNew fieldset {
     border: solid #259277 1px !important;
 }

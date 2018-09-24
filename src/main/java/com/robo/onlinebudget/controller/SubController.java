@@ -36,7 +36,7 @@ public class SubController {
         return "notes";
     }
 
-    @PostMapping("/muteNote")
+    @PostMapping("/muteUnmuteNote")
     @ResponseBody
     public String muteNote(@RequestBody Long id) {
         additionsDAO.muteNote(id);
