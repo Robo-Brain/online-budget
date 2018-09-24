@@ -1079,7 +1079,7 @@ input:checked + .slider.salaryPrepaid:after {
         border-top: 0;
         height: 2em;
         line-height: 1.2em;
-        width: 26.1em;
+        width: 23.4em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

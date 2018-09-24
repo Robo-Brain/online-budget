@@ -8,7 +8,9 @@ import com.robo.onlinebudget.repository.MonthlySpendsDAO;
 import com.robo.onlinebudget.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,14 @@ public class MainController {
 
     @GetMapping("/")
     public String index(Model model) {
-        return "loginPage";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated()) {
+            model.addAttribute("title", "All Months");
+            model.addAttribute("allMonths", monthlySpendsDAO.getAllMonths());
+            model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
+            model.addAttribute("notes", additionsDAO.getNotes());
+            return "allMonths";
+        } else return "loginPage";
     }
 
     @GetMapping(value = "/allMonths")
@@ -128,19 +137,6 @@ public class MainController {
         monthlySpendsDAO.delSalary(id);
     }
 
-    //  DEFAULT
-
-    @GetMapping("/admin")
-    public String adminPage(Model model, Principal principal) {
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);
-//        model.addAttribute("lastMonth", monthlySpendsDAO.getLastMonth());
-        model.addAttribute("lastMonth", monthlySpendsDAO.getNLastMonth(1));
-        model.addAttribute("disabledPayments", monthlySpendsDAO.getPaymentTemplate(true));
-        return "adminPage";
-    }
-
     @PostMapping(value = "/restoreSpend")
     @ResponseBody
     public String restoreSpend(@RequestBody Long id) {
@@ -155,10 +151,31 @@ public class MainController {
         return "success";
     }
 
+    //  DEFAULT
+
+    @GetMapping("/admin")
+    public String adminPage(Model model, Principal principal) {
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("lastMonth", monthlySpendsDAO.getNLastMonth(1));
+        model.addAttribute("disabledPayments", monthlySpendsDAO.getPaymentTemplate(true));
+        return "adminPage";
+    }
+
     @GetMapping("/login")
     public String loginPage(Model model) {
-        model.addAttribute("title", "Login page");
-        return "loginPage";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated()) {
+            model.addAttribute("title", "All Months");
+            model.addAttribute("allMonths", monthlySpendsDAO.getAllMonths());
+            model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
+            model.addAttribute("notes", additionsDAO.getNotes());
+            return "allMonths";
+        } else {
+            model.addAttribute("title", "Login page");
+            return "loginPage";
+        }
     }
 
     @GetMapping("/logoutSuccessful")
