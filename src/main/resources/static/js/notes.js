@@ -44,7 +44,7 @@ function appendNotes() {
 
         if (notes[i].stuckSpendId != null) $('#' + notes[i].id).hide();
 
-        if (notes[i].text.length <= 40) $('.divTableCell.' + notes[i].id + '.noteTextCrop').addClass('short')
+        if (notes[i].text.length <= 35) $('.divTableCell.' + notes[i].id + '.noteTextCrop').addClass('short')
     }
 }
 
@@ -58,10 +58,10 @@ $(function() {
         }
 
         if ($(thisClass).hasClass('shown')) {
-            $(thisClass).css({"height": "2em", "white-space": "nowrap", "overflow": "hidden"});
+            $(thisClass).css({"white-space": "nowrap", "overflow": "hidden"});
             $(thisClass).removeClass('shown')
         } else {
-            $(thisClass).css({"height": "6em", "white-space": "normal", "overflow": "auto"});
+            $(thisClass).css({"white-space": "normal", "overflow": "auto", "word-break": "break-all"});
             $(thisClass).addClass('shown')
         }
     });
@@ -228,7 +228,6 @@ function saveExistNote(id, date, text, isRemind, stuckSpendId) {
 
     existNoteData = JSON.stringify({id: id, date: date, text: text, remind: isRemind, stuckSpendId: stuckSpendId});
 
-    console.log(existNoteData);
     $.ajax({
         headers: {
             'Accept': 'application/json',

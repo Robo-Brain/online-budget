@@ -82,11 +82,16 @@ public class AdditionsDAO {
 
         if (saveNote.getDate() == null || saveNote.getDate().isEmpty() || saveNote.getDate().length() > 0) {
             ne.setDate(ne.getDate());
-        } else if (saveNote.getText().isEmpty()) {
+        } else ne.setDate(saveNote.getDate());
+
+        if (saveNote.getText().isEmpty()) {
             ne.setText(ne.getText());
-        } else if (saveNote.getStuckSpendId() == null) {
+        } else ne.setText(saveNote.getText());
+
+        if (saveNote.getStuckSpendId() == null) {
             ne.setStuckSpendId(ne.getStuckSpendId());
-        }
+        } else ne.setStuckSpendId(saveNote.getStuckSpendId());
+
         ne.setRemind(saveNote.getRemind());
 
         sessionFactory.getCurrentSession().update(ne);
