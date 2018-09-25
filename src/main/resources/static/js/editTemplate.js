@@ -34,17 +34,15 @@ function appendTMPTable() {
                     "<input type='text' class='tmp amount " + tmpVal[i].id + "' id='amount' value='" + tmpVal[i].amount + "' autocomplete='off' /> ₽" +
                 "</div>" +
                 "<div class='divTableCell salaryPrepaid switcher'>" +
-                    "<span class='hiddenMobileLabels'>Salary: <br /></span>" +
                     "<label class='switch'>" +
                         "<input type='checkbox' id='salaryPrepaid' class='tmp salaryPrepaid " + tmpVal[i].salaryPrepaid + ' ' + tmpVal[i].id + "' />" +
                         "<span class='slider salaryPrepaid'></span>" +
                     "</label>" +
                 "</div>" +
                 "<div class='divTableCell withdraw switcher'>" +
-                    "<span class='hiddenMobileLabels'>Withdraw: <br /></span>" +
                     "<label class='switch'>" +
                         "<input type='checkbox' id='withdraw' class='tmp withdraw " + tmpVal[i].withdraw + ' ' + tmpVal[i].id + "' />" +
-                        "<span class='slider'></span>" +
+                        "<span class='slider withdraw'></span>" +
                     "</label>" +
                 "</div>" +
                 "<div class='divTableCell del'>" +

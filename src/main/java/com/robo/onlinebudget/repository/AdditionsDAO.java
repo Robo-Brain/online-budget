@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -43,17 +44,27 @@ public class AdditionsDAO {
         sessionFactory.getCurrentSession().update(ne);
     }
 
-    public void addNote(SaveNote addNote) throws Exception {
+    public void addNote(SaveNote addNote) {
         NotesEntity ne = new NotesEntity();
 
-        if (addNote.getText() == null) {
-            throw new Exception("text must not be empty");
+        if (addNote.getDate() == null || addNote.getDate().isEmpty() || addNote.getDate().length() > 0) {
+            String formattedDate = LocalDate.now().getYear() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getDayOfMonth();
+            ne.setDate(formattedDate);
+        } else {
+            ne.setDate(addNote.getDate());
         }
 
-        ne.setDate(addNote.getDate());
-        ne.setText(addNote.getText());
-        ne.setRemind(addNote.getRemind());
+        if (addNote.getText() == null) {
+            ne.setText("[Sample Text]");
+        } else {
+            ne.setText(addNote.getText());
+        }
+
         ne.setStuckSpendId(addNote.getStuckSpendId());
+
+        if (addNote.getStuckSpendId() != null) {
+            ne.setRemind(false);
+        } else ne.setRemind(addNote.getRemind());
 
         sessionFactory.getCurrentSession().save(ne);
     }
@@ -69,10 +80,14 @@ public class AdditionsDAO {
 
         NotesEntity ne = sessionFactory.getCurrentSession().createQuery(hql, NotesEntity.class).getSingleResult();
 
-        ne.setDate(saveNote.getDate());
-        ne.setText(saveNote.getText());
+        if (saveNote.getDate() == null || saveNote.getDate().isEmpty() || saveNote.getDate().length() > 0) {
+            ne.setDate(ne.getDate());
+        } else if (saveNote.getText().isEmpty()) {
+            ne.setText(ne.getText());
+        } else if (saveNote.getStuckSpendId() == null) {
+            ne.setStuckSpendId(ne.getStuckSpendId());
+        }
         ne.setRemind(saveNote.getRemind());
-        ne.setStuckSpendId(saveNote.getStuckSpendId());
 
         sessionFactory.getCurrentSession().update(ne);
     }
