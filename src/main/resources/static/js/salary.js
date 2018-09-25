@@ -6,44 +6,49 @@ function appendAllWages() {
     });
 
     for (i = 0; i < allWages.length; i++) {
+        var sDate = allWages[i].salaryDate || '-';
+        var pDate = allWages[i].prepaidDate || '-';
+        var id = allWages[i].id;
+        var salary = allWages[i].salary || 0;
+        var prepaid = allWages[i].prepaid || 0;
 
-        date = new Date(allWages[i].salaryDate), locale = "en-us", year = date.getFullYear(), month = date.toLocaleString(locale, { month: 'long'});
+        date = new Date(sDate), locale = "en-us", year = date.getFullYear(), month = date.toLocaleString(locale, { month: 'long'});
         if (year == '1970'){
-            date = new Date(allWages[i].prepaidDate), locale = "en-us", year = date.getFullYear(), month = date.toLocaleString(locale, { month: 'long'});
+            date = new Date(pDate), locale = "en-us", year = date.getFullYear(), month = date.toLocaleString(locale, { month: 'long'});
         }
 
         $("#salaryTable").append(
             "<div class='mobileWageDate'>" + year + ' ' + month + "</div>" +
-            "<div class='divTableRow salaryTable " + allWages[i].id + "'>" +
-            "<input type='hidden' id='id' name='id' value='" + allWages[i].id + "' />" +
+            "<div class='divTableRow salaryTable " + id + "'>" +
+            "<input type='hidden' id='id' name='id' value='" + id + "' />" +
 
-            "<div class='divTableCell salaryDate " + allWages[i].id + "'>" + allWages[i].salaryDate + "</div>" +
-            "<div class='divTableCell salary " + allWages[i].id + "'>" + allWages[i].salary + " ₽</div>" +
-            "<div class='divTableCell prepaidDate " + allWages[i].id + "'>" + allWages[i].prepaidDate + "</div>" +
-            "<div class='divTableCell prepaid " + allWages[i].id + "'>" + allWages[i].prepaid + " ₽</div>" +
-            "<div class='divTableCell salaryEditButtons " + allWages[i].id + "'>" +
+            "<div class='divTableCell salaryDate " + id + "'>" + sDate + "</div>" +
+            "<div class='divTableCell salary " + id + "'>" + salary + " ₽</div>" +
+            "<div class='divTableCell prepaidDate " + id + "'>" + pDate + "</div>" +
+            "<div class='divTableCell prepaid " + id + "'>" + prepaid + " ₽</div>" +
+            "<div class='divTableCell salaryEditButtons " + id + "'>" +
                 "<div class='editButtons'>" +
-                    "<button class='editButton' id='" + allWages[i].id + "'>EDIT</button>&nbsp;" +
-                    "<button class='delButton' id='" + allWages[i].id + "'>DEL</button>" +
+                    "<button class='editButton' id='" + id + "'>EDIT</button>&nbsp;" +
+                    "<button class='delButton' id='" + id + "'>DEL</button>" +
                 "</div>" +
             "</div>" +
 
-            "<div class='divTableCell hidden salaryDate " + allWages[i].id + "'>" +
-                "<input type='hidden' id='salaryIdInput' name='salaryId' value='" + allWages[i].id + "' />" +
-                "<input type='text' class='date salary' id='salaryDateInput" + allWages[i].id + "' name='salaryDateInput' value='" + allWages[i].salaryDate + "' />" +
+            "<div class='divTableCell hidden salaryDate " + id + "'>" +
+                "<input type='hidden' id='salaryIdInput' name='salaryId' value='" + id + "' />" +
+                "<input type='text' class='date salary' id='salaryDateInput" + id + "' name='salaryDateInput' value='" + sDate + "' />" +
             "</div>" +
-            "<div class='divTableCell hidden salary " + allWages[i].id + "'>" +
-                "<input type='text' class='salaryInput' id='salaryInput" + allWages[i].id + "' name='salaryInput' value='" + allWages[i].salary + "' />" +
+            "<div class='divTableCell hidden salary " + id + "'>" +
+                "<input type='text' class='salaryInput' id='salaryInput" + id + "' name='salaryInput' value='" + salary + "' />" +
             "</div>" +
-            "<div class='divTableCell hidden prepaidDate " + allWages[i].id + "'>" +
-                "<input type='text' class='date prepaid' id='prepaidDateInput" + allWages[i].id + "' name='prepaidDateInput' value='" + allWages[i].prepaidDate + "' />" +
+            "<div class='divTableCell hidden prepaidDate " + id + "'>" +
+                "<input type='text' class='date prepaid' id='prepaidDateInput" + id + "' name='prepaidDateInput' value='" + pDate + "' />" +
             "</div>" +
-            "<div class='divTableCell hidden prepaid " + allWages[i].id + "'>" +
-                "<input type='text' class='prepaidInput' id='prepaidInput" + allWages[i].id + "' name='prepaidInput' value='" + allWages[i].prepaid + "' />" +
+            "<div class='divTableCell hidden prepaid " + id + "'>" +
+                "<input type='text' class='prepaidInput' id='prepaidInput" + id + "' name='prepaidInput' value='" + prepaid + "' />" +
             "</div>" +
-            "<div class='divTableCell hidden salaryEditButtons " + allWages[i].id + "'>" +
+            "<div class='divTableCell hidden salaryEditButtons " + id + "'>" +
                 "<div class='salaryHiddenButtons'>" +
-                    "<button class='saveButton' id='" + allWages[i].id + "'>✓</button><button class='cancelButton' id='" + allWages[i].id + "'>X</button>" +
+                    "<button class='saveButton' id='" + id + "'>✓</button><button class='cancelButton' id='" + id + "'>X</button>" +
                 "</div>" +
             "</div>" +
         "</div>");

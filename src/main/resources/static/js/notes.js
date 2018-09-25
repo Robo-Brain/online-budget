@@ -9,6 +9,7 @@ function appendNotes() {
         $("#notesTable").append(
             "<div class='divTableRow " + notes[i].id + " note'>"
                 + "<input type='hidden' id='id' name='id' value='" + notes[i].id + "' />"
+                + "<input type='hidden' id='spendId"+ notes[i].id + "' value='" + notes[i].stuckSpendId + "' />"
                 + "<div class='divTableCell " + notes[i].id + " noteDate exist'>"
                     + "<span>" + notes[i].date + "</span>"
                     + "<span id='" + notes[i].id + "' class='bell " + notes[i].remind + "'>&nbsp;</span>"
@@ -68,7 +69,7 @@ $(function() {
 
 $(".addNotePC").click(function (x) {
     x.preventDefault();
-    addNote( $('#date').val(), $('#text').val(), $('#isRemind').is(':checked'));
+    addNote( $('#date').val(), $('#text').val(), $('#isRemind').is(':checked'), spendId);
 });
 
 $('.addNoteMobile').click(function (a) {
@@ -218,14 +219,16 @@ $(function() {
         var noteDate = $('#noteDate' + noteId).val();
         var noteText = $('#noteText' + noteId).val();
         var noteIsRemind = $('#isRemind' + noteId).is(':checked');
-        saveExistNote(noteId, noteDate, noteText, noteIsRemind);
+        var stuckSpendId = $('#spendId' + noteId).val();
+        saveExistNote(noteId, noteDate, noteText, noteIsRemind, stuckSpendId);
     });
 });
 
-function saveExistNote(id, date, text, isRemind) {
+function saveExistNote(id, date, text, isRemind, stuckSpendId) {
 
-    existNoteData = JSON.stringify({id: id, date: date, text: text, remind: isRemind});
+    existNoteData = JSON.stringify({id: id, date: date, text: text, remind: isRemind, stuckSpendId: stuckSpendId});
 
+    console.log(existNoteData);
     $.ajax({
         headers: {
             'Accept': 'application/json',

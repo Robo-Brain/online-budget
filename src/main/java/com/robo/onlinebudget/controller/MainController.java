@@ -38,10 +38,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated()) {
             model.addAttribute("title", "All Months");
-            model.addAttribute("allMonths", monthlySpendsDAO.getAllMonths());
-            model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
-            model.addAttribute("notes", additionsDAO.getNotes());
-            return "allMonths";
+            return allMonths(model);
         } else return "loginPage";
     }
 
@@ -168,10 +165,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated()) {
             model.addAttribute("title", "All Months");
-            model.addAttribute("allMonths", monthlySpendsDAO.getAllMonths());
-            model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
-            model.addAttribute("notes", additionsDAO.getNotes());
-            return "allMonths";
+            return allMonths(model);
         } else {
             model.addAttribute("title", "Login page");
             return "loginPage";

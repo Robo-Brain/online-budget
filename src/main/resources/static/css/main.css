@@ -961,7 +961,7 @@ input:checked + .slider.salaryPrepaid:after {
     .hidden .date {
         font-size: 1.1em;
         line-height: 1.3em;
-        width: 86%;
+        width: 87%;
         background-color: #BDDCEE;
         border: solid #599EC7 1px;
     }
@@ -1044,6 +1044,10 @@ input:checked + .slider.salaryPrepaid:after {
 
     #notesTable {
         width: 100%;
+        table-layout:fixed;
+    }
+    #notesTable .divTableRow{
+        width: 100%;
     }
 
     .divTableRow.head {
@@ -1077,13 +1081,13 @@ input:checked + .slider.salaryPrepaid:after {
         display: block;
         float: none;
         border-top: 0;
-        height: 2em;
+        height: 1.3em;
         line-height: 1.2em;
-        width: 23.4em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     .noteTextInput {
         display: block;
         float: none;
