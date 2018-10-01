@@ -156,7 +156,7 @@ public class MainController {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
-//        model.addAttribute("lastMonth", monthlySpendsDAO.getNLastMonth(1));
+        model.addAttribute("lastMonth", monthlySpendsDAO.getNLastMonth(1));
         model.addAttribute("disabledPayments", monthlySpendsDAO.getPaymentTemplate(true));
         return "adminPage";
     }
