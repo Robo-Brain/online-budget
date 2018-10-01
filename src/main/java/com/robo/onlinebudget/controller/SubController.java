@@ -81,7 +81,7 @@ public class SubController {
 
     @PostMapping("/saveExistAnalysisToList")
     @ResponseBody
-    public String saveExistAnalysisToList(@RequestBody SaveAnalysis saveAnalysis) throws Exception {
+    public String saveExistAnalysisToList(@RequestBody SaveAnalysis saveAnalysis) {
         additionsDAO.saveAnalysis(saveAnalysis);
         return "success";
     }

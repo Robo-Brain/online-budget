@@ -75,14 +75,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().and().formLogin()
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/login")//
-                .defaultSuccessUrl("/currentMonth")//
+                .defaultSuccessUrl("/admin")//
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")
                     .and()
-                        .logout().logoutUrl("/logout").logoutSuccessUrl("/login")
-                    .and()
-                        .rememberMe().key("uniqueAndSecret").tokenRepository(persistentTokenRepository()).tokenValiditySeconds(1209600);
+                        .httpBasic()
+                            .and()
+                                .logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+                            .and()
+                                .rememberMe().key("uniqueAndSecret").tokenRepository(persistentTokenRepository()).tokenValiditySeconds(1209600);
 
     }
 

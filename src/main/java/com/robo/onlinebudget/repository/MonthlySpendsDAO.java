@@ -261,12 +261,13 @@ public class MonthlySpendsDAO {
         List<Map> spendsMonthlyList;
         List result = new ArrayList<>();
         LocalDate now = LocalDate.now();
+        Integer tryCounts = 0;
 
             for (int i = 0; i < n; i++) {
                 spendsMonthlyList = getMonthByDate(now);
 
-                while (spendsMonthlyList.isEmpty()) {
-                    if (now.getDayOfMonth() > 1) {
+                while (spendsMonthlyList.isEmpty() && tryCounts < 12) {
+                    if (now.getMonthValue() > 1) {
                         now = now.minusMonths(1);
                         spendsMonthlyList = getMonthByDate(now);
                     } else {
@@ -274,6 +275,7 @@ public class MonthlySpendsDAO {
                         now = LocalDate.of(cal.get(Calendar.YEAR)-1,12, 1);
                         spendsMonthlyList = getMonthByDate(now);
                     }
+                    tryCounts++;
                 }
                 now = now.minusMonths(1);
                 if (n == 1) return spendsMonthlyList;

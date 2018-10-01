@@ -39,7 +39,8 @@ public class MainController {
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated()) {
             model.addAttribute("title", "All Months");
             return allMonths(model);
-        } else return "loginPage";
+        } else
+            return "loginPage";
     }
 
     @GetMapping(value = "/allMonths")
@@ -95,7 +96,7 @@ public class MainController {
     }
 
     @GetMapping(value = "/currentMonth")
-    public String get(Model model) throws Exception {
+    public String get(Model model) {
         model.addAttribute("title", "Current Month");
         model.addAttribute("currentMonth", monthlySpendsDAO.getNLastMonth(1)); // 1 = it's a last month
         return "currentMonth";
@@ -155,7 +156,7 @@ public class MainController {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
-        model.addAttribute("lastMonth", monthlySpendsDAO.getNLastMonth(1));
+//        model.addAttribute("lastMonth", monthlySpendsDAO.getNLastMonth(1));
         model.addAttribute("disabledPayments", monthlySpendsDAO.getPaymentTemplate(true));
         return "adminPage";
     }
