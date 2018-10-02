@@ -28,6 +28,12 @@ public class SubController {
         return additionsDAO.getNotes();
     }
 
+    @GetMapping("/getNotes")
+    @ResponseBody
+    public List getNotesToBot() {
+        return additionsDAO.getNotes();
+    }
+
     @GetMapping("/notes")
     public String getAllNotes(Model model) {
         model.addAttribute("notes", additionsDAO.getNotes());
