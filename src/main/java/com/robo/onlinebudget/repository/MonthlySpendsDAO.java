@@ -178,11 +178,11 @@ public class MonthlySpendsDAO {
             spendsMap.put(se.getId(), se.getAmount());
         }
 
-        List<SpendsMonthlyEntity> spendsMonthlyList = getNLastMonth(1);
-        Map<Long, Integer> spendsMonthlyMap = new HashMap<>();
-        for (int i = 0; i < spendsMonthlyList.size(); i++) {
-            SpendsMonthlyEntity sme = spendsMonthlyList.get(i);
-            spendsMonthlyMap.put(sme.getSpendId(), sme.getAmount());
+        List<Map> spendsMonthlyList = getNLastMonth(1);
+        Map<Integer, Integer> spendsMonthlyMap = new HashMap<>();
+
+        for(Map<Integer, Integer> sme : spendsMonthlyList){
+            spendsMonthlyMap.put(sme.get("spendId"), sme.get("amount"));
         }
 
         boolean sameDay = ldIncoming.getYear() == ldDB.getYear() && ldIncoming.getMonth() == ldDB.getMonth(); // check for the current date already exist
