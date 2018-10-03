@@ -17,6 +17,7 @@ public class SaveSpends {
     private boolean salaryPrepaid;
     private boolean withdraw;
     private Integer index;
+    private boolean applyToCurrentMonth;
 
     public Long getId() {
         return id;
@@ -64,5 +65,13 @@ public class SaveSpends {
 
     public void setIndex(Integer index) {
         this.index = index;
+    }
+
+    public boolean getApplyToCurrentMonth() {
+        return applyToCurrentMonth;
+    }
+
+    public void setApplyToCurrentMonth(boolean applyToCurrentMonth) {
+        this.applyToCurrentMonth = applyToCurrentMonth;
     }
 }

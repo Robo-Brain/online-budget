@@ -591,63 +591,6 @@ input:checked + .slider.withdraw:after {
         display: none;
     }
 
-    /*.swipeDelete {*/
-        /*display: block !important;*/
-        /*visibility: hidden;*/
-
-        /*opacity: 0;*/
-        /*background: linear-gradient(to right, red 50%, blue 50%);*/
-        /*background-size: 200% 100%;*/
-        /*background-position:left bottom;*/
-        /*transition:all 0.5s linear;*/
-
-        /*line-height: 1em;*/
-        /*width: 40% !important;*/
-        /*background: red !important;*/
-        /*height: 6.5em !important;*/
-        /*position: absolute;*/
-        /*left: 60%;*/
-        /*top: 0;*/
-        /*z-index: 99;*/
-    /*}*/
-    /*.swipeDelete span{*/
-        /*color: #fff;*/
-        /*display: block;*/
-        /*position: absolute;*/
-        /*top: 50%;*/
-        /*width: 100%;*/
-        /*margin-top: -0.5em;*/
-        /*text-align: center;*/
-    /*}*/
-
-    /*.swipeConfirmDelete {*/
-        /*background: linear-gradient(to right, red 50%, blue 50%);*/
-        /*background-size: 200% 100%;*/
-        /*background-position:left bottom;*/
-        /*transition:all 0.8s ease;*/
-
-        /*display: block !important;*/
-        /*line-height: 1em;*/
-        /*width: 100% !important;*/
-        /*background: red !important;*/
-        /*height: 6.5em !important;*/
-        /*position: absolute;*/
-        /*left: 0;*/
-        /*z-index: 99;*/
-        /*opacity: 0.95;*/
-    /*}*/
-    /*.swipeConfirmDelete span{*/
-        /*color: #fff;*/
-        /*display: block;*/
-        /*position: absolute;*/
-        /*top: 50%;*/
-        /*width: 100%;*/
-        /*margin-top: -0.5em;*/
-        /*text-align: center;*/
-    /*}*/
-
-
-
     .clickDelete {
         height: 100%;
         width: 100%;
@@ -710,9 +653,6 @@ input:checked + .slider.withdraw:after {
         left: 43%;
     }
 
-
-
-
     .divTable.tmp .divTableCell.name {
         float: left;
         width: 60%;
@@ -734,9 +674,9 @@ input:checked + .slider.withdraw:after {
     .divTable.tmp .divTableCell.amount input{
         width: 75%;
         margin-top: 0rem !important;
-        height: 1.9rem;
+        /*height: 1.9rem;*/
         padding: 0 0 !important;
-        text-align: center;
+        text-align: right;
         font-size: 1.2em;
     }
     .divTableRow.true input {

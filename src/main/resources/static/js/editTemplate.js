@@ -197,7 +197,7 @@ function addNewSPendMobile() {
         buttons: {
             "Add": function() {
                 $( this ).dialog( "close" );
-                addNewSpend($('#mobileName').val(), $('#mobileAmount').val(), $('#mobileSalaryPrepaid').is(':checked'), $('#mobileWithdraw').is(':checked'));
+                addNewSpend($('#mobileName').val(), $('#mobileAmount').val(), $('#mobileSalaryPrepaid').is(':checked'), $('#mobileWithdraw').is(':checked'), $('#applyToCurrentMonth').is(':checked')); //, $('#applyToCurrentMonth').is(':checked')
             },
             Cancel: function() {
                 $(this).dialog( "close" );

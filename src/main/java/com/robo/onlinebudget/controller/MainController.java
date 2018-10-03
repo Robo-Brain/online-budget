@@ -142,13 +142,6 @@ public class MainController {
         return "success";
     }
 
-    @GetMapping("/delLastMonth")
-    @ResponseBody
-    public String delLastMonth() {
-        monthlySpendsDAO.delLastMonth();
-        return "success";
-    }
-
     //  DEFAULT
 
     @GetMapping("/admin")

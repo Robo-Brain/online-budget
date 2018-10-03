@@ -31,7 +31,7 @@
             <p class="stickToSpend">
                 <label for="mobileText">Stick to spend: </label>
                 <select class="months"><option disabled hidden selected value></option></select>
-                <div class="spends"></div>
+            <div class="spends"></div>
             </p>
         </fieldset>
     </form>
@@ -53,8 +53,8 @@
             </label>
         </div>
     </div>
-<button class="addNotePC" type="button">SAVE</button>
-<p><br /></p>
+    <button class="addNotePC" type="button">SAVE</button>
+    <p><br /></p>
 </div>
 
 <div id="notesTable" class="divTable">
@@ -75,31 +75,30 @@
         spendId = null;
         $(document).ready(function() {
 
+            console.log(months);
             appendNotes();
-
             $('.stickToQuestion').hide();
             $('.stickToSpend').hide();
-
             $('#stickCheckbox').change(function(){
                 if(this.checked) {
                     $('.stickToSpend').fadeIn('fast');
                     $('.stickQuestion').hide();
                     $('.remind').hide();
                 }
-                
-            });
 
+            });
             months.forEach(function (item, n) {
                 var iter = n;
+                var date = new Date(months[iter].date),
+                    locale = "en-us",
+                    month = date.toLocaleString(locale, { month: "long" });
 
                 $('.months').append(
-                    "<option class='month " + iter + "' id='" + iter + "'>" + months[iter].date + "</option>"
+                    "<option class='month " + iter + "' id='" + iter + "'>" + month + ' ' + date.getFullYear() + "</option>"
                 );
-
                 $('.spends').append(
-                  "<select style='display: none' class='spend' id='spend" + iter + "'><option disabled hidden selected value></option></select>"
+                    "<select style='display: none' class='spend' id='spend" + iter + "'><option disabled hidden selected value></option></select>"
                 );
-
                 $.each(item,function(key,value){
                     if (key != 'date') {
                         $('#spend' + iter).append(
@@ -107,9 +106,7 @@
                         );
                     }
                 });
-
             });
-
             $(".months")
                 .change(function() {
                     var id = $(this).children(":selected").attr("id");
@@ -118,13 +115,11 @@
                         $('#spend' + id).show();
                     }
                 });
-
             $(".spend")
                 .change(function() {
                     var id = $(this).children(":selected").attr("id");
                     spendId = id;
                 });
-
         })
     </script>
     <script src="../static/js/notes.js" th:src="@{/js/notes.js}" type="text/javascript"></script>

@@ -248,4 +248,10 @@
         padding: 0.1em;
         resize: none;
     }
+
+    .mobileApplyToCurrentMonth {
+        float: left;
+        width: 1.5em !important;
+        height: 1em;
+    }
 }

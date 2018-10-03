@@ -34,8 +34,8 @@ function saveTMPTable() {
 }
 
 
-function addNewSpend(name, amount, salaryPrepaid, withdraw) {
-    var newSpend = {name: name, amount: amount, salaryPrepaid: salaryPrepaid, withdraw: withdraw};
+function addNewSpend(name, amount, salaryPrepaid, withdraw, applyToCurrentMonth) {
+    var newSpend = {name: name, amount: amount, salaryPrepaid: salaryPrepaid, withdraw: withdraw, applyToCurrentMonth: applyToCurrentMonth};
     $.ajax({
         headers: {
             'Accept': 'application/json',

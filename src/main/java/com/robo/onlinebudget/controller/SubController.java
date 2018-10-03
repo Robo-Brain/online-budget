@@ -37,7 +37,7 @@ public class SubController {
     @GetMapping("/notes")
     public String getAllNotes(Model model) {
         model.addAttribute("notes", additionsDAO.getNotes());
-        model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
+//        model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
         model.addAttribute("months", monthlySpendsDAO.getSpendsNames(3));
         return "notes";
     }
