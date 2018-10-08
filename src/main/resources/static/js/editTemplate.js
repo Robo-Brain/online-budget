@@ -209,7 +209,7 @@ function addNewSPendMobile() {
 
 
 $(function() {
-    if(screen.width<3100 || isMobile) {
+    if(screen.width<1100 || isMobile) {
         $("#tmpTable").sortable( "disable" )
     } else {
         var indexNum = 1;
@@ -264,7 +264,7 @@ $(".unstuck").click(function (u) {
 
 
 $(function() {
-    if(screen.width<3100 || isMobile) {
+    if(screen.width<1100 || isMobile) {
         id = 0;
 
         $(".divTableRow").swipe({

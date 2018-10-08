@@ -645,12 +645,12 @@ input:checked + .slider.withdraw:after {
     .activeLR span{
         position: absolute;
         top: 15%;
-        left: 42%;
+        left: 40%;
     }
     .activeTop span {
         position: absolute;
         top: 8%;
-        left: 43%;
+        left: 40%;
     }
 
     .divTable.tmp .divTableCell.name {
