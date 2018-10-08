@@ -102,8 +102,8 @@ function addNote(date, text, remind, spendId) {
         text = null;
     }
 
-    var note = {date: date, text: text, remind: remind, stuckSpendId: spendId};
-
+    var req = {date: date, text: text, remind: remind, stuckSpendId: spendId};
+console.log(req);
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -111,7 +111,7 @@ function addNote(date, text, remind, spendId) {
         },
         type: "post",
         url: "/addNote",
-        data : JSON.stringify(note),
+        data : JSON.stringify(req),
         success: $(document).ajaxStop(function(){
             window.location.reload();
         })

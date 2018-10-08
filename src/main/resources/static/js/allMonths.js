@@ -1,8 +1,6 @@
 $(function() {
 
 var date = null;
-var salaryPrepaid;
-var active;
 
     months.forEach(function (item, i) {
 
@@ -24,8 +22,8 @@ var active;
             "</div>"
         );
         month.forEach(function (subitem, n) {
-            salaryPrepaid = (subitem.salaryPrepaid == 'true') ? "ЗП" : "Аванс";
-            active = (subitem.inactive == 'false') ? "active" : "inactive";
+            var salaryPrepaid = (subitem.salaryPrepaid == true) ? "ЗП" : "Аванс";
+            var active = (subitem.inactive == false) ? "active" : "inactive";
                 $('#allMonthsTable').append(
                 "<div class='divTableRow hide " + active + " " + i + "'>" +
                     "<div id='" + subitem.id + "' class='divTableCell'>" + subitem.name + "</div>" +
@@ -34,19 +32,20 @@ var active;
                     "<div class='divTableCell allMonths " + subitem.withdraw + " " + n + "'></div>" +
                 "</div>"
             );
-                if (subitem.monthAmount < subitem.amount ) {
-                    $('.amount.' + n).addClass();
-                }
+                // if (subitem.monthAmount < subitem.amount ) {
+                //     $('.amount.' + n).addClass();
+                // }
         });
     });
 });
 
 $(function() {
     notes.forEach(function (item) {
-        console.log(item.stuckSpendId);
-        var id = '#' + item.stuckSpendId;
-        $(id).toggleClass('stuckSpend');
-        $('.stuckSpend').attr("title", item.text);
+        if (item.stuckSpendId != null) {
+            var id = '#' + item.stuckSpendId;
+            $(id).toggleClass('stuckSpend');
+            $(id).attr("title", item.text);
+        }
     });
 
     $('.stuckSpend').tooltip({

@@ -61,6 +61,7 @@ public class AdditionsDAO {
         }
 
         ne.setStuckSpendId(addNote.getStuckSpendId());
+        System.out.println(" / / / addNote.getStuckSpendId() : " + addNote.getStuckSpendId());
 
         if (addNote.getStuckSpendId() != null) {
             ne.setRemind(false);

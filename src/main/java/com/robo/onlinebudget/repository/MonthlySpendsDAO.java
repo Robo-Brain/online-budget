@@ -7,6 +7,7 @@ import com.robo.onlinebudget.entity.WagesEntity;
 import com.robo.onlinebudget.form.SaveNewMonth;
 import com.robo.onlinebudget.form.SaveNewWage;
 import com.robo.onlinebudget.form.SaveSpends;
+import com.robo.onlinebudget.model.Month;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,15 +82,15 @@ public class MonthlySpendsDAO {
 
         if (editTMPSpends.getApplyToCurrentMonth()){
             SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
-            List<Map> spendsMonthlyList = getNLastMonth(1);
-            sme.setDate((String) spendsMonthlyList.get(0).get("date"));
+            List<Month> month = getNLastMonth(1);
+            sme.setDate(month.get(0).getDate());
             sme.setSpendId(se.getId());
             sme.setAmount(0);
             sessionFactory.getCurrentSession().persist(sme);
         }
 
     }
-
+//
     public void deleteSpendFromTemplate(Long id) {
         String hql = "FROM " + SpendsEntity.class.getName() + " WHERE id = :id";
         SpendsEntity seResult = (SpendsEntity) sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id).getSingleResult();
@@ -98,9 +99,9 @@ public class MonthlySpendsDAO {
 
         sessionFactory.getCurrentSession().update(seResult);
 
-        List<Map> spendsMonthlyList = getNLastMonth(1);
+        List<Month> month = getNLastMonth(1);
 
-        String smeDate = (String) spendsMonthlyList.get(0).get("date");
+        String smeDate = month.get(0).getDate();
         String hq2 = "DELETE " + SpendsMonthlyEntity.class.getName() + " WHERE spendId = :spendId AND date = :date";
         Query q2 = sessionFactory.getCurrentSession().createQuery(hq2).setParameter("spendId", id).setParameter("date", smeDate);
 
@@ -117,65 +118,62 @@ public class MonthlySpendsDAO {
         sessionFactory.getCurrentSession().update(se);
 
         SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
-        List<Map> spendsMonthlyList = getNLastMonth(1);
+        List<Month> spendsMonthlyList = getNLastMonth(1);
 
-        sme.setDate((String) spendsMonthlyList.get(0).get("date"));
+        sme.setDate(spendsMonthlyList.get(0).getDate());
         sme.setSpendId(se.getId());
         sme.setAmount(0);
         sessionFactory.getCurrentSession().persist(sme);
     }
 
     public List getSpendsNames(int n) {
-        List<List> spendsMonthlyList = getNLastMonth(n);
         List<Map> result = new ArrayList<>();
-
-        for (List<Map> listSpends : spendsMonthlyList) {
-            Map<String, String> submap = new LinkedHashMap<>();
-            for (Map mapSpends : listSpends){
-                submap.put((String) mapSpends.get("id"), (String) mapSpends.get("name"));
+        if (n > 1){
+            List<List> monthList = getNLastMonth(n);
+            for (List<Month> mList : monthList) {
+                Map<String, String> submap = new LinkedHashMap<>();
+                for (Month month : mList){
+                    submap.put(String.valueOf(month.getId()), String.valueOf(month.getName()));
+                }
+                submap.put("date", mList.get(0).getDate());
+                result.add(submap);
             }
-            submap.put("date", (String) listSpends.get(0).get("date"));
+        } else if (n == 1){
+            Map<String, String> submap = new LinkedHashMap<>();
+            List<Month> monthList = getNLastMonth(n);
+            for (Month month : monthList) {
+                submap.put(String.valueOf(month.getId()), String.valueOf(month.getName()));
+            }
+            submap.put("date", monthList.get(0).getDate());
             result.add(submap);
+        } else {
+            System.err.println("GODDAMN WHAT'S WRONG WITH YOUR MONTHS NUMBER");
         }
 
         return result;
     }
 
     public String checkBeforeCreateNewMonth() {
-        String hql = "SELECT new " + SpendsMonthlyEntity.class.getName() + "(e.date) FROM " + SpendsMonthlyEntity.class.getName() + " e " + "ORDER BY e.id DESC";
-        SpendsMonthlyEntity smeDate = sessionFactory.getCurrentSession().createQuery(hql, SpendsMonthlyEntity.class).setMaxResults(1).uniqueResult();
+
+        List<Month> spendsMonthlyList = getNLastMonth(1);
 
         LocalDate ldIncoming = LocalDate.now();
-        LocalDate ldDB = LocalDate.parse(smeDate.getDate());
-
-        String hql2 = "SELECT new " + SpendsEntity.class.getName() + "(s.id, s.amount) FROM " + SpendsEntity.class.getName() + " s WHERE s.inactive = 0";
-        List<SpendsEntity> spendsList = sessionFactory.getCurrentSession().createQuery(hql2, SpendsEntity.class).getResultList();
-        Map<Long, Integer> spendsMap = new HashMap<>();
-        for (int i = 0; i < spendsList.size(); i++) {
-            SpendsEntity se = spendsList.get(i);
-            spendsMap.put(se.getId(), se.getAmount());
-        }
-
-        List<Map> spendsMonthlyList = getNLastMonth(1);
-        Map<Integer, Integer> spendsMonthlyMap = new HashMap<>();
-
-        for(Map<Integer, Integer> sme : spendsMonthlyList){
-            spendsMonthlyMap.put(sme.get("spendId"), sme.get("amount"));
-        }
+        LocalDate ldDB = LocalDate.parse(spendsMonthlyList.get(0).getDate());
 
         boolean sameDay = ldIncoming.getYear() == ldDB.getYear() && ldIncoming.getMonth() == ldDB.getMonth(); // check for the current date already exist
-        boolean done = spendsMap.equals(spendsMonthlyMap); // check for the monthly spends is done
-
 
         if (sameDay) {
             return "The current month is not over yet!";
-        } else if (!done) {
-            return "The current month not all payments are paid off!";
         } else {
-            createNewMonth();
-            return null;
+            for (Month m : spendsMonthlyList) {
+                if (m.getAmount() < m.getMonthAmount()) return "The current month not all payments are paid off!";
+                else {
+                    createNewMonth();
+                    return null;
+                }
+            }
         }
-
+        return "Unknown error.";
     }
 
     @SuppressWarnings("unchecked")
@@ -236,7 +234,7 @@ public class MonthlySpendsDAO {
 
 @SuppressWarnings("unchecked")
     public List getNLastMonth(int n) {
-        List<Map> spendsMonthlyList;
+        List<Month> spendsMonthlyList;
         List<List> result = new ArrayList<>();
         LocalDate now = LocalDate.now();
         Integer tryCounts = 0;
@@ -263,12 +261,11 @@ public class MonthlySpendsDAO {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Map> getMonthByDate(LocalDate d) {
+    public List<Month> getMonthByDate(LocalDate d) {
 
         SpendsEntity se;
         SpendsMonthlyEntity sme;
-
-        List<Map> result = new ArrayList<>();
+        List<Month> result = new ArrayList<>();
 
         Query query = sessionFactory
                 .getCurrentSession()
@@ -279,11 +276,9 @@ public class MonthlySpendsDAO {
                         + " and"
                         + " year(date) = :year"
                         + " and se.inactive = 0");
-        int month = d.getMonth().getValue();
-        int year = d.getYear();
 
-        query.setParameter("month", month);
-        query.setParameter("year", year);
+        query.setParameter("month", d.getMonth().getValue());
+        query.setParameter("year", d.getYear());
 
         List<Object[]> spendsMonthlyList = query.list();
 
@@ -291,24 +286,22 @@ public class MonthlySpendsDAO {
             Object[] row = spendsMonthlyList.get(i);
             se = (SpendsEntity) row[0];
             sme = (SpendsMonthlyEntity) row[1];
+            Month m = new Month();
 
-            Map<String, String> submap = new LinkedHashMap<>();
-            submap.put("name", se.getName());
-            submap.put("amount", se.getAmount().toString());
-            submap.put("salaryPrepaid", String.valueOf(se.getSalaryPrepaid()));
-            submap.put("withdraw", String.valueOf(se.getWithdraw()));
-            submap.put("index", String.valueOf(se.getIndex()));
-            submap.put("inactive", String.valueOf(se.getInactive()));
-            submap.put("id", String.valueOf(sme.getId()));
-            submap.put("date", String.valueOf(sme.getDate()));
-            submap.put("spendId", String.valueOf(sme.getSpendId()));
-            submap.put("monthAmount", String.valueOf(sme.getAmount()));
-
-            result.add(i, submap);
+            m.setId(sme.getId());
+            m.setSpendId(sme.getSpendId());
+            m.setName(se.getName());
+            m.setAmount(se.getAmount());
+            m.setMonthAmount(sme.getAmount());
+            m.setIndex(se.getIndex());
+            m.setDate(sme.getDate());
+            m.setSalaryPrepaid(se.getSalaryPrepaid());
+            m.setWithdraw(se.getWithdraw());
+            m.setInactive(se.getInactive());
+            result.add(m);
         }
 
         return result;
-
     }
 
     public void saveExistingMonth(List<SaveNewMonth> saveNewMonthMap) {

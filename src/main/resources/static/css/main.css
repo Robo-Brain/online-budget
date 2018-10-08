@@ -644,12 +644,12 @@ input:checked + .slider.withdraw:after {
 
     .activeLR span{
         position: absolute;
-        top: 27%;
+        top: 15%;
         left: 42%;
     }
     .activeTop span {
         position: absolute;
-        top: 14%;
+        top: 8%;
         left: 43%;
     }
 

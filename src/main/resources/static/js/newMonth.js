@@ -1,4 +1,5 @@
 function createNewMont() {
+    console.log()
     $.ajax({
         type: "get",
         url : '/createNewMonth'
@@ -16,12 +17,12 @@ function createNewMont() {
             draggable: false,
             buttons: {
                 "OK": function () {
-                    $(this).dialog("close");
+                    window.location = '/currentMonth';
                 }
             }
         })
     })
-    .fail(function(xhr, status, error)  {
+    .fail(function(xhr)  {
         var err = JSON.parse(xhr.responseText);
         $("<div>" + err["message"] + "</div>").dialog({
             classes: {
