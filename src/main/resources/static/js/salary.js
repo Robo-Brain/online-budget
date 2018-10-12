@@ -58,15 +58,10 @@ function appendAllWages() {
 function saveSalaryPrepaidFunc(buttonId) {
     existSalaryId = buttonId;
     
-    existSalaryDate = $('#salaryDateInput' + buttonId).val();
-    if($('#salaryInput' + buttonId).val() != "-"){
-        existSalaryAmount = $('#salaryInput' + buttonId).val();
-    } else existSalaryAmount = null
-    
-    existPrepaidDate = $('#prepaidDateInput' + buttonId).val();
-    if($('#prepaidInput' + buttonId).val() != "-"){
-        existPrepaidAmount = $('#prepaidInput' + buttonId).val();
-    } else existPrepaidAmount = null
+    existSalaryDate = ($('#salaryDateInput' + buttonId).val() != '-') ? $('#salaryDateInput' + buttonId).val() : null;
+    existSalaryAmount = $('#salaryInput' + buttonId).val();    
+    existPrepaidDate = ($('#prepaidDateInput' + buttonId).val() != '-') ? $('#prepaidDateInput' + buttonId).val() : null;
+    existPrepaidAmount = $('#prepaidInput' + buttonId).val();
    
     existWageData = JSON.stringify({id: existSalaryId, salaryDate: existSalaryDate, salary: existSalaryAmount, prepaidDate: existPrepaidDate, prepaid: existPrepaidAmount});
     console.log(existWageData);
@@ -76,11 +71,11 @@ function saveSalaryPrepaidFunc(buttonId) {
             'Content-Type': 'application/json'
         },
         type: "post",
-//        url: "/editExistSalary",
+        url: "/editExistSalary",
         dataType : 'json',
         data : existWageData,
         success: $(document).ajaxStop(function(){
-//            window.location.reload();
+            window.location.reload();
         })
     })
 }
