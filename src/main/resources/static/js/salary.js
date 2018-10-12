@@ -57,10 +57,16 @@ function appendAllWages() {
 
 function saveSalaryPrepaidFunc(buttonId) {
     existSalaryId = buttonId;
+    
     existSalaryDate = $('#salaryDateInput' + buttonId).val();
-    existSalaryAmount = ($('#salaryInput' + buttonId).val() != "-") ? $('#salaryInput' + buttonId).val() : null;
+    if($('#salaryInput' + buttonId).val() != "-"){
+        existSalaryAmount = $('#salaryInput' + buttonId).val();
+    } else existSalaryAmount = null
+    
     existPrepaidDate = $('#prepaidDateInput' + buttonId).val();
-    existPrepaidAmount = ($('#prepaidInput' + buttonId).val() != "-") ? $('#prepaidInput' + buttonId).val() : null;
+    if($('#prepaidInput' + buttonId).val() != "-"){
+        existPrepaidAmount = $('#prepaidInput' + buttonId).val();
+    } else existPrepaidAmount = null
    
     existWageData = JSON.stringify({id: existSalaryId, salaryDate: existSalaryDate, salary: existSalaryAmount, prepaidDate: existPrepaidDate, prepaid: existPrepaidAmount});
     console.log(existWageData);
