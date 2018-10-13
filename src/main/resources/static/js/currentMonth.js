@@ -29,10 +29,28 @@ console.log(curMonth);
                 "<div class='divTableCell " + i + " currentMonth " + currentMonth[i].withdraw + "'>" +
                 "</div>" +
             "</div>");
+        
+        if (currentMonth[i].salaryPrepaid == 'true' && currentMonth[i].withdraw == 'true'){
+            $('.divTableRow.' + i).addClass('salary');
+            withdrawSalary += +currentMonth[i].amount;
+        } else if (currentMonth[i].salaryPrepaid == 'true' && currentMonth[i].withdraw == 'false'){
+            $('.divTableRow.' + i).addClass('salary');
+            withdrawNotSalary += +currentMonth[i].amount;
+        } else if (currentMonth[i].salaryPrepaid == 'false' && currentMonth[i].withdraw == 'true'){
+            $('.divTableRow.' + i).addClass('prepaid');
+            withdrawPrepaid += +currentMonth[i].amount;
+        } else if (currentMonth[i].salaryPrepaid == 'false' && currentMonth[i].withdraw == 'false'){
+            $('.divTableRow.' + i).addClass('prepaid');
+            withdrawNotPrepaid += +currentMonth[i].amount;
+        }
 
         if (parseInt(currentMonth[i].amount) > parseInt(currentMonth[i].monthAmount)) {
             $(".amount." + currentMonth[i].id).toggleClass('notEnough');
         }
+
+//        if (parseInt(currentMonth[i].amount) > parseInt(currentMonth[i].monthAmount)) {
+//            $(".amount." + currentMonth[i].id).toggleClass('notEnough');
+//        }
 
     }
 }
