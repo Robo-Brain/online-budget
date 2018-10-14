@@ -12,6 +12,12 @@ console.log(curMonth);
     });
 
     for (i = 0; i < currentMonth.length; i++) {
+        
+        console.log('withdrawSalary: ' + withdrawSalary 
+                    + ' withdrawNotSalary: ' + withdrawNotSalary
+                   + ' withdrawPrepaid: ' + withdrawPrepaid
+                   + ' withdrawNotPrepaid: ' + withdrawNotPrepaid)
+        
         $("#currentDate").html(currentMonth[i].date);
         $("#currentMonth").append(
             "<div class='divTableRow " + i + " " + currentMonth[i].salaryPrepaid +  "'>" +
