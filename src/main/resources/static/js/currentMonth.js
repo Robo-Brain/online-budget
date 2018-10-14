@@ -36,16 +36,16 @@ console.log(curMonth);
                 "</div>" +
             "</div>");
         
-        if (currentMonth[i].salaryPrepaid == 'true' && currentMonth[i].withdraw == 'true'){
+        if (currentMonth[i].salaryPrepaid == true && currentMonth[i].withdraw == true){
             $('.divTableRow.' + i).addClass('salary');
             withdrawSalary += +currentMonth[i].amount;
-        } else if (currentMonth[i].salaryPrepaid == 'true' && currentMonth[i].withdraw == 'false'){
+        } else if (currentMonth[i].salaryPrepaid == true && currentMonth[i].withdraw == false){
             $('.divTableRow.' + i).addClass('salary');
             withdrawNotSalary += +currentMonth[i].amount;
-        } else if (currentMonth[i].salaryPrepaid == 'false' && currentMonth[i].withdraw == 'true'){
+        } else if (currentMonth[i].salaryPrepaid == false && currentMonth[i].withdraw == true){
             $('.divTableRow.' + i).addClass('prepaid');
             withdrawPrepaid += +currentMonth[i].amount;
-        } else if (currentMonth[i].salaryPrepaid == 'false' && currentMonth[i].withdraw == 'false'){
+        } else if (currentMonth[i].salaryPrepaid == false && currentMonth[i].withdraw == false){
             $('.divTableRow.' + i).addClass('prepaid');
             withdrawNotPrepaid += +currentMonth[i].amount;
         }
