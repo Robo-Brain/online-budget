@@ -179,7 +179,7 @@ input.name {
     border: 1px solid #5EB268!important;
 }
 .divTableCell, .divTableHead {
-    border: 1px solid #5986A0;
+    border: 1px solid #5986A0!important;
     display: table-cell;
     padding: 3px 10px;
     vertical-align: middle;
@@ -228,6 +228,15 @@ input.name {
 
 .notEnough {
     color: red !important;
+}
+
+.resultTable .divTableCell span {
+    color: #666;
+    font-size: 0.7em;
+    display: block;
+    float: right;
+    height: 0.7em;
+    line-height: 0.7em;
 }
 
 .resultTable{
@@ -785,9 +794,9 @@ input:checked + .slider.withdraw:after {
         display: none !important;
         border: none !important;
     }
-    .divTableRow.false .divTableCell {
-        border: none !important;
-    }
+    /*.divTableRow.false .divTableCell {*/
+        /*border: none !important;*/
+    /*}*/
 
 
     #withdraw {
