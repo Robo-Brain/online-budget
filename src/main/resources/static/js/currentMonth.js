@@ -9,8 +9,8 @@ var alreadyCashPrepaid = 0;
 var alreadyCashlessPrepaid = 0;
 
 function appendCurrentDateTable() {
-console.log(curMonth);
-    curMonth = curMonth.slice(0);
+
+    curMonth = currentMonth.slice(0);
     curMonth.sort(function(a, b) {
         return a.index - b.index;
     });

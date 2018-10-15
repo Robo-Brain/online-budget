@@ -99,7 +99,7 @@ public class MainController {
     public String get(Model model) {
         model.addAttribute("title", "Current Month");
         model.addAttribute("currentMonth", monthlySpendsDAO.getNLastMonth(1)); // 1 = it's a last month
-        return "curMonth";
+        return "currentMonth";
     }
 
     @PostMapping(value = "/saveExistingMonth", produces = { MediaType.APPLICATION_JSON_VALUE })
