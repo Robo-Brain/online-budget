@@ -204,7 +204,7 @@ input.name {
 }
 
 .nope {
-    border: none;
+    border: none !important;
 }
 
 .currentMonth.true {
