@@ -421,6 +421,10 @@ input:checked + .slider.withdraw:after {
 
 /* AllMonths start */
 
+/* AllMonths start */
+.wrap {
+    width: 7em;
+}
 .divTableRow.inactive {
     opacity: 0.5;
 }
@@ -449,6 +453,24 @@ input:checked + .slider.withdraw:after {
 
 .clickDelete {
     display: none;
+}
+
+.marker {
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    background-color: #f80000;
+    font-size: 0.8em;
+    color: #fff;
+    line-height: 1.2em;
+    float: right;
+    position: relative;
+    top: -0.1em;
+    left: 0.9em;
+    /*border: solid #c70000 1px;*/
 }
 
 /* admin features  start */
@@ -1097,7 +1119,7 @@ input:checked + .slider.withdraw:after {
     }
 
     /* AllMonths start */
-    #allMonthsTable {
+    .wrap {
         width: 100%;
     }
     .allMonths .divTableCell.name {
@@ -1112,6 +1134,16 @@ input:checked + .slider.withdraw:after {
     .monthDate {
         width: 98%;
         margin: 0.5em 0 0.5em 0;
+    }
+
+    .marker {
+        width: 1.4em;
+        height: 1.4em;
+        font-size: 1em;
+        line-height: 1.4em;
+        top: -0.2em;
+        left: 0.2em;
+        /*border: solid #c70000 1px;*/
     }
 
     /* admin features  start */

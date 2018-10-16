@@ -2,6 +2,7 @@ $(function() {
 
 var date = null;
 
+console.log(notes);
     months.forEach(function (item, i) {
 
         month = item.slice(0);
@@ -13,18 +14,20 @@ var date = null;
         var date = new Date(item[i].date).toLocaleDateString("en-US", dateOptions);
 
         $('#allMonthsTable').append(
-            "<a id='" + i + "' class='monthDate'>" + date + "</a>" +
-            "<div class='divTableRow head hide " + i + "'>" +
-                "<div class='divTableCell " + i + "'>Name:</div>" +
-                "<div class='divTableCell " + i + "'>Amount:</div>" +
-                "<div class='divTableCell " + i + "'>Salary/Prepaid: </div>" +
-                "<div class='divTableCell " + i + "'>Withdraw:</div>" +
-            "</div>"
+                // "<a id='" + i + "' class='monthDate'>" + date + "</a>" +
+                // "<div class='divTableRow head hide " + i + "'>" +
+                //     "<div class='divTableCell " + i + "'>Name:</div>" +
+                //     "<div class='divTableCell " + i + "'>Amount:</div>" +
+                //     "<div class='divTableCell " + i + "'>Salary/Prepaid: </div>" +
+                //     "<div class='divTableCell " + i + "'>Withdraw:</div>" +
+            "<div class='wrap " + i + "'><div id='" + i + "' class='monthDate'>"
+                + date
+            + "</div></div>"
         );
         month.forEach(function (subitem, n) {
-            var salaryPrepaid = (subitem.salaryPrepaid == true) ? "ЗП" : "Аванс";
-            var active = (subitem.inactive == false) ? "active" : "inactive";
-                $('#allMonthsTable').append(
+            var salaryPrepaid = (subitem.salaryPrepaid) ? "ЗП" : "Аванс";
+            var active = (!subitem.inactive) ? "active" : "inactive";
+                $('.wrap.'+i).append(
                 "<div class='divTableRow hide " + active + " " + i + "'>" +
                     "<div id='" + subitem.id + "' class='divTableCell'>" + subitem.name + "</div>" +
                     "<div class='divTableCell amount " + n + "'>" + subitem.monthAmount + " / " + subitem.amount + "</div>" +
@@ -54,6 +57,20 @@ $(function() {
             at: "right top"
         },
         tooltipClass: "allMonthNote"
+    });
+
+});
+
+$(function() {
+    $('.wrap').each(function(index) {
+        var res = $(this).find('.stuckSpend').length;
+        if(res) {
+            var cls = '.wrap.' + index;
+            $(cls).prepend(
+              "<div class='marker'>&nbsp;" + res + "</div>"
+            );
+            // $(cls).addClass('markered');
+        }
     });
 
 });
