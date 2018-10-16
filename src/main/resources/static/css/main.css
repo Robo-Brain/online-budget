@@ -456,20 +456,20 @@ input:checked + .slider.withdraw:after {
 }
 
 .marker {
-    width: 1.2em;
-    height: 1.2em;
+    width: 1.2em; /**/
+    height: 1.2em; /**/
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     -khtml-border-radius: 50%;
     background-color: #f80000;
-    font-size: 0.8em;
+    font-size: 0.8em;/**/
     color: #fff;
-    line-height: 1.2em;
+    line-height: 1.2em;/**/
     float: right;
     position: relative;
-    top: -0.1em;
-    left: 0.9em;
+    top: -0.1em;/**/
+    left: 0.9em;/**/
     /*border: solid #c70000 1px;*/
 }
 
@@ -1137,8 +1137,8 @@ input:checked + .slider.withdraw:after {
     }
 
     .marker {
-        width: 1.4em;
-        height: 1.4em;
+        width: 1.2em;
+        height: 1.2em;
         font-size: 1em;
         line-height: 1.4em;
         top: -0.2em;
