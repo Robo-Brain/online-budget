@@ -610,6 +610,7 @@ input:checked + .slider.withdraw:after {
     .divTable.tmp .divTableCell {
         display: block;
         border: 0;
+        border: none !important;
     }
     .divTable.tmp .divTableCell.name {
         display: block;
@@ -878,10 +879,10 @@ input:checked + .slider.withdraw:after {
 
     .divTableCell.salaryDate {
         float: left;
-        height: 1.8em;
+        height: 2em;
         width: 35%;
         padding: 1px 1px !important;
-        border-bottom: none;
+        border-bottom: none !important;
     }
     .divTableCell.salary {
         display: block;
@@ -891,10 +892,10 @@ input:checked + .slider.withdraw:after {
     .divTableCell.prepaidDate {
         border-top: 0px;
         float: left;
-        height: 1.8em;
+        height: 2em;
         width: 35%;
         padding: 1px 1px !important;
-        border-bottom: none;
+        border-bottom: none !important;
     }
     .divTableCell.prepaid {
         border-top: 0px;
