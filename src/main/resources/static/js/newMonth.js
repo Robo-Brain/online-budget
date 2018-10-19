@@ -17,7 +17,7 @@ function createNewMont() {
             draggable: false,
             buttons: {
                 "OK": function () {
-                    window.location = '/curMonth';
+                    window.location = '/currentMonth';
                 }
             }
         })

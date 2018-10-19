@@ -81,14 +81,24 @@ public class MonthlySpendsDAO {
         sessionFactory.getCurrentSession().save(se);
 
         if (editTMPSpends.getApplyToCurrentMonth()){
+            addSpendToMonth(se.getId());
+//            SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
+//            List<Month> month = getNLastMonth(1);
+//            sme.setDate(month.get(0).getDate());
+//            sme.setSpendId(se.getId());
+//            sme.setAmount(0);
+//            sessionFactory.getCurrentSession().persist(sme);
+        }
+
+    }
+
+    public void addSpendToMonth(Long id) {
             SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
             List<Month> month = getNLastMonth(1);
             sme.setDate(month.get(0).getDate());
-            sme.setSpendId(se.getId());
+            sme.setSpendId(id);
             sme.setAmount(0);
             sessionFactory.getCurrentSession().persist(sme);
-        }
-
     }
 //
     public void deleteSpendFromTemplate(Long id) {

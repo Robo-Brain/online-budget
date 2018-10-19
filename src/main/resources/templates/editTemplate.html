@@ -7,6 +7,7 @@
 <th:block th:include="_menu"></th:block>
 
 <div style="display: none" id="dialog-confirm" title="Delete the spend?"><span class="mobileDialogText">Are you sure?</span></div>
+<div style="display: none" id="appendToCurrentMonth">Are you sure?</div>
 <div style="display: none" id="mobileAddSpend">
     <form>
         <fieldset>
@@ -97,7 +98,20 @@
     <script th:inline="javascript">
         $(document).ready(function() {
             tmp = /*[[${payments}]]*/ "";
-            lastWage = /*[[${lastWage}]]*/ "";
+            lastMonth = /*[[${lastMonth}]]*/ "";
+            // lastWage = /*[[${lastWage}]]*/ "";
+
+            appendTMPTable();
+            overloadTooltip();
+
+            var tmpArr = [];
+            tmp.forEach(item => tmpArr.push(+item.id));
+            var monthArr = [];
+            lastMonth.forEach(item => monthArr.push(+item.spendId));
+
+            var diff = $(tmpArr).not(monthArr).get();
+
+            markNotExistingSpends(diff);
 
             $("#hideAddForm").hide();
             $(".pcAddForm").hide();
@@ -114,9 +128,6 @@
                 $("#showAddForm").hide();
                 $("#hideAddForm").show();
             });
-
-            appendTMPTable();
-            overloadTooltip();
 
             $("#tmpSubmit").click(function (s) {
                 s.preventDefault();

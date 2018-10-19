@@ -50,3 +50,17 @@ function addNewSpend(name, amount, salaryPrepaid, withdraw, applyToCurrentMonth)
     });
 }
 
+function addNewSpendToMonth(id) {
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "post",
+        url: "/addNewSpendToMonth",
+        data : JSON.stringify(id),
+        success: $(document).ajaxStop(function(){
+            window.location.reload();
+        })
+    });
+}

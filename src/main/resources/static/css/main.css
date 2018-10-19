@@ -420,8 +420,6 @@ input:checked + .slider.withdraw:after {
 }
 
 /* AllMonths start */
-
-/* AllMonths start */
 .wrap {
     width: 7em;
 }
@@ -472,6 +470,24 @@ input:checked + .slider.withdraw:after {
     left: 0.9em;/**/
     /*border: solid #c70000 1px;*/
 }
+.stuckSpend {
+    background: url("../img/arrow.png") transparent no-repeat right top;
+    cursor: pointer;
+    position:relative;
+}
+.allMonthNote {
+    font-size: 0.9em !important;
+    width: 58% !important;
+}
+
+.allMonths.true {
+    background: url("../img/cash3.png") transparent no-repeat center center;
+    padding: 0 16px;
+}
+.allMonths.false {
+    background: url("../img/card.png") transparent no-repeat center center;
+    padding: 0 18px;
+}
 
 /* admin features  start */
 
@@ -492,6 +508,16 @@ input:checked + .slider.withdraw:after {
     /*padding: 14px;*/
 }
 
+.notExisting .divTableCell {
+    border-top: solid #cc0605 2px !important;
+    border-bottom: solid #cc0605 2px !important;
+}
+.notExisting .divTableCell.name {
+    border-left: solid #cc0605 2px !important;
+}
+.notExisting .divTableCell.del {
+    border-right: solid #cc0605 2px !important;
+}
 
 @media only screen and (max-width: 1000px), only screen and (max-device-width: 1000px) {
 
@@ -1171,22 +1197,28 @@ input:checked + .slider.withdraw:after {
         height: 2em !important;
     }
 
-}
-.stuckSpend {
-    background: url("../img/arrow.png") transparent no-repeat right top;
-    cursor: pointer;
-    position:relative;
-}
-.allMonthNote {
-    font-size: 0.9em !important;
-    width: 58% !important;
-}
+    .notExisting {
+        position: relative;
+        border: solid #cc0605 2px !important;
+        margin-bottom: 2px;
+    }
 
-.allMonths.true {
-    background: url("../img/cash3.png") transparent no-repeat center center;
-    padding: 0 16px;
-}
-.allMonths.false {
-    background: url("../img/card.png") transparent no-repeat center center;
-    padding: 0 18px;
+    .notExisting .divTableCell.amount{
+        width: 23% !important;
+    }
+
+    .appendToCurrentMonth {
+        opacity: 0.7;
+        position: absolute;
+        top: 0.2em;
+        right: 0.2em;
+        width: 1.7em;
+        height: 1.7em;
+        background: url("../img/toCurMonth.png") transparent no-repeat right+0.3em top+0.3em;
+    }
+
+    .appendToCurrentMonth:hover {
+        opacity: 1;
+    }
+
 }

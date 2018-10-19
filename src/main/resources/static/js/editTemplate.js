@@ -103,10 +103,10 @@ function preTotal(salaryPrepaid, amount) {
 }
 
 function overloadTooltip() {
-    salary = (parseInt(lastWage.salary) || 0);
-    prepaid = (parseInt(lastWage.prepaid) || 0);
-    if (salary <= salaryTotal) {
-        $(".salaryOverload").toggleClass("overlimit");
+    // salary = (parseInt(lastWage.salary) || 0);
+    // prepaid = (parseInt(lastWage.prepaid) || 0);
+    // if (salary <= salaryTotal) {
+    //     $(".salaryOverload").toggleClass("overlimit");
         // $(".tooltipSalary").tooltip({
         //     tooltipClass: "tooltipOverload",
         //     position: { my: "left-10 center-26", at: "left center" },
@@ -117,9 +117,9 @@ function overloadTooltip() {
         // $( "body" ).click(function() {
         //     $( ".tooltipSalary" ).tooltip( "close" );
         // });
-    } else {}
-    if ( prepaid <= prepaidTotal) {
-        $(".prepaidOverload").toggleClass("overlimit");
+    // } else {}
+    // if ( prepaid <= prepaidTotal) {
+    //     $(".prepaidOverload").toggleClass("overlimit");
         // $(".tooltipPrepaid").tooltip({
         //     tooltipClass: "tooltipOverload",
         //     position: { my: "left-10 center-24", at: "left center" },
@@ -130,7 +130,7 @@ function overloadTooltip() {
         // $( "body" ).click(function() {
         //     $( ".tooltipPrepaid" ).tooltip( "close" );
         // });
-    } else {}
+    // } else {}
 }
 
 function delTMPFunc(i, a) {
@@ -319,3 +319,54 @@ $(function() {
     }
 });
 
+function markNotExistingSpends(diff) {
+    diff.forEach(function (item) {
+        var id = '#' + item;
+        $(id).addClass('notExisting');
+        $(id).attr('title', 'Does not exist in current month!');
+        $(id).append(
+            "<div class='appendToCurrentMonth'></div>"
+        )
+    });
+
+    var tooltips = $( ".notExisting" ).tooltip({
+        position: {
+            my: "right-60 top-2",
+            at: "right top",
+            collision: "none"
+        },
+        tooltipClass: "notExistingTooltip"
+    });
+
+    tooltips.tooltip("open");
+    $('.notExistingTooltip').hover(function () {
+        tooltips.tooltip( "destroy" );
+    });
+    $('.notExistingTooltip').click(function () {
+        tooltips.tooltip( "destroy" );
+    });
+}
+$(function() {
+    $('.appendToCurrentMonth').click(function () {
+        var id = $(this).parent().attr('id');
+        $("#appendToCurrentMonth").dialog({
+            classes: {
+                "ui-dialog": "ui-dialogMobile"
+            },
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Add": function() {
+                    $( this ).dialog( "close" );
+                    addNewSpendToMonth(id);
+                },
+                Cancel: function() {
+                    $(this).dialog( "close" );
+                    $(this).remove();
+                }
+            }
+        });
+    });
+});

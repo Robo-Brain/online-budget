@@ -57,7 +57,8 @@ public class MainController {
     @GetMapping(value = "/editTemplate")
     public String editTemplate (Model model) {
         model.addAttribute("title", "Edit Payment Template");
-        model.addAttribute("lastWage", monthlySpendsDAO.getLastWage());
+//        model.addAttribute("lastWage", monthlySpendsDAO.getLastWage());
+        model.addAttribute("lastMonth", monthlySpendsDAO.getNLastMonth(1)); // 1 = it's a last month
         model.addAttribute("payments", monthlySpendsDAO.getPaymentTemplate(false));
         return "editTemplate";
     }
@@ -71,8 +72,15 @@ public class MainController {
 
     @PostMapping(value = "/addNewSpend", produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
-    public String addNewSpend(@RequestBody SaveSpends saveSpend) throws Exception {
+    public String addNewSpendToTmp(@RequestBody SaveSpends saveSpend) throws Exception {
         monthlySpendsDAO.addNewSpendToTemplate(saveSpend);
+        return "success";
+    }
+
+    @PostMapping(value = "/addNewSpendToMonth", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ResponseBody
+    public String addNewSpendToMonth(@RequestBody Long id) {
+        monthlySpendsDAO.addSpendToMonth(id);
         return "success";
     }
 
