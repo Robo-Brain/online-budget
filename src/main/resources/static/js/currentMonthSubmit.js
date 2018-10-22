@@ -21,11 +21,11 @@ console.log(JSON.stringify(formArr));
             'Content-Type': 'application/json'
         },
         type: "post",
-        url: "/saveExistingMonth",
+//        url: "/saveExistingMonth",
         dataType : 'json',
         data : JSON.stringify(formArr),
         success: $(document).ajaxStop(function(){
-            window.location.reload();
+//            window.location.reload();
         })
     });
 
