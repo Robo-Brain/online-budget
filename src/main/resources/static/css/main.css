@@ -805,6 +805,15 @@ input:checked + .slider.withdraw:after {
         float: right;
         font-weight: 600;
     }
+    .applyButton {
+        width: 40%;
+        height: 3.5em;
+        float: right;
+        color: #1d7529;
+        font-weight: 800;
+    }
+    .applyButton:hover {color: #29A138}
+
     .fillButton.false {
         background-color: #5EB268;
         border:1px solid #29A138;
