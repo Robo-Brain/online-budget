@@ -14,7 +14,6 @@ function submitMonth() {
         formArr.push(formData);
     }
 
-console.log(JSON.stringify(formArr));
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -25,7 +24,7 @@ console.log(JSON.stringify(formArr));
         dataType : 'json',
         data : JSON.stringify(formArr),
         success: $(document).ajaxStop(function(){
-//            window.location.reload();
+            window.location.reload();
         })
     });
 
