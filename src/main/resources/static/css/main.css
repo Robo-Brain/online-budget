@@ -619,6 +619,7 @@ input:checked + .slider.withdraw:after {
         border: 0;
         border-top: solid white 10px;
         border-bottom: solid white 20px;
+        margin-bottom: 0.5em;
     }
     .amountTable {
         width: 95%;
@@ -760,6 +761,11 @@ input:checked + .slider.withdraw:after {
         width: 50%;
     }
 
+    .tmpButtons {
+        margin: 0 auto;
+        display: inline-block;
+        width: 98%;
+    }
 
     /* slider start */
     .divTable.tmp .switch {
@@ -835,10 +841,19 @@ input:checked + .slider.withdraw:after {
         border: 1px solid #5EB268;
     }
 
-    #tmpSubmit {
-        width: 44%;
-        margin: 0 1% 0 0;
+    .unstuck {
+        display: inline-block;
+        width: 48%;
         font-size: 2em;
+        /*margin: 0 1% 0 0 !important;*/
+        /*float: left;*/
+    }
+
+    #tmpSubmit {
+        display: inline-block;
+        width: 48%;
+        font-size: 2em;
+        /*margin: 0 1% 0 0;*/
     }
 
     #appendToCurrentMonth {
@@ -1040,14 +1055,6 @@ input:checked + .slider.withdraw:after {
     }
 
     /* adaptive mobile add salary content design END */
-
-    .unstuck {
-        display: block;
-        width: 44%;
-        font-size: 2em;
-        margin: 0 1% 0 0 !important;
-        float: left;
-    }
 
     #addNoteTable {
         display: none;
