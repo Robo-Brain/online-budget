@@ -38,7 +38,7 @@ public class AdditionsDAO {
 
         ne.setDate(date);
         ne.setText(text);
-        if (ne.getRemind() == false) {
+        if (!ne.getRemind()) {
             ne.setRemind(true);
         } else ne.setRemind(false);
         sessionFactory.getCurrentSession().update(ne);
@@ -61,7 +61,6 @@ public class AdditionsDAO {
         }
 
         ne.setStuckSpendId(addNote.getStuckSpendId());
-        System.out.println(" / / / addNote.getStuckSpendId() : " + addNote.getStuckSpendId());
 
         if (addNote.getStuckSpendId() != null) {
             ne.setRemind(false);
