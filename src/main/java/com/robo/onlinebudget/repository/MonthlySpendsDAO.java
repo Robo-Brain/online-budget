@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @Transactional
+@SuppressWarnings("unchecked")
 public class MonthlySpendsDAO {
 
     @Autowired
@@ -29,14 +30,17 @@ public class MonthlySpendsDAO {
     }
 
     //  METHODS OF MONTHLY WAGES
-    @SuppressWarnings("unchecked")
     public List getPaymentTemplate(boolean isInactive) {
 
-        String hql = "FROM " + SpendsEntity.class.getName() + " WHERE inactive = " + isInactive;
-        List<SpendsEntity> spendsEntityList = sessionFactory
-                .getCurrentSession()
+        String hql = "FROM "
+                + SpendsEntity.class.getName()
+                + " WHERE inactive = "
+                + isInactive;
+
+        List<SpendsEntity> spendsEntityList = sessionFactory.getCurrentSession()
                 .createQuery(hql)
                 .list();
+
         List<Map> map = new ArrayList<>();
 
         for (int i = 0; i < spendsEntityList.size(); i++) {
@@ -57,28 +61,49 @@ public class MonthlySpendsDAO {
         return map;
     }
 
-    @SuppressWarnings("unchecked")
     public void savePaymentTemplate(List<SaveSpends> savePaymentTMP) {
-        for (SaveSpends es : savePaymentTMP) {
-            SpendsEntity se = new SpendsEntity(es.getId(), es.getName(), es.getAmount(), es.getSalaryPrepaid(), es.getWithdraw(), es.getIndex());
+        savePaymentTMP.forEach(payment -> {
+            SpendsEntity se = new SpendsEntity(payment.getId(),
+                    payment.getName(),
+                    payment.getAmount(),
+                    payment.getSalaryPrepaid(),
+                    payment.getWithdraw(),
+                    payment.getIndex());
             sessionFactory.getCurrentSession().update(se);
-        }
+        });
     }
 
     public void addNewSpendToTemplate(SaveSpends editTMPSpends) throws Exception {
 
-        if (editTMPSpends.getName() == null || editTMPSpends.getName().isEmpty()) {
+        if (!Optional.ofNullable(editTMPSpends.getName())
+                .filter(name -> !name.isEmpty())
+                .isPresent()) {
             throw new Exception("Name of spend must not be empty");
         }
 
-        if (editTMPSpends.getAmount() == null) {
+        if (!Optional.ofNullable(editTMPSpends.getAmount())
+                .isPresent()) {
             throw new Exception("Amount of spend must not be empty");
         }
 
-        String hql = "SELECT new " + SpendsEntity.class.getName() + "(e.index) FROM " + SpendsEntity.class.getName() + " e " + "ORDER BY e.index DESC";
-        SpendsEntity indexMaxNum = sessionFactory.getCurrentSession().createQuery(hql, SpendsEntity.class).setMaxResults(1).uniqueResult();
+        String hql = "SELECT new "
+                + SpendsEntity.class.getName()
+                + "(e.index) FROM "
+                + SpendsEntity.class.getName()
+                + " e "
+                + "ORDER BY e.index DESC";
+        SpendsEntity indexMaxNum = sessionFactory.getCurrentSession()
+                .createQuery(hql, SpendsEntity.class)
+                .setMaxResults(1)
+                .uniqueResult();
 
-        SpendsEntity se = new SpendsEntity(editTMPSpends.getId(), editTMPSpends.getName(), editTMPSpends.getAmount(), editTMPSpends.getSalaryPrepaid(), editTMPSpends.getWithdraw(), indexMaxNum.getIndex() + 1);
+        SpendsEntity se = new SpendsEntity(editTMPSpends.getId(),
+                editTMPSpends.getName(),
+                editTMPSpends.getAmount(),
+                editTMPSpends.getSalaryPrepaid(),
+                editTMPSpends.getWithdraw(),
+                indexMaxNum.getIndex() + 1);
+
         sessionFactory.getCurrentSession().save(se);
 
         if (editTMPSpends.getApplyToCurrentMonth()) addSpendToMonth(se.getId());
@@ -95,61 +120,85 @@ public class MonthlySpendsDAO {
     }
 
     public void deleteSpendFromTemplate(Long id) {
-        String hql = "FROM " + SpendsEntity.class.getName() + " WHERE id = :id";
-        SpendsEntity seResult = (SpendsEntity) sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id).getSingleResult();
+        String hql = "FROM "
+                + SpendsEntity.class.getName()
+                + " WHERE id = :id";
+
+        SpendsEntity seResult = (SpendsEntity) sessionFactory.getCurrentSession()
+                .createQuery(hql)
+                .setParameter("id", id)
+                .getSingleResult();
 
         seResult.setInactive(true);
 
         sessionFactory.getCurrentSession().update(seResult);
 
-        List<Month> month = getNLastMonth(1);
+        Month month = (Month) getNLastMonth(1).stream()
+                .findAny()
+                .orElse(null);
 
-        String smeDate = month.get(0).getDate();
-        String hq2 = "DELETE " + SpendsMonthlyEntity.class.getName() + " WHERE spendId = :spendId AND date = :date";
-        Query q2 = sessionFactory.getCurrentSession().createQuery(hq2).setParameter("spendId", id).setParameter("date", smeDate);
+        String smeDate = month.getDate();
+        String hq2 = "DELETE "
+                + SpendsMonthlyEntity.class.getName()
+                + " WHERE spendId = :spendId AND date = :date";
+
+        Query q2 = sessionFactory.getCurrentSession()
+                .createQuery(hq2)
+                .setParameter("spendId", id)
+                .setParameter("date", smeDate);
 
         q2.executeUpdate();
     }
 
     public void restoreSpend(Long id) {
-        String hql = "FROM " + SpendsEntity.class.getName() + " WHERE id = :id";
-        Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
+        String hql = "FROM "
+                + SpendsEntity.class.getName()
+                + " WHERE id = :id";
+
+        Query q = sessionFactory.getCurrentSession()
+                .createQuery(hql)
+                .setParameter("id", id);
 
         SpendsEntity se = (SpendsEntity) q.getSingleResult();
         se.setInactive(false);
         sessionFactory.getCurrentSession().update(se);
 
-        SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
-        List<Month> spendsMonthlyList = getNLastMonth(1);
-
-        sme.setDate(spendsMonthlyList.get(0).getDate());
-        sme.setSpendId(se.getId());
-        sme.setAmount(0);
-        sessionFactory.getCurrentSession().persist(sme);
+//        SpendsMonthlyEntity sme = new SpendsMonthlyEntity();
+//
+//        Month month = (Month) getNLastMonth(1).stream()
+//                .findAny()
+//                .orElse(null);
+//
+//        sme.setDate(month.getDate());
+//        sme.setSpendId(se.getId());
+//        sme.setAmount(0);
+//        sessionFactory.getCurrentSession().persist(sme);
     }
 
     public List getSpendsNames(int n) {
         List<Map> result = new ArrayList<>();
+
         if (n > 1){
-            List<List> monthList = getNLastMonth(n);
-            for (List<Month> mList : monthList) {
+            List<List<Month>> monthList = getNLastMonth(n);
+
+            monthList.forEach(list -> {
                 Map<String, String> submap = new LinkedHashMap<>();
-                for (Month month : mList){
-                    submap.put(String.valueOf(month.getId()), String.valueOf(month.getName()));
-                }
-                submap.put("date", mList.get(0).getDate());
+
+                list.forEach(month -> submap.put(String.valueOf(month.getId()), String.valueOf(month.getName())));
+
+                submap.put("date", list.get(0).getDate());
                 result.add(submap);
-            }
+            });
         } else if (n == 1){
             Map<String, String> submap = new LinkedHashMap<>();
             List<Month> monthList = getNLastMonth(n);
-            for (Month month : monthList) {
-                submap.put(String.valueOf(month.getId()), String.valueOf(month.getName()));
-            }
+
+            monthList.forEach(month -> submap.put(String.valueOf(month.getId()), String.valueOf(month.getName())));
+
             submap.put("date", monthList.get(0).getDate());
             result.add(submap);
         } else {
-            System.err.println("GODDAMN WHAT'S WRONG WITH YOUR MONTHS NUMBER");
+            System.err.println("GODDAMN WHAT'S WRONG WITH YOUR NUMBER OF MONTHS");
         }
 
         return result;
@@ -175,13 +224,14 @@ public class MonthlySpendsDAO {
                 }
             }
         }
-        return "Unknown error.";
+        return "Unknown creating months error.";
     }
 
     @SuppressWarnings("unchecked")
     public void createNewMonth() { // ADD NEW PAYMENT MONTH
 
-        List<SpendsEntity> sne = sessionFactory.getCurrentSession().createQuery("FROM "
+        List<SpendsEntity> sne = sessionFactory.getCurrentSession()
+                .createQuery("FROM "
                 + SpendsEntity.class.getName()
                 + " WHERE inactive = 0")
                 .getResultList();
@@ -204,7 +254,9 @@ public class MonthlySpendsDAO {
                 + SpendsMonthlyEntity.class.getName()
                 + " AS s";
 
-        List<SpendsMonthlyEntity> smeList = sessionFactory.getCurrentSession().createQuery(hql, SpendsMonthlyEntity.class).getResultList();
+        List<SpendsMonthlyEntity> smeList = sessionFactory.getCurrentSession()
+                .createQuery(hql, SpendsMonthlyEntity.class)
+                .getResultList();
 
         List<String> datesList = new ArrayList<>();
 
@@ -214,27 +266,27 @@ public class MonthlySpendsDAO {
                 .distinct()
                 .collect(Collectors.toList());
 
-        List<List> result = new ArrayList<>();
+        List<List> resultList = new ArrayList<>();
 
         uniqueDatesList.forEach(uniqueDate -> {
             LocalDate date = LocalDate.parse(uniqueDate);
             try {
-                result.add(getMonthByDate(date));
+                resultList.add(getMonthByDate(date, false));
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
 
-        Collections.reverse(result);
+        Collections.reverse(resultList);
 
-        return result;
+        return resultList;
 
     }
 
 @SuppressWarnings("unchecked")
     public List getNLastMonth(int numberOfMonths) {
         List<Month> spendsMonthlyList;
-        List<List> result = new ArrayList<>();
+        List<List> resultList = new ArrayList<>();
         LocalDate now = LocalDate.now();
         Integer tryCounts = 0;
 
@@ -254,13 +306,22 @@ public class MonthlySpendsDAO {
                 }
                 now = now.minusMonths(1);
                 if (numberOfMonths == 1) return spendsMonthlyList;
-                else result.add(spendsMonthlyList);
+                else resultList.add(spendsMonthlyList);
             }
-            return result;
+            return resultList;
     }
 
     @SuppressWarnings("unchecked")
-    public List<Month> getMonthByDate(LocalDate d) {
+    public List<Month> getMonthByDate(LocalDate d, boolean... activeOnly) {
+
+        String hql = "FROM "
+                + SpendsEntity.class.getName()
+                + " AS se INNER JOIN se.spendsMonthly"
+                + " WHERE month(date) = :month"
+                + " and"
+                + " year(date) = :year";
+
+        hql = !Optional.ofNullable(activeOnly).isPresent() ? hql.concat(" and se.inactive = 0") : hql;
 
         SpendsEntity se;
         SpendsMonthlyEntity sme;
@@ -268,13 +329,7 @@ public class MonthlySpendsDAO {
 
         Query query = sessionFactory
                 .getCurrentSession()
-                .createQuery("FROM "
-                        + SpendsEntity.class.getName()
-                        + " AS se INNER JOIN se.spendsMonthly"
-                        + " WHERE month(date) = :month"
-                        + " and"
-                        + " year(date) = :year"
-                        + " and se.inactive = 0");
+                .createQuery(hql);
 
         query.setParameter("month", d.getMonth().getValue());
         query.setParameter("year", d.getYear());
@@ -306,8 +361,13 @@ public class MonthlySpendsDAO {
     public void saveExistingMonth(List<SaveNewMonth> saveNewMonthMap) {
 
         saveNewMonthMap.forEach( saveNewMonth -> {
-            String hql = "FROM " + SpendsMonthlyEntity.class.getName() + " AS sme WHERE id = " + saveNewMonth.getId() + "";
-            SpendsMonthlyEntity sme = sessionFactory.getCurrentSession().createQuery(hql, SpendsMonthlyEntity.class).getSingleResult();
+            String hql = "FROM "
+                    + SpendsMonthlyEntity.class.getName()
+                    + " AS sme WHERE id = "
+                    + saveNewMonth.getId();
+            SpendsMonthlyEntity sme = sessionFactory.getCurrentSession()
+                    .createQuery(hql, SpendsMonthlyEntity.class)
+                    .getSingleResult();
 
             if (saveNewMonth.getAmount() == null) saveNewMonth.setAmount(0);
 
@@ -320,21 +380,34 @@ public class MonthlySpendsDAO {
 ////  SALARY AND PREPAID METHODS
 
     public List<WagesEntity> getAllWages() {
-        String hql = "SELECT new " + WagesEntity.class.getName() + "(e.id, e.salaryDate, e.salary, e.prepaidDate, e.prepaid) FROM "
-                + WagesEntity.class.getName() + " e " + "ORDER BY e.id DESC";
+        String hql = "SELECT new "
+                + WagesEntity.class.getName()
+                + "(e.id, e.salaryDate, e.salary, e.prepaidDate, e.prepaid) FROM "
+                + WagesEntity.class.getName()
+                + " e "
+                + "ORDER BY e.id DESC";
 
-        return sessionFactory.getCurrentSession().createQuery(hql, WagesEntity.class).getResultList();
+        return sessionFactory.getCurrentSession()
+                .createQuery(hql, WagesEntity.class)
+                .getResultList();
 
     }
 
     public WagesEntity getLastWage() {
-        String hql = "SELECT new " + WagesEntity.class.getName() + "(e.id, e.salaryDate, e.salary, e.prepaidDate, e.prepaid) FROM "
-                + WagesEntity.class.getName() + " e " + "ORDER BY e.id DESC";
+        String hql = "SELECT new "
+                + WagesEntity.class.getName()
+                + "(e.id, e.salaryDate, e.salary, e.prepaidDate, e.prepaid) FROM "
+                + WagesEntity.class.getName()
+                + " e "
+                + "ORDER BY e.id DESC";
 
-        Query<WagesEntity> query = sessionFactory.getCurrentSession().createQuery(hql, WagesEntity.class);
-        query.setMaxResults(1).uniqueResult();
+        WagesEntity wagesEntity = sessionFactory.getCurrentSession()
+                .createQuery(hql, WagesEntity.class)
+                .setMaxResults(1)
+                .uniqueResult();
 
-        return query.getSingleResult();
+        return wagesEntity;
+
     }
 
     public void saveNewWage(SaveNewWage saveNewWage) {
@@ -351,9 +424,14 @@ public class MonthlySpendsDAO {
 
     public void editExistSalary(SaveNewWage saveNewWage) {
 
-        String hql = "FROM " + WagesEntity.class.getName() + " AS we WHERE id = " + saveNewWage.getId() + "";
+        String hql = "FROM "
+                + WagesEntity.class.getName()
+                + " AS we WHERE id = "
+                + saveNewWage.getId();
 
-        WagesEntity we = sessionFactory.getCurrentSession().createQuery(hql, WagesEntity.class).getSingleResult();
+        WagesEntity we = sessionFactory.getCurrentSession()
+                .createQuery(hql, WagesEntity.class)
+                .getSingleResult();
 
         we.setSalaryDate(saveNewWage.getSalaryDate());
         we.setSalary(saveNewWage.getSalary());
@@ -365,8 +443,14 @@ public class MonthlySpendsDAO {
     }
 
     public void delSalary(Long id) {
-        String hql = "DELETE " + WagesEntity.class.getName() + " WHERE id = :id";
-        Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
+        String hql = "DELETE "
+                + WagesEntity.class.getName()
+                + " WHERE id = :id";
+
+        Query q = sessionFactory.getCurrentSession()
+                .createQuery(hql)
+                .setParameter("id", id);
+
         q.executeUpdate();
     }
 

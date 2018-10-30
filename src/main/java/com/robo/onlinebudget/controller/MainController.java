@@ -47,7 +47,7 @@ public class MainController {
     public String allMonths (Model model) {
         model.addAttribute("title", "All Months");
         model.addAttribute("allMonths", monthlySpendsDAO.getAllMonths());
-        model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
+//        model.addAttribute("months", monthlySpendsDAO.getNLastMonth(3));
         model.addAttribute("notes", additionsDAO.getNotes());
         return "allMonths";
     }
@@ -97,6 +97,7 @@ public class MainController {
         String result = monthlySpendsDAO.checkBeforeCreateNewMonth();
         if (result != null) throw new SecurityException(result);
     }
+
     @GetMapping("/createNewMonthUncheck")
     @ResponseBody
     public void saveNewMonthWithOUTCheck() {

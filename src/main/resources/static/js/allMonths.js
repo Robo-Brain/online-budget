@@ -1,8 +1,8 @@
 $(function() {
 
-var date = null;
-
 console.log(notes);
+console.log(months);
+
     months.forEach(function (item, i) {
 
         month = item.slice(0);
@@ -14,12 +14,6 @@ console.log(notes);
         var date = new Date(item[i].date).toLocaleDateString("en-US", dateOptions);
 
         $('#allMonthsTable').append(
-                // "<a id='" + i + "' class='monthDate'>" + date + "</a>" +
-                // "<div class='divTableRow head hide " + i + "'>" +
-                //     "<div class='divTableCell " + i + "'>Name:</div>" +
-                //     "<div class='divTableCell " + i + "'>Amount:</div>" +
-                //     "<div class='divTableCell " + i + "'>Salary/Prepaid: </div>" +
-                //     "<div class='divTableCell " + i + "'>Withdraw:</div>" +
             "<div class='wrap " + i + "'><div id='" + i + "' class='monthDate'>"
                 + date
             + "</div></div>"

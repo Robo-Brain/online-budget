@@ -51,7 +51,7 @@ public class SubController {
 
     @PostMapping("/addNote")
     @ResponseBody
-    public String addNote(@RequestBody SaveNote addNote) throws Exception {
+    public String addNote(@RequestBody SaveNote addNote) {
         additionsDAO.addNote(addNote);
         return "success";
     }
@@ -94,7 +94,7 @@ public class SubController {
 
     @PostMapping("/addAnalysis")
     @ResponseBody
-    public String addAnalysis(@RequestBody SaveAnalysis saveAnalysis) throws Exception {
+    public String addAnalysis(@RequestBody SaveAnalysis saveAnalysis) {
         additionsDAO.addAnalysis(saveAnalysis);
         return "success";
     }

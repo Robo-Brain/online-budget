@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
+@SuppressWarnings("unchecked")
 public class AdditionsDAO {
 
     @Autowired
@@ -24,73 +26,80 @@ public class AdditionsDAO {
     }
 
     public List getNotes() {
-        String hql = "FROM " + NotesEntity.class.getName();
-        List<NotesEntity> list = sessionFactory.getCurrentSession().createQuery(hql).list();
-        return list;
+        String hql = "FROM "
+                + NotesEntity.class.getName();
+
+        return sessionFactory.getCurrentSession()
+                .createQuery(hql)
+                .list();
     }
 
     public void muteNote(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM " + NotesEntity.class.getName() + " WHERE id = :id");
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("FROM "
+                        + NotesEntity.class.getName()
+                        + " WHERE id = :id");
+
         NotesEntity ne = (NotesEntity) query.setParameter("id", id).getSingleResult();
 
-        String date = ne.getDate();
-        String text = ne.getText();
+        ne.setDate(ne.getDate());
+        ne.setText(ne.getText());
+        ne.setRemind(!ne.getRemind());
 
-        ne.setDate(date);
-        ne.setText(text);
-        if (!ne.getRemind()) {
-            ne.setRemind(true);
-        } else ne.setRemind(false);
         sessionFactory.getCurrentSession().update(ne);
     }
 
     public void addNote(SaveNote addNote) {
         NotesEntity ne = new NotesEntity();
 
-        if (addNote.getDate() == null || addNote.getDate().isEmpty() || addNote.getDate().length() > 0) {
-            String formattedDate = LocalDate.now().getYear() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getDayOfMonth();
-            ne.setDate(formattedDate);
-        } else {
-            ne.setDate(addNote.getDate());
-        }
+        ne.setDate(Optional.ofNullable(addNote.getDate())
+                .filter(date -> !date.isEmpty())
+                .orElse(LocalDate.now().getYear()
+                        + "-" + LocalDate.now().getMonthValue()
+                        + "-" + LocalDate.now().getDayOfMonth()));
 
-        if (addNote.getText() == null) {
-            ne.setText("[Sample Text]");
-        } else {
-            ne.setText(addNote.getText());
-        }
+        ne.setText(Optional.ofNullable(addNote.getText())
+                .filter(text -> !text.isEmpty())
+                .orElse("[Sample Text]"));
 
         ne.setStuckSpendId(addNote.getStuckSpendId());
 
-        if (addNote.getStuckSpendId() != null) {
-            ne.setRemind(false);
-        } else ne.setRemind(addNote.getRemind());
+        ne.setRemind(!Optional.ofNullable(addNote.getStuckSpendId()).isPresent() && addNote.getRemind()); // !!!!!!!!!!!!!!!???????????????
 
         sessionFactory.getCurrentSession().save(ne);
     }
 
     public void delNote(Long id) {
-        String hql = "DELETE " + NotesEntity.class.getName() + " WHERE id = :id";
-        Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
-        q.executeUpdate();
+        String hql = "DELETE "
+                + NotesEntity.class.getName()
+                + " WHERE id = :id";
+
+        sessionFactory.getCurrentSession()
+                .createQuery(hql)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     public void saveNote(SaveNote saveNote) {
-        String hql = "FROM " + NotesEntity.class.getName() + " AS we WHERE id = " + saveNote.getId() + "";
+        String hql = "FROM "
+                + NotesEntity.class.getName()
+                + " AS we WHERE id = "
+                + saveNote.getId() + "";
 
-        NotesEntity ne = sessionFactory.getCurrentSession().createQuery(hql, NotesEntity.class).getSingleResult();
+        NotesEntity ne = sessionFactory.getCurrentSession()
+                .createQuery(hql, NotesEntity.class)
+                .getSingleResult();
 
-        if (saveNote.getDate() == null || saveNote.getDate().isEmpty() || saveNote.getDate().length() > 0) {
-            ne.setDate(ne.getDate());
-        } else ne.setDate(saveNote.getDate());
+        ne.setDate(Optional.ofNullable(saveNote.getDate())
+                .filter(date -> !date.isEmpty())
+                .orElse(ne.getDate()));
 
-        if (saveNote.getText().isEmpty()) {
-            ne.setText(ne.getText());
-        } else ne.setText(saveNote.getText());
+        ne.setText(Optional.ofNullable(saveNote.getText())
+                .filter(text -> !text.isEmpty())
+                .orElse(ne.getText()));
 
-        if (saveNote.getStuckSpendId() == null) {
-            ne.setStuckSpendId(ne.getStuckSpendId());
-        } else ne.setStuckSpendId(saveNote.getStuckSpendId());
+        ne.setStuckSpendId(Optional.ofNullable(saveNote.getStuckSpendId())
+                .orElse(ne.getStuckSpendId()));
 
         ne.setRemind(saveNote.getRemind());
 
@@ -100,25 +109,32 @@ public class AdditionsDAO {
     //MEDICINE
 
     public List getAnalysisList() {
-        String hql = "FROM " + AnalysisListEntity.class.getName();
-        List<AnalysisListEntity> list = sessionFactory.getCurrentSession().createQuery(hql).list();
-        return list;
+        String hql = "FROM "
+                + AnalysisListEntity.class.getName();
+
+        return sessionFactory.getCurrentSession()
+                .createQuery(hql)
+                .list();
     }
 
     public void delAnalysisFromList(Long id) {
-        String hql = "DELETE " + AnalysisListEntity.class.getName() + " WHERE id = :id";
-        Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
-        q.executeUpdate();
+        String hql = "DELETE "
+                + AnalysisListEntity.class.getName()
+                + " WHERE id = :id";
+
+        sessionFactory.getCurrentSession()
+                .createQuery(hql)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
-    public void addAnalysis(SaveAnalysis saveAnalysis) throws Exception {
+    public void addAnalysis(SaveAnalysis saveAnalysis) {
         AnalysisListEntity ale = new AnalysisListEntity();
 
-        if (saveAnalysis.getName() == null) {
-            throw new Exception("name must not be empty");
-        }
+        ale.setName(Optional.ofNullable(saveAnalysis.getName())
+                .filter(text -> !text.isEmpty())
+                .orElse(null));
 
-        ale.setName(saveAnalysis.getName());
         ale.setPrice(saveAnalysis.getPrice() * saveAnalysis.getPersons());
         ale.setPersons(saveAnalysis.getPersons());
 
@@ -126,9 +142,14 @@ public class AdditionsDAO {
     }
 
     public void saveAnalysis(SaveAnalysis saveAnalysis) {
-        String hql = "FROM " + AnalysisListEntity.class.getName() + " AS we WHERE id = " + saveAnalysis.getId() + "";
+        String hql = "FROM "
+                + AnalysisListEntity.class.getName()
+                + " AS we WHERE id = "
+                + saveAnalysis.getId();
 
-        AnalysisListEntity ale = sessionFactory.getCurrentSession().createQuery(hql, AnalysisListEntity.class).getSingleResult();
+        AnalysisListEntity ale = sessionFactory.getCurrentSession()
+                .createQuery(hql, AnalysisListEntity.class)
+                .getSingleResult();
 
         ale.setName(saveAnalysis.getName());
         ale.setPrice(saveAnalysis.getPrice());
