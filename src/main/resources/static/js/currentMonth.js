@@ -53,7 +53,7 @@ function appendCurrentDateTable() {
                     "<input type='hidden' class='spendId " + month.id + "' id='spendId' name='spendId' value='" + month.spendId + "' />" +
                 "</div>" +
                 "<div class='divTableCell left amount'>" +
-                    "<input type='text' class='amount " + month.id + "' id='amount" + i + "' name='amount' value='" + month.monthAmount + "' autocomplete='off' />&nbsp;"
+                    "<input type='text' class='amount " + month.id + "' id='amount" + i + "' name='" + i + "' value='" + month.monthAmount + "' autocomplete='off' />&nbsp;"
                     + "<button class='fillButton " + month.salaryPrepaid + "' value='" + month.amount + "' id='" + i + "'>&nbsp;<<<&nbsp;</button>&nbsp;"
                     + "<button class='applyButton " + i + "' value='" + month.amount + "'>Apply</button>"
                     + "<span class='TMP " + month.salaryPrepaid +"'>" + parseInt(month.amount).toLocaleString('ru-RU',{style:'currency', currency:'RUB'}) + "</span>"+

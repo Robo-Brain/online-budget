@@ -35,6 +35,24 @@
                 submitMonth();
             });
 
+            $(".amount").focus(function() {
+                var val = $(this).val();
+                val == '0' ? $(this).val('') : val;
+                $('.applyButton').hide();
+                $(".fillButton").show();
+            });
+
+            $(".amount").focusout(function () {
+                var val = $(this).val();
+                val == '' ? $(this).val('0') : val;
+            });
+
+            $(".amount").on("change paste keyup", function() {
+                var id = $(this).attr("name");
+                $('#' + id).hide();
+                $('.applyButton.' + id).show();
+            });
+
             $(".fillButton").click( function(f) {
                 f.preventDefault();
 
